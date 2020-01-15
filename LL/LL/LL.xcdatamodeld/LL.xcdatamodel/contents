@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Loans" representedClassName=".Loans" syncable="YES">
+        <attribute name="about" optional="YES" attributeType="String"/>
+        <attribute name="currentDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentPrincipal" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="interestRate" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="nextDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="originalPrincipal" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="prevDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="remainingMonths" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="termMonths" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+    </entity>
+    <elements>
+        <element name="Loans" positionX="-63" positionY="-18" width="128" height="223"/>
+    </elements>
+</model>
