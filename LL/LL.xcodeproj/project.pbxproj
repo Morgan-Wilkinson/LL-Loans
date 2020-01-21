@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902850F723D64C53007B78BC /* PaymentsCal.swift */; };
 		9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EC23C448E90046B9BF /* AppDelegate.swift */; };
 		9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EE23C448E90046B9BF /* SceneDelegate.swift */; };
 		9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8F023C448E90046B9BF /* LL.xcdatamodeld */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		902850F723D64C53007B78BC /* PaymentsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsCal.swift; sourceTree = "<group>"; };
 		9041E8E923C448E90046B9BF /* LL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9041E8EC23C448E90046B9BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9041E8EE23C448E90046B9BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				9041E90523C449A80046B9BF /* LoanView.swift */,
 				904BE86323C5789800884426 /* LoanAdder.swift */,
 				9041E90723C449C30046B9BF /* LoanDetail.swift */,
+				902850F723D64C53007B78BC /* PaymentsCal.swift */,
 				9041E90323C449900046B9BF /* Loans.swift */,
 				9041E8F523C448EC0046B9BF /* Assets.xcassets */,
 				9041E8FA23C448EC0046B9BF /* LaunchScreen.storyboard */,
@@ -165,6 +168,7 @@
 				9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */,
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
+				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9041E8F423C448E90046B9BF /* ContentView.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,

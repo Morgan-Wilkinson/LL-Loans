@@ -23,16 +23,16 @@ struct LoanView: View {
             VStack {
                 VStack{
                     List {
-                        Section(header: Text("Loans").font(.headline)){
+                        Section(header: Text("Loans").font(.headline), footer: Text("Here is an overview of all your loans.")){
                             ForEach(self.loans, id: \.id) { loan in
                                 VStack{
                                     NavigationLink(destination: LoanDetail(loanItem: loan)) {
                                         VStack(alignment: .leading){
                                             HStack{
-                                                Text("\(loan.name ?? "") - ")
-                                                Text("$\(loan.currentPrincipal ?? 0)")
+                                                Text("\(loan.name) - ")
+                                                Text("$\(loan.currentPrincipal)")
                                             }
-                                            Text("Next Payment Date: \(formatter.string(from: loan.nextDueDate ?? Date()))").font(.caption)
+                                            Text("Next Payment Date: \(formatter.string(from: loan.nextDueDate))").font(.caption)
                                         }
                                     }
                                 }
@@ -40,7 +40,7 @@ struct LoanView: View {
                             
                         }
                         
-                        Section(header: Text("Total").font(.headline)){
+                        Section(header: Text("Total").font(.headline), footer: Text("Here is the total amount owed as of \(Date()).")){
                             Text("Total Debt")
                         }
                     }

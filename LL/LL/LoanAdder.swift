@@ -15,15 +15,20 @@ struct LoanAdder: View {
     var components = DateComponents()
     @State private var loanTitle = ""
     @State private var principal = ""
+    @State private var regularPayments = ""
     @State private var interestRate = ""
     @State private var termMonths = ""
+    @State private var about = ""
+    
     @State private var currentDueDate = Date()
     @State private var nextDueDate = Date()
     @State private var prevDueDate = Date()
     @State private var startDate = Date()
     @State private var remainingMonths = Date()
-    @State private var about = ""
     
+    var disableForm: Bool {
+        loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || termMonths.isEmpty
+    }
     var body: some View {
             VStack {
                 Form {
@@ -51,6 +56,9 @@ struct LoanAdder: View {
                         {
                             Text("When is your payment this month due?")
                         }
+                        TextField("How much do you plan to pay each month?", text: self.$regularPayments)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .keyboardType(.numberPad)
                     }
                     Section{
                         TextField("Description", text: self.$about)
@@ -59,20 +67,22 @@ struct LoanAdder: View {
                     }
                 }.navigationBarItems(
                 trailing: Button(action: ({
-    
+                    
+                // Save the items. All items have a default value that should actually be used.
                 let loanSaver = Loans(context: self.managedObjectContext)
                 loanSaver.id = UUID()
                 loanSaver.name = self.loanTitle
-                loanSaver.originalPrincipal = self.formatter.number(from: self.principal)
-                loanSaver.currentPrincipal = self.formatter.number(from: self.principal)
-                loanSaver.interestRate = self.formatter.number(from: self.interestRate)
-                loanSaver.termMonths = self.formatter.number(from: self.termMonths)
+                loanSaver.originalPrincipal = self.formatter.number(from: self.principal) ?? 0
+                loanSaver.currentPrincipal = self.formatter.number(from: self.principal) ?? 0
+                loanSaver.interestRate = self.formatter.number(from: self.interestRate) ?? 0
+                    loanSaver.regularPayments = self.formatter.number(from: self.regularPayments) ?? 0
+                loanSaver.about = self.about
+                    
+                loanSaver.termMonths = self.formatter.number(from: self.termMonths) ?? 0
                 loanSaver.startDate = self.startDate
                 loanSaver.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
-                loanSaver.nextDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
-                loanSaver.prevDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward)
-                loanSaver.about = self.about
-                
+                loanSaver.nextDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date()
+                loanSaver.prevDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward) ?? Date()
                 do {
                     try self.managedObjectContext.save()
                 } catch {
@@ -85,10 +95,10 @@ struct LoanAdder: View {
                             .imageScale(.medium)
                         Text("Save")
                     }
-                    })
+                    }.disabled(disableForm))
             }
         }
-    
+    //func checkFilledForm
 }
 
 struct LoanAdder_Previews: PreviewProvider {
@@ -96,27 +106,3 @@ struct LoanAdder_Previews: PreviewProvider {
         LoanAdder()
     }
 }
-
-/*
- Button(action: ({
- let loanSaver = Loans(context: self.managedObjectContext)
- loanSaver.name = self.loanTitle
- loanSaver.principal = self.formatter.number(from: self.principal)
- loanSaver.interestRate = self.formatter.number(from: self.interestRate)
- loanSaver.termMonths = self.formatter.number(from: self.termMonths)
- loanSaver.about = self.about
- 
- do {
-     try self.managedObjectContext.save()
- } catch {
-     print("Failed")
- }
- })) {
-     HStack{
-         Image(systemName: "plus.circle.fill")
-             .foregroundColor(.blue)
-             .imageScale(.medium)
-         Text("Save")
-     }
-     }
- */

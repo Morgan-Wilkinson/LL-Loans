@@ -10,18 +10,19 @@ import Foundation
 import CoreData
 
 public class Loans: NSManagedObject, Identifiable{
-    @NSManaged public var remainingMonths: Date?
-    @NSManaged public var startDate: Date?
-    @NSManaged public var nextDueDate: Date?
-    @NSManaged public var prevDueDate: Date?
-    @NSManaged public var currentDueDate: Date?
-    @NSManaged public var termMonths: NSNumber?
-    @NSManaged public var interestRate: NSNumber?
-    @NSManaged public var currentPrincipal: NSNumber?
-    @NSManaged public var originalPrincipal: NSNumber?
-    @NSManaged public var name: String?
-    @NSManaged public var about: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var remainingMonths: Date
+    @NSManaged public var startDate: Date
+    @NSManaged public var nextDueDate: Date
+    @NSManaged public var prevDueDate: Date
+    @NSManaged public var currentDueDate: Date
+    @NSManaged public var termMonths: NSNumber
+    @NSManaged public var interestRate: NSNumber
+    @NSManaged public var currentPrincipal: NSNumber
+    @NSManaged public var originalPrincipal: NSNumber
+    @NSManaged public var regularPayments: NSNumber
+    @NSManaged public var name: String
+    @NSManaged public var about: String
+    @NSManaged public var id: UUID
 }
 
 extension Loans {
