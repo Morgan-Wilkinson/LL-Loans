@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		9041E90623C449A80046B9BF /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90523C449A80046B9BF /* LoanView.swift */; };
 		9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90723C449C30046B9BF /* LoanDetail.swift */; };
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
+		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		9041E90523C449A80046B9BF /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 		9041E90723C449C30046B9BF /* LoanDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetail.swift; sourceTree = "<group>"; };
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
+		C7CEED952404BFE400694FEB /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7CEED982404CAA600694FEB /* Numerics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +84,7 @@
 				9041E8FD23C448EC0046B9BF /* Info.plist */,
 				9041E8F023C448E90046B9BF /* LL.xcdatamodeld */,
 				9041E8F723C448EC0046B9BF /* Preview Content */,
+				C7CEED952404BFE400694FEB /* Test.playground */,
 			);
 			path = LL;
 			sourceTree = "<group>";
@@ -109,6 +113,9 @@
 			dependencies = (
 			);
 			name = LL;
+			packageProductDependencies = (
+				C7CEED972404CAA600694FEB /* Numerics */,
+			);
 			productName = LL;
 			productReference = 9041E8E923C448E90046B9BF /* LL.app */;
 			productType = "com.apple.product-type.application";
@@ -137,6 +144,9 @@
 				Base,
 			);
 			mainGroup = 9041E8E023C448E90046B9BF;
+			packageReferences = (
+				C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */,
+			);
 			productRefGroup = 9041E8EA23C448E90046B9BF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -368,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-numerics";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C7CEED972404CAA600694FEB /* Numerics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = Numerics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9041E8F023C448E90046B9BF /* LL.xcdatamodeld */ = {
