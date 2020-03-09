@@ -46,24 +46,31 @@ struct LoanView: View {
                     }
                     .listStyle(GroupedListStyle())
                     .navigationBarTitle("Overview")
-                }
-                VStack {
-                   NavigationLink(destination: LoanAdder(), tag: 1, selection: $navigationSelectionTag) {
-                        EmptyView()
-                   }.navigationBarItems(leading: EditButton(), trailing: Button(action: {self.navigationSelectionTag = 1}) {
+                }.navigationBarItems(trailing: NavigationLink(destination: LoanAdder()){
+                           HStack{
+                                   Image(systemName: "plus.circle.fill")
+                                       .foregroundColor(.blue)
+                                       .imageScale(.medium)
+                                   Text("Loan")
+                           }
+                       }
+                   )
+                   
+                   /*.navigationBarItems(leading: EditButton(), trailing: Button(action: {self.navigationSelectionTag = 1}) {
                         HStack{
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(.blue)
                                 .imageScale(.medium)
                             Text("Loan")
                     }})
-                }
+                    */
+                //}
             }
         }
     }
     func deleteLoans(at offsets: IndexSet) {
         for offset in offsets {
-            // find this book in our fetch request
+            // find this loan in our fetch request
             let loan = loans[offset]
 
             // delete it from the context

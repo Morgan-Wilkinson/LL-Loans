@@ -19,9 +19,11 @@ public class Loans: NSManagedObject, Identifiable{
     @NSManaged public var interestRate: NSNumber
     @NSManaged public var currentPrincipal: NSNumber
     @NSManaged public var originalPrincipal: NSNumber
-    @NSManaged public var regularPayments: NSNumber
+    @NSManaged public var regularPayments: Double
+    @NSManaged public var typeOfLoan: String
     @NSManaged public var name: String
     @NSManaged public var about: String
+    @NSManaged public var origin: String
     @NSManaged public var id: UUID
 }
 

@@ -14,17 +14,19 @@ struct LoanAdder: View {
     let formatter = NumberFormatter()
     var components = DateComponents()
     @State private var loanTitle = ""
+    @State private var origin = ""
     @State private var principal = ""
-    @State private var regularPayments = ""
     @State private var interestRate = ""
     @State private var termMonths = ""
     @State private var about = ""
-    
     @State private var currentDueDate = Date()
     @State private var nextDueDate = Date()
     @State private var prevDueDate = Date()
     @State private var startDate = Date()
     @State private var remainingMonths = Date()
+    
+    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
+    @State private var selectedLoanType = 0
     
     var disableForm: Bool {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || termMonths.isEmpty
@@ -35,6 +37,16 @@ struct LoanAdder: View {
                     Section{
                         TextField("Loan Name", text: self.$loanTitle)
                             .textFieldStyle(PlainTextFieldStyle())
+                        TextField("Loan Origin", text: self.$origin)
+                        .textFieldStyle(PlainTextFieldStyle())
+                    }
+                    
+                    Section {
+                        Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
+                            ForEach(0 ..< typeOfLoan.count) {
+                                Text(self.typeOfLoan[$0])
+                            }
+                        }
                     }
                     Section{
                         TextField("What's the principal?", text: self.$principal)
@@ -56,9 +68,6 @@ struct LoanAdder: View {
                         {
                             Text("When is your payment this month due?")
                         }
-                        TextField("How much do you plan to pay each month?", text: self.$regularPayments)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .keyboardType(.numberPad)
                     }
                     Section{
                         TextField("Description", text: self.$about)
@@ -72,10 +81,11 @@ struct LoanAdder: View {
                 let loanSaver = Loans(context: self.managedObjectContext)
                 loanSaver.id = UUID()
                 loanSaver.name = self.loanTitle
+                loanSaver.origin = self.origin
+                loanSaver.typeOfLoan = self.typeOfLoan[self.selectedLoanType]
                 loanSaver.originalPrincipal = self.formatter.number(from: self.principal) ?? 0
                 loanSaver.currentPrincipal = self.formatter.number(from: self.principal) ?? 0
                 loanSaver.interestRate = self.formatter.number(from: self.interestRate) ?? 0
-                    loanSaver.regularPayments = self.formatter.number(from: self.regularPayments) ?? 0
                 loanSaver.about = self.about
                     
                 loanSaver.termMonths = self.formatter.number(from: self.termMonths) ?? 0
