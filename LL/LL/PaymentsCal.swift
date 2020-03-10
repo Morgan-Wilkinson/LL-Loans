@@ -56,18 +56,40 @@ class PaymentsCal {
         return currentPrincipal
     }
     
+    // Returns an array of all the interest amounts based off of the array of balanaces
+    func allInterest(allBalances: [Double]) -> [Double] {
+        var allInterest: [Double] = []
+        
+        for balance in allBalances{
+            allInterest.append(((self.monthlyIntRate * balance) * 100).rounded() / 100)
+        }
+        return allInterest
+    }
+    
+     // Returns an array of all the principal amounts based off of the array of interest
+    func allPrincipal(allInterest: [Double]) -> [Double] {
+        var allPrincipal: [Double] = []
+        
+        for interest in allInterest {
+            allPrincipal.append(((self.mortgageMonthly() - interest) * 100).rounded() / 100)
+        }
+        return allPrincipal
+    }
+    
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]
-    // Calculates the balance after P Months
-    func mortgageBalanceAfterPMonths(passedMonths: Int) -> Double {
+    // Returns an array of the balances after each month starting from the loan start date until the end of the terms.
+    func allBalances() -> [Double] {
+        var balanceArray: [Double] = []
         // replae self.months with however months are left from the current date
         let powerNMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), self.months) as NSNumber)
-        let powerPMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), passedMonths) as NSNumber) // 5 months left
-        let numerator2 = self.oriPrincipal * (powerNMonths - powerPMonths)
-        let denominator2 = powerNMonths - 1
+        for index in 0...self.months{
+            let powerPMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), index) as NSNumber) // 5 months left
+            let numerator2 = self.oriPrincipal * (powerNMonths - powerPMonths)
+            let denominator2 = powerNMonths - 1
 
-        let roundedBalance = ((numerator2 / denominator2) * 100).rounded() / 100
-        
-        return roundedBalance
+            balanceArray.append(((numerator2 / denominator2) * 100).rounded() / 100)
+        }
+        return balanceArray
     }
     
     // Returns the balance for the current month.
@@ -96,14 +118,12 @@ class PaymentsCal {
         return (monthlyPayment, currentPrincipal, currentInterest, currentBalance)
     }
     
-    func arrayBalancePrincipalInterest() -> ([Double], [Double], [Double]) {
-        var balanceArray: [Double] = []
-        var principalArray: [Double] = []
-        var interestArray: [Double] = []
+    func arrayBalanceMonPrincipalMonInterest() -> ([Double], [Double], [Double]) {
+        let allbalanceArray: [Double] = self.allBalances()
+        let monInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
+        let monPrincipalArray: [Double] = self.allPrincipal(allInterest: monInterestArray)
         
-        for month in 1...months {
-            balanceArray.append(mortgageBalanceAfterPMonths(passedMonths: month))
-        }
-        return (balanceArray, principalArray, interestArray)
+        
+        return (allbalanceArray, monInterestArray, monPrincipalArray)
     }
 }

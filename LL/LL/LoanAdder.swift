@@ -54,7 +54,7 @@ struct LoanAdder: View {
                         TextField("What's the principal?", text: self.$principal)
                             .textFieldStyle(PlainTextFieldStyle())
                             .keyboardType(.decimalPad)
-                        TextField("What's the interest rate?", text: self.$interestRate)
+                        TextField("What's the interest rate? E.g 9%, 5.5%", text: self.$interestRate)
                             .textFieldStyle(PlainTextFieldStyle())
                             .keyboardType(.decimalPad)
                     }
