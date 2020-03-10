@@ -6,28 +6,33 @@
 //  Copyright © 2020 Morgan Wilkinson. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
-struct LoanDetail: View {
+struct LoanDetail: View{
     var loanItem: Loans
     var myCalendar = Calendar.current
+    @State private var showModal = false
     
     var body: some View {
         let calculator = PaymentsCal(loan: self.loanItem)
         let paymentBreakdown = calculator.mortgageMonthlyPrincipaInterestlBalance()
         let test = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date())
         let formatter1 = DateIntervalFormatter()
+        let formatter2 = DateFormatter()
+        
         formatter1.dateStyle = .short
         formatter1.timeStyle = .none
         
-        let formatter2 = DateFormatter()
         formatter2.dateStyle = .short
+        formatter2.dateFormat = "d MMM y"
         
-        //loanItem.regularPayments = paymentBreakdown.0
         return VStack {
-          VStack{
-                Card(subtitle: "West Bank", title: "Loan A", briefSummary: "Next Payment - 24th June, 2020 for $\(paymentBreakdown.0)", description: "Principal: $\(paymentBreakdown.1) \nInterest: $\(paymentBreakdown.2) \nBalance: $\(paymentBreakdown.3)")
-               Card(subtitle: "", title: "Loan A", briefSummary: "This is a test Loan", description: "")
+            VStack{
+                // Loan Payment at a glance.
+                Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(paymentBreakdown.0)", description: "Principal: $\(paymentBreakdown.1) \nInterest: $\(paymentBreakdown.2) \nBalance: $\(paymentBreakdown.3)")
+                // Amortization Schedule
+                Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "")
            }
             /*
             List {
@@ -55,17 +60,6 @@ struct LoanDetail: View {
         })
     }
 }
-
-/*
-struct LoanDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        LoanDetail(loanItem: Loans(context: self.managed))
-    }
-}
-
-
- Loans(remainingMonths: Date(), startDate: Date(), nextDueDate: Date(), prevDueDate: Date(), currentDueDate: Date(), termMonths: 24, interestRate: 0.5, currentPrincipal: 10000, originalPrincipal: 12000, regularPayments: 500, name: "Example Loan", about: "This is an example loan item.", id: UUID())
- */
 
 extension String {
     func capitalizingFirstLetter() -> String {

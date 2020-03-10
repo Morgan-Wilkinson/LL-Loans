@@ -26,7 +26,6 @@ struct Card: View {
                         .foregroundColor(.secondary)
                     Text(title)
                         .font(.title)
-                        .fontWeight(.black)
                         .foregroundColor(.primary)
                         .lineLimit(3)
                     

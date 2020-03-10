@@ -18,6 +18,7 @@ struct LoanView: View {
     var body: some View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
+        formatter.dateFormat = "d MMM y"
         
         return NavigationView {
             VStack {
@@ -46,7 +47,7 @@ struct LoanView: View {
                     }
                     .listStyle(GroupedListStyle())
                     .navigationBarTitle("Overview")
-                }.navigationBarItems(trailing: NavigationLink(destination: LoanAdder()){
+                }.navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: LoanAdder()){ // Error on EditButton delete
                            HStack{
                                    Image(systemName: "plus.circle.fill")
                                        .foregroundColor(.blue)
@@ -55,16 +56,6 @@ struct LoanView: View {
                            }
                        }
                    )
-                   
-                   /*.navigationBarItems(leading: EditButton(), trailing: Button(action: {self.navigationSelectionTag = 1}) {
-                        HStack{
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.blue)
-                                .imageScale(.medium)
-                            Text("Loan")
-                    }})
-                    */
-                //}
             }
         }
     }

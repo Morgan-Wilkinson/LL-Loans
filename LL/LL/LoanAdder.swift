@@ -11,6 +11,8 @@ import CoreData
 
 struct LoanAdder: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     let formatter = NumberFormatter()
     var components = DateComponents()
     @State private var loanTitle = ""
@@ -24,9 +26,9 @@ struct LoanAdder: View {
     @State private var prevDueDate = Date()
     @State private var startDate = Date()
     @State private var remainingMonths = Date()
-    
-    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
     @State private var selectedLoanType = 0
+    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
+    
     
     var disableForm: Bool {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || termMonths.isEmpty
@@ -87,7 +89,6 @@ struct LoanAdder: View {
                 loanSaver.currentPrincipal = self.formatter.number(from: self.principal) ?? 0
                 loanSaver.interestRate = self.formatter.number(from: self.interestRate) ?? 0
                 loanSaver.about = self.about
-                    
                 loanSaver.termMonths = self.formatter.number(from: self.termMonths) ?? 0
                 loanSaver.startDate = self.startDate
                 loanSaver.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
@@ -98,17 +99,17 @@ struct LoanAdder: View {
                 } catch {
                     print("Failed")
                 }
+                    self.mode.wrappedValue.dismiss()
                 })) {
-                    HStack{
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.blue)
-                            .imageScale(.medium)
-                        Text("Save")
-                    }
+                        HStack{
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.blue)
+                                .imageScale(.medium)
+                            Text("Save")
+                        }
                     }.disabled(disableForm))
-            }
+        }.navigationBarTitle("New Loan")
         }
-    //func checkFilledForm
 }
 
 struct LoanAdder_Previews: PreviewProvider {

@@ -10,11 +10,12 @@ import SwiftUI
 import CoreData
 
 struct LoanEditor: View {
-    var loan: Loans
     @Environment(\.managedObjectContext) var managedObjectContext
-     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    var loan: Loans
     let formatter = NumberFormatter()
-    var components = DateComponents()
+    let components = DateComponents()
     
     @State private var loanTitle: String
     @State private var principal: String
@@ -27,9 +28,8 @@ struct LoanEditor: View {
     @State private var prevDueDate: Date
     @State private var startDate: Date
     @State private var remainingMonths: Date
-    
-    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
     @State private var selectedLoanType = 0
+    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
     
     init(loan: Loans) {
       self.loan = loan
@@ -98,34 +98,33 @@ struct LoanEditor: View {
                             .textFieldStyle(PlainTextFieldStyle())
                             .lineLimit(nil)
                     }
-                }.navigationBarItems(
-                trailing: Button(action: ({
-                    self.loan.id = UUID()
-                    self.loan.name = self.loanTitle
-                    self.loan.typeOfLoan = self.typeOfLoan[self.selectedLoanType]
-                    self.loan.originalPrincipal = self.formatter.number(from: self.principal) ?? 0
-                    self.loan.currentPrincipal = self.formatter.number(from: self.principal) ?? 0
-                    self.loan.interestRate = self.formatter.number(from: self.interestRate) ?? 0
-                    self.loan.about = self.about
-                    self.loan.termMonths = self.formatter.number(from: self.termMonths) ?? 0
-                    self.loan.startDate = self.startDate
-                    self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
-                    self.loan.nextDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date()
-                    self.loan.prevDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward) ?? Date()
-                do {
-                    try self.managedObjectContext.save()
-                } catch {
-                    print("Failed")
-                }
-               self.mode.wrappedValue.dismiss()
-                })) {
-                    HStack{
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.blue)
-                            .imageScale(.medium)
-                        Text("Save")
+                    
+                    Button(action: ({
+                         self.loan.id = UUID()
+                         self.loan.name = self.loanTitle
+                         self.loan.typeOfLoan = self.typeOfLoan[self.selectedLoanType]
+                         self.loan.originalPrincipal = self.formatter.number(from: self.principal) ?? 0
+                         self.loan.currentPrincipal = self.formatter.number(from: self.principal) ?? 0
+                         self.loan.interestRate = self.formatter.number(from: self.interestRate) ?? 0
+                         self.loan.about = self.about
+                         self.loan.termMonths = self.formatter.number(from: self.termMonths) ?? 0
+                         self.loan.startDate = self.startDate
+                         self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
+                         self.loan.nextDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward) ?? Date()
+                         self.loan.prevDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward) ?? Date()
+                     do {
+                         try self.managedObjectContext.save()
+                     } catch {
+                         print("Failed")
+                     }})) {
+                         HStack{
+                             Image(systemName: "plus.circle.fill")
+                                 .foregroundColor(.blue)
+                                 .imageScale(.medium)
+                             Text("Save")
+                         }
                     }
-                    })
-            }
+                }
+        }.navigationBarTitle("Loan Editor")
         }
 }
