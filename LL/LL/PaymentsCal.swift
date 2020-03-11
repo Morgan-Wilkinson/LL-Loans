@@ -33,13 +33,13 @@ class PaymentsCal {
     
     // Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"
     
-    func arrayBalanceMonInterestMonPrincipal() -> ([Double], [Double], [Double]) {
+    func arrayBalanceMonInterestMonPrincipal() -> [[Double]] {
         let allbalanceArray: [Double] = self.allBalances()
         let monInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
         let monPrincipalArray: [Double] = self.allPrincipal(allInterest: monInterestArray)
 
 
-        return (allbalanceArray, monInterestArray, monPrincipalArray)
+        return [allbalanceArray, monInterestArray, monPrincipalArray]
     }
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]

@@ -11,27 +11,34 @@ import SwiftUI
 
 struct BarView: View {
 
-    var value: CGFloat
-    var length: CGFloat
+    var value: Double
     var cornerRadius: CGFloat
+    var width: Float
+    var numberOfDataPoints: Int
+    var index: Int = 0
+    @State var scaleValue: Double = 0
+    @Binding var touchLocation: CGFloat
+    
+    var cellWidth: Double {
+        return Double(width)/(Double(numberOfDataPoints) * 1.5)
+    }
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                ZStack (alignment: .bottom) {
-                    RoundedRectangle(cornerRadius: self.cornerRadius)
-                        .frame(width: self.length / geometry.size.width, height: 200).foregroundColor(.clear)
-                    RoundedRectangle(cornerRadius: self.cornerRadius).fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
-                        .frame(width: self.length / geometry.size.width, height: (geometry.size.height.truncatingRemainder(dividingBy: self.value)))
-                    
-                }.padding(.bottom, 8)
-            }
+        VStack {
+            ZStack (alignment: .bottom) {
+                RoundedRectangle(cornerRadius: self.cornerRadius).fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
+            }.frame(width: CGFloat(self.cellWidth))
+                .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
+                .onAppear(){
+                    self.scaleValue = self.value
+                }
+            .animation(Animation.spring().delay(self.touchLocation < 0 ?  Double(self.index) * 0.04 : 0))
         }
     }
 }
 
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
-        BarView(value: 200, length: 25, cornerRadius: 10)
+        BarView(value: 0.1, cornerRadius: 0, width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
     }
 }
