@@ -10,6 +10,7 @@ import SwiftUI
 
 public struct BarChartView : View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    var chartData: [[Double]]
     private var data: ChartData
     public var title: String
     public var legend: String?
@@ -34,7 +35,8 @@ public struct BarChartView : View {
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
+    public init(chartData: [[Double]], data: ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
+        self.chartData = chartData
         self.data = data
         self.title = title
         self.legend = legend
@@ -81,15 +83,15 @@ public struct BarChartView : View {
                     // Picker
                     Picker(selection: self.$pickerSelection, label: Text("Stats")) {
                         Text("Balances").tag(0)
-                        Text("Principals").tag(1)
-                        Text("Interests").tag(2)
+                        Text("Interests").tag(1)
+                        Text("Principals").tag(2)
                     }.pickerStyle(SegmentedPickerStyle())
                         .padding(.horizontal)
                 }
                 
                  // Graph
                 VStack{
-                    BarChartRow(data: data.points.map{$0.1},
+                    BarChartRow(data: (ChartData)(points: chartData[self.pickerSelection]).points.map{$0.1},
                                 accentColor: self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor,
                                 gradient: self.colorScheme == .dark ? self.darkModeStyle.gradientColor : self.style.gradientColor,
                                 touchLocation: self.$touchLocation)
@@ -98,7 +100,7 @@ public struct BarChartView : View {
                             .font(.headline)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                             .padding()
-                    }else if (self.data.valuesGiven && self.getCurrentValue() != nil) {
+                    }else if ((ChartData)(points: chartData[self.pickerSelection]).valuesGiven && self.getCurrentValue() != nil) {
                         LabelView(arrowOffset: self.getArrowOffset(touchLocation: self.touchLocation),
                                   title: .constant(self.getCurrentValue()!.0))
                             .offset(x: self.getLabelViewOffset(touchLocation: self.touchLocation), y: -6)
@@ -110,7 +112,7 @@ public struct BarChartView : View {
                         self.touchLocation = value.location.x/self.formSize.width
                         self.showValue = true
                         self.currentValue = self.getCurrentValue()?.1 ?? 0
-                        if(self.data.valuesGiven && self.formSize == ChartForm.medium) {
+                        if((ChartData)(points: self.chartData[self.pickerSelection]).valuesGiven && self.formSize == ChartForm.medium) {
                             self.showLabelValue = true
                     }})
                     .onEnded({ value in
@@ -139,16 +141,16 @@ public struct BarChartView : View {
     }
     
     func getCurrentValue() -> (String,Double)? {
-        guard self.data.points.count > 0 else { return nil}
-        let index = max(0,min(self.data.points.count-1,Int(floor((self.touchLocation*self.formSize.width)/(self.formSize.width/CGFloat(self.data.points.count))))))
-        return self.data.points[index]
+        guard (ChartData)(points: chartData[self.pickerSelection]).points.count > 0 else { return nil}
+        let index = max(0,min((ChartData)(points: chartData[self.pickerSelection]).points.count-1,Int(floor((self.touchLocation*self.formSize.width)/(self.formSize.width/CGFloat((ChartData)(points: chartData[self.pickerSelection]).points.count))))))
+        return (ChartData)(points: chartData[self.pickerSelection]).points[index]
     }
 }
 
 #if DEBUG
 struct ChartView_Previews : PreviewProvider {
     static var previews: some View {
-        BarChartView(data: TestData.values ,
+        BarChartView(chartData: [[9.5,96.3, 10.0], [63.5, 859.0, 145.3], [102, 500, 9.6]], data: TestData.values ,
                      title: "Model 3 sales",
                      legend: "Quarterly",
                      valueSpecifier: "%.0f")

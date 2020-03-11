@@ -115,6 +115,7 @@
 		C7714575241960BD00906B63 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
+				C77145802419ABAB00906B63 /* New Group */,
 				C771457E2419616500906B63 /* Helpers.swift */,
 				C7714577241960EC00906B63 /* BarChartCell.swift */,
 				C7714578241960EC00906B63 /* BarChartRow.swift */,
@@ -122,6 +123,13 @@
 				C7714576241960EC00906B63 /* LabelView.swift */,
 			);
 			path = Testing;
+			sourceTree = "<group>";
+		};
+		C77145802419ABAB00906B63 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		C78E79D824195CF20067FB08 /* Core Data */ = {

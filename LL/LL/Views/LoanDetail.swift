@@ -37,7 +37,7 @@ struct LoanDetail: View{
                 // Amortization Schedule
                 //Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "\(remainingBalance)")
                 //CardChart(chartData: balanceArray)
-                BarChartView(data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large) 
+                BarChartView(chartData: balanceArray, data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large) 
                 
            }
             /*
