@@ -36,7 +36,8 @@ struct LoanDetail: View{
                 Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)", description: "Principal: $\(balanceArray[2][timeTracker.month!]) \nInterest: $\(balanceArray[1][timeTracker.month!]) \nBalance: $\(balanceArray[0][timeTracker.month!])")
                 // Amortization Schedule
                 //Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "\(remainingBalance)")
-                CardChart(chartData: balanceArray)
+                //CardChart(chartData: balanceArray)
+                BarChartView(data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large) 
                 
            }
             /*
