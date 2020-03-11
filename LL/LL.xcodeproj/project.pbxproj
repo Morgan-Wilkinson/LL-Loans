@@ -20,6 +20,8 @@
 		9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90723C449C30046B9BF /* LoanDetail.swift */; };
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
 		C7049FA82415E09300636392 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7049FA72415E09300636392 /* Card.swift */; };
+		C7942D312418623F000EF862 /* CardChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* CardChart.swift */; };
+		C7942D3324188219000EF862 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarView.swift */; };
 		C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6987F2416AEE000E44EEE /* LoanEditor.swift */; };
 		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 		9041E90723C449C30046B9BF /* LoanDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetail.swift; sourceTree = "<group>"; };
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		C7942D302418623F000EF862 /* CardChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardChart.swift; sourceTree = "<group>"; };
+		C7942D3224188219000EF862 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		C7C6987F2416AEE000E44EEE /* LoanEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanEditor.swift; sourceTree = "<group>"; };
 		C7CEED952404BFE400694FEB /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
@@ -83,6 +87,8 @@
 				904BE86323C5789800884426 /* LoanAdder.swift */,
 				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
 				C7049FA72415E09300636392 /* Card.swift */,
+				C7942D302418623F000EF862 /* CardChart.swift */,
+				C7942D3224188219000EF862 /* BarView.swift */,
 				902850F723D64C53007B78BC /* PaymentsCal.swift */,
 				9041E90323C449900046B9BF /* Loans.swift */,
 				9041E8F523C448EC0046B9BF /* Assets.xcassets */,
@@ -185,11 +191,13 @@
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
+				C7942D3324188219000EF862 /* BarView.swift in Sources */,
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9041E8F423C448E90046B9BF /* ContentView.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
+				C7942D312418623F000EF862 /* CardChart.swift in Sources */,
 				9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

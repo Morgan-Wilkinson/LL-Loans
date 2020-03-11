@@ -16,9 +16,10 @@ struct LoanDetail: View{
     
     var body: some View {
         let calculator = PaymentsCal(loan: self.loanItem)
-        let paymentBreakdown = calculator.mortgageMonthlyPrincipaInterestBalance()
-        let remainingBalance = calculator.mortgageBalanceForCurrentDate()
-        let balanceArray = calculator.arrayBalanceMonPrincipalMonInterest()
+        //let paymentBreakdown = calculator.mortgageMonthlyPrincipaInterestBalance()
+        //let remainingBalance = calculator.mortgageBalanceForCurrentDate()
+        let monthlyPayment = calculator.mortgageMonthly()
+        let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
         let timeTracker = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date())
         let formatter1 = DateIntervalFormatter()
         let formatter2 = DateFormatter()
@@ -32,12 +33,11 @@ struct LoanDetail: View{
         return VStack {
             VStack{
                 // Loan Payment at a glance.
-                Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(paymentBreakdown.0)", description: "Principal: $\(paymentBreakdown.1) \nInterest: $\(paymentBreakdown.2) \nBalance: $\(paymentBreakdown.3)")
+                Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)", description: "Principal: $\(balanceArray.2[timeTracker.month!]) \nInterest: $\(balanceArray.1[timeTracker.month!]) \nBalance: $\(balanceArray.0[timeTracker.month!])")
                 // Amortization Schedule
                 //Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "\(remainingBalance)")
-                ForEach(balanceArray.2, id: \.self) {
-                    Text("\($0)")
-                }
+                CardChart(chartData: balanceArray)
+                
            }
             /*
             List {
