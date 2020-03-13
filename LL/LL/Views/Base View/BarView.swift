@@ -11,34 +11,34 @@ import SwiftUI
 
 struct BarView: View {
 
-    var value: Double
-    var cornerRadius: CGFloat
+    var value: CGFloat
     var width: Float
-    var numberOfDataPoints: Int
-    var index: Int = 0
-    @State var scaleValue: Double = 0
-    @Binding var touchLocation: CGFloat
-    
+    var numberOfPoints: Int
+    var cornerRadius: CGFloat
     var cellWidth: Double {
-        return Double(width)/(Double(numberOfDataPoints) * 1.5)
+        return Double(width)/(Double(numberOfPoints) * 1.75)
     }
+    
+    @State var scaleValue: Double = 0
     
     var body: some View {
         VStack {
             ZStack (alignment: .bottom) {
-                RoundedRectangle(cornerRadius: self.cornerRadius).fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
-            }.frame(width: CGFloat(self.cellWidth))
-                .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
-                .onAppear(){
-                    self.scaleValue = self.value
-                }
-            .animation(Animation.spring().delay(self.touchLocation < 0 ?  Double(self.index) * 0.04 : 0))
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
+                    .frame(width: CGFloat(self.cellWidth))
+                    .gesture(TapGesture().onEnded{print("\(self.value)")}) // Works
+            }.padding(.bottom)
+            .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
+            .onAppear() {
+                self.scaleValue = Double(self.value)
+            }
         }
     }
 }
 
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
-        BarView(value: 0.1, cornerRadius: 0, width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
+        BarView(value: 0.9, width: 10, numberOfPoints: 12, cornerRadius: 0)
     }
 }

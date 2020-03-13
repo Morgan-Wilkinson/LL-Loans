@@ -20,6 +20,11 @@ struct LoanDetail: View{
         //let remainingBalance = calculator.mortgageBalanceForCurrentDate()
         let monthlyPayment = calculator.mortgageMonthly()
         let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
+        var normalizedArray: [[Double]] = []
+        for array in balanceArray {
+            normalizedArray.append(calculator.normalizedValues(array: array))
+        }
+        
         let timeTracker = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date())
         let formatter1 = DateIntervalFormatter()
         let formatter2 = DateFormatter()
@@ -36,9 +41,9 @@ struct LoanDetail: View{
                 Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)", description: "Principal: $\(balanceArray[2][timeTracker.month!]) \nInterest: $\(balanceArray[1][timeTracker.month!]) \nBalance: $\(balanceArray[0][timeTracker.month!])")
                 // Amortization Schedule
                 //Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "\(remainingBalance)")
-                //CardChart(chartData: balanceArray)
-                BarChartView(chartData: balanceArray, data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large) 
+                //BarChartView(chartData: balanceArray, normalizedChartData: normalizedArray,data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large)
                 
+                CardChart(barValues: normalizedArray)
            }
             /*
             List {

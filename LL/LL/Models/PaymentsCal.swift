@@ -58,6 +58,17 @@ class PaymentsCal {
         return balanceArray
     }
     
+    func normalizedValues(array: [Double]) -> [Double] {
+        let max: Double = array.max() ?? 0
+        var normalized: [Double] = []
+        
+        for element in array {
+            normalized.append(element / max)
+        }
+        
+        return normalized
+    }
+    
     // Returns an array of all the interest amounts based off of the array of balanaces
     func allInterest(allBalances: [Double]) -> [Double] {
         var allInterest: [Double] = []

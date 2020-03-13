@@ -9,7 +9,8 @@
 import SwiftUI
 
 public struct BarChartCell : View {
-    var value: Double
+    @Binding var value: Double
+    //var value: Double
     var index: Int = 0
     var width: Float
     var numberOfDataPoints: Int
@@ -38,7 +39,9 @@ public struct BarChartCell : View {
 #if DEBUG
 struct ChartCell_Previews : PreviewProvider {
     static var previews: some View {
-        BarChartCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, accentColor: Colors.OrangeStart, gradient: nil, touchLocation: .constant(-1))
+        //BarChartCell(value: .constant(0.25), width: 325, numberOfDataPoints: 12, accentColor: Colors.OrangeStart, gradient: nil, touchLocation: .constant(-1))
+        BarChartCell(value: .constant(0.25), width: 325, numberOfDataPoints: 12, accentColor: Colors.OrangeStart, gradient: nil, touchLocation: .constant(-1))
+        
     }
 }
 #endif
