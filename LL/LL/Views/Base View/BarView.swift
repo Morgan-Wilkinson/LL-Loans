@@ -22,18 +22,18 @@ struct BarView: View {
     @State var scaleValue: Double = 0
     
     var body: some View {
-        VStack {
+       
             ZStack (alignment: .bottom) {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
-                    .frame(width: CGFloat(self.cellWidth))
-                    .gesture(TapGesture().onEnded{print("\(self.value)")}) // Works
-            }.padding(.bottom)
+            }
+            .frame(width: CGFloat(self.cellWidth))
+            .gesture(TapGesture().onEnded{print("\(self.value)")}) // Works
+            .padding(.bottom)
             .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
             .onAppear() {
                 self.scaleValue = Double(self.value)
             }
-        }
     }
 }
 

@@ -10,15 +10,12 @@ import SwiftUI
 
 struct CardChart: View {
     @State var pickerSelection = 0
+    @State private var touchLocation: CGFloat = -1.0
     @State var barValues : [[Double]]
         
-        /*
-        [
-        [5,150,50,100,200,110,30,170,50],
-        [200,110,30,170,50, 100,100,100,200],
-        [10,20,50,100,120,90,180,200,40]
-        ]
-        */
+    @GestureState private var didPress: Bool = false
+    @State var isDragging: Bool = false
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack{
@@ -42,11 +39,18 @@ struct CardChart: View {
                     HStack(alignment: .center, spacing: 10)
                     {
                         ForEach(self.barValues[self.pickerSelection], id: \.self){ data in
-                            
                             BarView(value: CGFloat(data), width: Float(geometry.frame(in: .local).width - 22),
                                     numberOfPoints: self.barValues[self.pickerSelection].count, cornerRadius: 20)
+                           // .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
                         }
                     }.padding().animation(.spring())
+                    .gesture(DragGesture()
+                        .onChanged({ value in
+                            self.touchLocation = value.location.x
+                        })
+                        .onEnded({ value in
+                            self.touchLocation = -1
+                        }))
                     
                 }.padding()
             }
