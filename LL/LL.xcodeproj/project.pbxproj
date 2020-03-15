@@ -33,8 +33,9 @@
 		C77145902419AF4900906B63 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145882419AF4900906B63 /* LineView.swift */; };
 		C77145912419AF4900906B63 /* MagnifierRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145892419AF4900906B63 /* MagnifierRect.swift */; };
 		C77145922419AF4900906B63 /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C771458A2419AF4900906B63 /* MultiLineChartView.swift */; };
-		C7942D312418623F000EF862 /* CardChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* CardChart.swift */; };
+		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
+		C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B7405B241DBDB30028AE18 /* BarView.swift */; };
 		C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6987F2416AEE000E44EEE /* LoanEditor.swift */; };
 		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
 /* End PBXBuildFile section */
@@ -68,8 +69,9 @@
 		C77145882419AF4900906B63 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		C77145892419AF4900906B63 /* MagnifierRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagnifierRect.swift; sourceTree = "<group>"; };
 		C771458A2419AF4900906B63 /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
-		C7942D302418623F000EF862 /* CardChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardChart.swift; sourceTree = "<group>"; };
+		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
+		C7B7405B241DBDB30028AE18 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		C7C6987F2416AEE000E44EEE /* LoanEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanEditor.swift; sourceTree = "<group>"; };
 		C7CEED952404BFE400694FEB /* Test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Test.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
@@ -131,7 +133,6 @@
 		C7714575241960BD00906B63 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				C797F82D241B17FD00C6168C /* Medium */,
 				C77145822419AED700906B63 /* Line Chart */,
 				C77145802419ABAB00906B63 /* AppChart Bar Chart */,
 				C771457E2419616500906B63 /* Helpers.swift */,
@@ -198,18 +199,28 @@
 		C78E79DD24195FB20067FB08 /* Base View */ = {
 			isa = PBXGroup;
 			children = (
-				C7049FA72415E09300636392 /* Card.swift */,
-				C7942D3224188219000EF862 /* BarCell.swift */,
+				C7B74059241DBB190028AE18 /* Bar Group */,
+				C7B7405A241DBB2E0028AE18 /* Card Group */,
 			);
 			path = "Base View";
 			sourceTree = "<group>";
 		};
-		C797F82D241B17FD00C6168C /* Medium */ = {
+		C7B74059241DBB190028AE18 /* Bar Group */ = {
 			isa = PBXGroup;
 			children = (
-				C7942D302418623F000EF862 /* CardChart.swift */,
+				C7942D3224188219000EF862 /* BarCell.swift */,
+				C7942D302418623F000EF862 /* BarRow.swift */,
+				C7B7405B241DBDB30028AE18 /* BarView.swift */,
 			);
-			path = Medium;
+			path = "Bar Group";
+			sourceTree = "<group>";
+		};
+		C7B7405A241DBB2E0028AE18 /* Card Group */ = {
+			isa = PBXGroup;
+			children = (
+				C7049FA72415E09300636392 /* Card.swift */,
+			);
+			path = "Card Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,12 +318,13 @@
 				C771457A241960EC00906B63 /* LabelView.swift in Sources */,
 				C771458F2419AF4900906B63 /* LineChartView.swift in Sources */,
 				C771457C241960EC00906B63 /* BarChartRow.swift in Sources */,
+				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				C771457F2419616500906B63 /* Helpers.swift in Sources */,
 				C771458C2419AF4900906B63 /* Path+QuadCurve.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
 				C77145902419AF4900906B63 /* LineView.swift in Sources */,
-				C7942D312418623F000EF862 /* CardChart.swift in Sources */,
+				C7942D312418623F000EF862 /* BarRow.swift in Sources */,
 				9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */,
 				C771458D2419AF4900906B63 /* IndicatorPoint.swift in Sources */,
 			);

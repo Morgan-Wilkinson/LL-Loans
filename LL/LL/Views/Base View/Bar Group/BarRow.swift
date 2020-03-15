@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CardChart: View {
+struct BarRow: View {
     @State var pickerSelection = 0
     @State private var touchLocation: CGFloat = -1.0
     @State var barValues : [[Double]]
@@ -77,9 +77,9 @@ struct CardChart: View {
     }
 }
 
-struct CardChart_Previews: PreviewProvider {
+struct BarRow_Previews: PreviewProvider {
     static var previews: some View {
-        CardChart(barValues:
+        BarRow(barValues:
             [
                 [0.5,0.150,0.50,0.100,0.200,0.110,0.30,0.170,0.50],
             [0.200,0.110,0.30,0.170,0.50, 0.100,0.100,0.100,0.200],
