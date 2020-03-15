@@ -10,9 +10,7 @@ import SwiftUI
 
 public struct BarChartView : View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    var chartData: [[Double]]
-    @State var normalizedChartData: [[Double]]
-    var data: ChartData
+    private var data: ChartData
     public var title: String
     public var legend: String?
     public var style: ChartStyle
@@ -22,8 +20,6 @@ public struct BarChartView : View {
     public var cornerImage: Image
     public var valueSpecifier:String
     
-    @State public var changedData: Bool = false
-    @State private var pickerSelection = 0
     @State private var touchLocation: CGFloat = -1.0
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
@@ -37,9 +33,7 @@ public struct BarChartView : View {
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-    public init(chartData: [[Double]], normalizedChartData: [[Double]],data: ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
-        self.chartData = chartData
-        self._normalizedChartData = State(initialValue: normalizedChartData)
+    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
         self.data = data
         self.title = title
         self.legend = legend
@@ -58,77 +52,66 @@ public struct BarChartView : View {
                 .cornerRadius(20)
                 .shadow(color: self.style.dropShadowColor, radius: self.dropShadow ? 8 : 0)
             VStack(alignment: .leading){
-                // Header
-                VStack{
-                    HStack{
-                        if(!showValue){
-                            Text(self.title)
-                                .font(.headline)
-                                .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                        }else{
-                            Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                                .font(.headline)
-                                .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                        }
-                        if(self.formSize == ChartForm.large && self.legend != nil && !showValue) {
-                            Text(self.legend!)
-                                .font(.callout)
-                                .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor)
-                                .transition(.opacity)
-                                .animation(.easeOut)
-                        }
-                        Spacer()
-                        self.cornerImage
-                            .imageScale(.large)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
-                    }.padding([.top, .leading, .trailing])
-                    
-                    // Picker
-                    Picker(selection: self.$pickerSelection, label: Text("Stats")) {
-                        Text("Balances").tag(0)
-                        Text("Interests").tag(1)
-                        Text("Principals").tag(2)
-                    }.pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal)
-                    .onReceive([self.pickerSelection].publisher.first()) { (value) in
-                        print(value)
+                HStack{
+                    if(!showValue){
+                        Text(self.title)
+                            .font(.headline)
+                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                    }else{
+                        Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                            .font(.headline)
+                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                     }
+                    if(self.formSize == ChartForm.large && self.legend != nil && !showValue) {
+                        Text(self.legend!)
+                            .font(.callout)
+                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor)
+                            .transition(.opacity)
+                            .animation(.easeOut)
+                    }
+                    Spacer()
+                    self.cornerImage
+                        .imageScale(.large)
+                        .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
+                }.padding()
+                BarChartRow(data: data.points.map{$0.1},
+                            accentColor: self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor,
+                            gradient: self.colorScheme == .dark ? self.darkModeStyle.gradientColor : self.style.gradientColor,
+                            touchLocation: self.$touchLocation)
+                if self.legend != nil  && self.formSize == ChartForm.medium && !self.showLabelValue{
+                    Text(self.legend!)
+                        .font(.headline)
+                        .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
+                        .padding()
+                }else if (self.data.valuesGiven && self.getCurrentValue() != nil) {
+                    LabelView(arrowOffset: self.getArrowOffset(touchLocation: self.touchLocation),
+                              title: .constant(self.getCurrentValue()!.0))
+                        .offset(x: self.getLabelViewOffset(touchLocation: self.touchLocation), y: -6)
+                        .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                 }
                 
-                 // Graph
-                VStack{
-                    BarChartRow(data: (ChartData)(points: chartData[pickerSelection]).points.map{$0.1}, normalizedData: self.$normalizedChartData[pickerSelection],
-                                accentColor: self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor,
-                                gradient: self.colorScheme == .dark ? self.darkModeStyle.gradientColor : self.style.gradientColor, touchLocation: self.$touchLocation)
-                    if self.legend != nil  && self.formSize == ChartForm.medium && !self.showLabelValue{
-                        Text(self.legend!)
-                            .font(.headline)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
-                            .padding()
-                    }else if ((ChartData)(points: chartData[pickerSelection]).valuesGiven && self.getCurrentValue() != nil) {
-                        LabelView(arrowOffset: self.getArrowOffset(touchLocation: self.touchLocation),
-                                  title: .constant(self.getCurrentValue()!.0))
-                            .offset(x: self.getLabelViewOffset(touchLocation: self.touchLocation), y: -6)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
-                    }
-                }
-                .padding(.horizontal)
-                .gesture(DragGesture()
-                    .onChanged({ value in
-                        self.touchLocation = value.location.x/self.formSize.width
-                        self.showValue = true
-                        self.currentValue = self.getCurrentValue()?.1 ?? 0
-                        if((ChartData)(points: self.chartData[self.pickerSelection]).valuesGiven && self.formSize == ChartForm.medium) {
-                            self.showLabelValue = true
-                    }})
-                    .onEnded({ value in
-                        self.showValue = false
-                        self.showLabelValue = false
-                        self.touchLocation = -1
-                    }))
-                    .gesture(TapGesture())
             }
-        }
+        }.frame(minWidth:self.formSize.width,
+                maxWidth: self.isFullWidth ? .infinity : self.formSize.width,
+                minHeight:self.formSize.height,
+                maxHeight:self.formSize.height)
+            .gesture(DragGesture()
+                .onChanged({ value in
+                    self.touchLocation = value.location.x/self.formSize.width
+                    self.showValue = true
+                    self.currentValue = self.getCurrentValue()?.1 ?? 0
+                    if(self.data.valuesGiven && self.formSize == ChartForm.medium) {
+                        self.showLabelValue = true
+                    }
+                })
+                .onEnded({ value in
+                    self.showValue = false
+                    self.showLabelValue = false
+                    self.touchLocation = -1
+                })
+        )
+            .gesture(TapGesture()
+        )
     }
     
     func getArrowOffset(touchLocation:CGFloat) -> Binding<CGFloat> {
@@ -147,16 +130,16 @@ public struct BarChartView : View {
     }
     
     func getCurrentValue() -> (String,Double)? {
-        guard (ChartData)(points: chartData[self.pickerSelection]).points.count > 0 else { return nil}
-        let index = max(0,min((ChartData)(points: chartData[self.pickerSelection]).points.count-1,Int(floor((self.touchLocation*self.formSize.width)/(self.formSize.width/CGFloat((ChartData)(points: chartData[self.pickerSelection]).points.count))))))
-        return (ChartData)(points: chartData[self.pickerSelection]).points[index]
+        guard self.data.points.count > 0 else { return nil}
+        let index = max(0,min(self.data.points.count-1,Int(floor((self.touchLocation*self.formSize.width)/(self.formSize.width/CGFloat(self.data.points.count))))))
+        return self.data.points[index]
     }
 }
 
 #if DEBUG
 struct ChartView_Previews : PreviewProvider {
     static var previews: some View {
-        BarChartView(chartData: [[9.5,96.3, 100.0], [63.5, 1, 145.3], [102, 500, 9.6]], normalizedChartData: [[0.03, 0.7, 0.25], [0.15, 1.0, 0.9], [0.52, 0.63, 0.1]], data: TestData.values ,
+        BarChartView(data: TestData.values ,
                      title: "Model 3 sales",
                      legend: "Quarterly",
                      valueSpecifier: "%.0f")

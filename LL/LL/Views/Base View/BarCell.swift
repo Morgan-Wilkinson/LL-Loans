@@ -1,14 +1,15 @@
 //
-//  ChartCell.swift
-//  ChartView
+//  BarView.swift
+//  LL
 //
-//  Created by András Samu on 2019. 06. 12..
-//  Copyright © 2019. András Samu. All rights reserved.
+//  Created by Morgan Wilkinson on 3/10/20.
+//  Copyright © 2020 Morgan Wilkinson. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
 
-public struct BarChartCell : View {
+struct BarCell: View {
     var value: Double
     var index: Int = 0
     var width: Float
@@ -19,6 +20,7 @@ public struct BarChartCell : View {
     
     @State var scaleValue: Double = 0
     @Binding var touchLocation: CGFloat
+    
     public var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 4)
@@ -33,10 +35,8 @@ public struct BarChartCell : View {
     }
 }
 
-#if DEBUG
-struct ChartCell_Previews : PreviewProvider {
+struct BarCell_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
+        BarCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
     }
 }
-#endif

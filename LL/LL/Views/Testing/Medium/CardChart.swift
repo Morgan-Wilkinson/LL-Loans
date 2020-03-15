@@ -13,8 +13,8 @@ struct CardChart: View {
     @State private var touchLocation: CGFloat = -1.0
     @State var barValues : [[Double]]
         
-    @GestureState private var didPress: Bool = false
-    @State var isDragging: Bool = false
+    @State var scaleValue: Double = 1
+    @State var scaleUp: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,19 +39,33 @@ struct CardChart: View {
                     HStack(alignment: .center, spacing: 10)
                     {
                         ForEach(self.barValues[self.pickerSelection], id: \.self){ data in
-                            BarView(value: CGFloat(data), width: Float(geometry.frame(in: .local).width - 22),
-                                    numberOfPoints: self.barValues[self.pickerSelection].count, cornerRadius: 20)
-                           // .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
+                            GeometryReader { geo in
+                                BarCell(value: data,
+                                        index: self.barValues[self.pickerSelection].firstIndex(of: data)!,
+                                        width: Float(geometry.frame(in: .local).width - 22),
+                                        numberOfDataPoints: self.barValues[self.pickerSelection].count,
+                                        touchLocation: self.$touchLocation)
+                
+                                    //.scaleEffect(self.touchLocation > CGFloat(geo.frame(in: .local).minX) && self.touchLocation < CGFloat(geo.frame(in: .local).maxX) ? 1.4 : 1, anchor: .bottom)
+                                    
+                                    /*
+                                .gesture(DragGesture(coordinateSpace: .local)
+                                .onChanged({ value in
+                                    self.scaleUp = true
+                                    self.scaleValue = 1.4
+                                    self.touchLocation = value.location.x / geo.frame(in: .local).width
+                                    })
+                                .onEnded({ _ in
+                                    self.scaleUp = false
+                                    self.scaleValue = data
+                                    self.touchLocation = -1
+                                }))
+ */
+
+                            }
                         }
                     }.padding().animation(.spring())
-                    .gesture(DragGesture()
-                        .onChanged({ value in
-                            self.touchLocation = value.location.x
-                        })
-                        .onEnded({ value in
-                            self.touchLocation = -1
-                        }))
-                    
+                                        
                 }.padding()
             }
         }

@@ -9,9 +9,7 @@
 import SwiftUI
 
 public struct BarChartRow : View {
-    //@Binding var data: [Double]
     var data: [Double]
-    @Binding var normalizedData: [Double]
     var accentColor: Color
     var gradient: GradientColor?
     var maxValue: Double {
@@ -20,16 +18,14 @@ public struct BarChartRow : View {
     @Binding var touchLocation: CGFloat
     public var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.normalizedData.count * 3)){
-                ForEach(0..<self.normalizedData.count, id: \.self) { i in
-                    BarChartCell(value: self.$normalizedData[i],
+            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.data.count * 3)){
+                ForEach(0..<self.data.count, id: \.self) { i in
+                    BarChartCell(value: self.normalizedValue(index: i),
                                  index: i,
                                  width: Float(geometry.frame(in: .local).width - 22),
-                                 numberOfDataPoints: self.normalizedData.count,
-                                 accentColor: self.accentColor,
-                                 gradient: self.gradient,
+                                 numberOfDataPoints: self.data.count,
                                  touchLocation: self.$touchLocation)
-                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.normalizedData.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.normalizedData.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
+                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
                         .animation(.spring())
                     
                 }
@@ -39,7 +35,6 @@ public struct BarChartRow : View {
     }
     
     func normalizedValue(index: Int) -> Double {
-        print(self.data[index])
         return Double(self.data[index])/Double(self.maxValue)
     }
 }
@@ -47,9 +42,7 @@ public struct BarChartRow : View {
 #if DEBUG
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
-        //BarChartRow(data: .constant([8.0,23.0,54.0,32.0,12.0,37.0,7.0]), accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
-        
-        BarChartRow(data: [8.0, 23.0, 54.0], normalizedData: .constant([0.03, 0.7, 0.25]), accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
+        BarChartRow(data: [8,23,54,32,12,37,7], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
     }
 }
 #endif
