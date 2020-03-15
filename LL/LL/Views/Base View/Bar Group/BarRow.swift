@@ -10,8 +10,8 @@ import SwiftUI
 
 struct BarRow: View {
     
-    @Binding var data: [Double]
-    var maxValue: Double {
+    @Binding var data: [CGFloat]
+    var maxValue: CGFloat {
         data.max() ?? 0
     }
     @Binding var touchLocation: CGFloat
@@ -33,8 +33,8 @@ struct BarRow: View {
         }
     }
     
-    func normalizedValue(index: Int) -> Double {
-        return Double(self.data[index])/Double(self.maxValue)
+    func normalizedValue(index: Int) -> CGFloat {
+        return CGFloat(self.data[index])/CGFloat(self.maxValue)
     }
 }
 

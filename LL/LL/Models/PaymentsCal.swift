@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PaymentsCal {
     var loan: Loans
@@ -33,10 +34,10 @@ class PaymentsCal {
     
     // Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"
     
-    func arrayBalanceMonInterestMonPrincipal() -> [[Double]] {
-        let allbalanceArray: [Double] = self.allBalances()
-        let monInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
-        let monPrincipalArray: [Double] = self.allPrincipal(allInterest: monInterestArray)
+    func arrayBalanceMonInterestMonPrincipal() -> [[CGFloat]] {
+        let allbalanceArray: [CGFloat] = self.allBalances()
+        let monInterestArray: [CGFloat] = self.allInterest(allBalances: allbalanceArray)
+        let monPrincipalArray: [CGFloat] = self.allPrincipal(allInterest: monInterestArray)
 
 
         return [allbalanceArray, monInterestArray, monPrincipalArray]
@@ -44,8 +45,8 @@ class PaymentsCal {
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]
     // Returns an array of the balances after each month starting from the loan start date until the end of the terms.
-    func allBalances() -> [Double] {
-        var balanceArray: [Double] = []
+    func allBalances() -> [CGFloat] {
+        var balanceArray: [CGFloat] = []
         let powerNMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), self.months) as NSNumber)
         
         for index in 0...(self.months - 1) {
@@ -53,14 +54,14 @@ class PaymentsCal {
             let numerator2 = self.oriPrincipal * (powerNMonths - powerPMonths)
             let denominator2 = powerNMonths - 1
 
-            balanceArray.append(((numerator2 / denominator2) * 100).rounded() / 100)
+            balanceArray.append(CGFloat(((numerator2 / denominator2) * 100).rounded() / 100))
         }
         return balanceArray
     }
     
-    func normalizedValues(array: [Double]) -> [Double] {
-        let max: Double = array.max() ?? 0
-        var normalized: [Double] = []
+    func normalizedValues(array: [CGFloat]) -> [CGFloat] {
+        let max: CGFloat = array.max() ?? 0
+        var normalized: [CGFloat] = []
         
         for element in array {
             normalized.append(element / max)
@@ -70,22 +71,22 @@ class PaymentsCal {
     }
     
     // Returns an array of all the interest amounts based off of the array of balanaces
-    func allInterest(allBalances: [Double]) -> [Double] {
-        var allInterest: [Double] = []
+    func allInterest(allBalances: [CGFloat]) -> [CGFloat] {
+        var allInterest: [CGFloat] = []
 
         for balance in allBalances{
-            allInterest.append(((self.monthlyIntRate * balance) * 100).rounded() / 100)
+            allInterest.append(CGFloat(((CGFloat(self.monthlyIntRate) * balance) * 100).rounded() / 100))
         }
         return allInterest
     }
     
     // Returns an array of all the principal amounts based off of the array of interest
-    func allPrincipal(allInterest: [Double]) -> [Double] {
-        var allPrincipal: [Double] = []
-        let monthlyPayment = self.mortgageMonthly()
+    func allPrincipal(allInterest: [CGFloat]) -> [CGFloat] {
+        var allPrincipal: [CGFloat] = []
+        let monthlyPayment = CGFloat(self.mortgageMonthly())
 
         for interest in allInterest {
-            allPrincipal.append(((monthlyPayment - interest) * 100).rounded() / 100)
+            allPrincipal.append(CGFloat(((monthlyPayment - interest) * 100).rounded() / 100))
         }
         return allPrincipal
     }

@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct BarCell: View {
-    var value: Double
+    var value: CGFloat
     var index: Int = 0
     var width: Float
     var numberOfDataPoints: Int
@@ -18,7 +18,7 @@ struct BarCell: View {
         return Double(width)/(Double(numberOfDataPoints) * 1.5)
     }
     
-    @State var scaleValue: Double = 0
+    @State var scaleValue: CGFloat = 0
     @Binding var touchLocation: CGFloat
     
     public var body: some View {
@@ -37,6 +37,6 @@ struct BarCell: View {
 
 struct BarCell_Previews: PreviewProvider {
     static var previews: some View {
-        BarCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
+        BarCell(value: CGFloat(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
     }
 }

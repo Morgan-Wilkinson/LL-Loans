@@ -58,7 +58,7 @@ public struct BarChartView : View {
                             .imageScale(.large)
                     }.padding()
                     
-                    BarRow(data: self.data.points.map{$0.1}, touchLocation: self.$touchLocation)
+                   // BarRow(data: self.data.points.map{$0.1}, touchLocation: self.$touchLocation)
                 }
             }
                 .gesture(DragGesture()
@@ -89,7 +89,7 @@ public struct BarChartView : View {
 }
 
 #if DEBUG
-struct ChartView_Previews : PreviewProvider {
+struct BarChartView_Previews : PreviewProvider {
     static var previews: some View {
         BarChartView(data: TestData.values ,
                      title: "Model 3 sales",

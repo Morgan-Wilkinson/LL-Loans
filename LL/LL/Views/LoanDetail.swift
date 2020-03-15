@@ -20,7 +20,7 @@ struct LoanDetail: View{
         //let remainingBalance = calculator.mortgageBalanceForCurrentDate()
         let monthlyPayment = calculator.mortgageMonthly()
         let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
-        var normalizedArray: [[Double]] = []
+        var normalizedArray: [[CGFloat]] = []
         for array in balanceArray {
             normalizedArray.append(calculator.normalizedValues(array: array))
         }

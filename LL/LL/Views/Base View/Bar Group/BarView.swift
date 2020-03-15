@@ -14,7 +14,7 @@ struct BarView: View {
     public var cornerImage: Image
     public var valueSpecifier:String
 
-    @State var barValues: [[Double]]
+    @State var barValues: [[CGFloat]]
     @State var pickerSelection = 0
     @State private var width: CGFloat = 0
     @State private var touchLocation: CGFloat = -1.0
@@ -28,7 +28,7 @@ struct BarView: View {
         }
     }
 
-    public init(data:ChartData, title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", barValues: [[Double]]){
+    public init(data:ChartData, title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", barValues: [[CGFloat]]){
         self.data = data
         self.title = title
         self.cornerImage = cornerImage!
@@ -44,50 +44,49 @@ struct BarView: View {
                  .cornerRadius(20)
                  .shadow(radius: 8)
              VStack(alignment: .leading){
-                    Picker(selection: self.$pickerSelection, label: Text("Stats"))
-                        {
+                    Picker(selection: self.$pickerSelection, label: Text("Stats")) {
                         Text("Balance").tag(0)
                         Text("Interest").tag(1)
                         Text("Principal").tag(2)
                     }.pickerStyle(SegmentedPickerStyle())
-                        .padding([.top, .leading, .trailing])
-                VStack{
-                 HStack{
-                     // Shows Title
-                     if(!self.showValue){
-                         Text(self.title)
-                             .font(.headline)
-                     }
-                     // Shows Values
-                     else{
-                         Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                             .font(.headline)
-                     }
-                     Spacer()
-                     // Corner Image - Dont really need
-                     self.cornerImage
-                         .imageScale(.large)
-                 }.padding([.leading, .bottom, .trailing])
-                 //ForEach(self.barValues[self.pickerSelection], id: \.self){ i in
+                        .id(self.barValues[self.pickerSelection])
+                    .padding([.top, .leading, .trailing])
+                    HStack{
+                         // Shows Title
+                         if(!self.showValue){
+                             Text(self.title)
+                                 .font(.headline)
+                         }
+                         // Shows Values
+                         else{
+                             Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                                 .font(.headline)
+                         }
+                         Spacer()
+                         self.cornerImage
+                             .imageScale(.large)
+                    }.padding(.horizontal)
+
                     BarRow(data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
-                }
+                .gesture(DragGesture()
+                .onChanged({ value in
+                    self.width = geometry.frame(in: CoordinateSpace.local).width
+                    self.touchLocation = value.location.x / self.width
+                    self.showValue = true
+                    self.currentValue = self.getCurrentValue()?.1 ?? 0
+                    self.showLabelValue = true
+
+                })
+                .onEnded({ value in
+                    self.showValue = false
+                    self.showLabelValue = false
+                    self.touchLocation = -1
+                }))
+                .gesture(TapGesture())
              }
             }.padding()
-             .gesture(DragGesture()
-                 .onChanged({ value in
-                     self.width = geometry.frame(in: CoordinateSpace.local).width
-                     self.touchLocation = value.location.x / self.width
-                     self.showValue = true
-                     self.currentValue = self.getCurrentValue()?.1 ?? 0
-                     self.showLabelValue = true
-
-                 })
-                 .onEnded({ value in
-                     self.showValue = false
-                     self.showLabelValue = false
-                     self.touchLocation = -1
-                 }))
-             .gesture(TapGesture())
+             
+             
         }
     }
     func getCurrentValue() -> (String,Double)? {
