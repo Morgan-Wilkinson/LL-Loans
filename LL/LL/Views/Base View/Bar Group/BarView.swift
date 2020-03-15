@@ -77,7 +77,7 @@ struct BarView: View {
                             self.width = geometry.frame(in: CoordinateSpace.local).width
                             self.touchLocation = value.location.x / self.width
                             self.showValue = true
-                            self.currentValue = self.getCurrentValue()?.1 ?? 0
+                            self.currentValue = self.getCurrentValue()
                             self.currentMonth = self.getCurrentMonth()
                             self.showLabelValue = true
 
@@ -92,10 +92,10 @@ struct BarView: View {
             }
         }.padding()
     }
-    func getCurrentValue() -> (String,Double)? {
-        guard self.barValues[self.pickerSelection].count > 0 else { return nil}
+    func getCurrentValue() -> Double{
+        guard self.barValues[self.pickerSelection].count > 0 else { return 0}
      let index = max(0,min(self.barValues[self.pickerSelection].count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.barValues[self.pickerSelection].count))))))
-        return ChartData(points: self.barValues[self.pickerSelection]).points[index]
+        return self.barValues[self.pickerSelection][index]
     }
     
     func getCurrentMonth() -> String {
