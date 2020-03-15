@@ -43,7 +43,7 @@ struct LoanDetail: View{
                 //Card(subtitle: "Amortization Schedule", title: "", briefSummary: "", description: "\(remainingBalance)")
                 //BarChartView(chartData: balanceArray, normalizedChartData: normalizedArray,data: ChartData(points: balanceArray[2]), title: "Title", legend: "Legendary", form: ChartForm.large)
                 
-                BarRow(barValues: normalizedArray)
+               // BarRow(barValues: normalizedArray)
            }
             /*
             List {
