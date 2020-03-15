@@ -25,14 +25,6 @@
 		C771457C241960EC00906B63 /* BarChartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7714578241960EC00906B63 /* BarChartRow.swift */; };
 		C771457D241960EC00906B63 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7714579241960EC00906B63 /* BarChartView.swift */; };
 		C771457F2419616500906B63 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C771457E2419616500906B63 /* Helpers.swift */; };
-		C771458B2419AF4900906B63 /* Legend.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145832419AF4900906B63 /* Legend.swift */; };
-		C771458C2419AF4900906B63 /* Path+QuadCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145842419AF4900906B63 /* Path+QuadCurve.swift */; };
-		C771458D2419AF4900906B63 /* IndicatorPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145852419AF4900906B63 /* IndicatorPoint.swift */; };
-		C771458E2419AF4900906B63 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145862419AF4900906B63 /* Line.swift */; };
-		C771458F2419AF4900906B63 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145872419AF4900906B63 /* LineChartView.swift */; };
-		C77145902419AF4900906B63 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145882419AF4900906B63 /* LineView.swift */; };
-		C77145912419AF4900906B63 /* MagnifierRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77145892419AF4900906B63 /* MagnifierRect.swift */; };
-		C77145922419AF4900906B63 /* MultiLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C771458A2419AF4900906B63 /* MultiLineChartView.swift */; };
 		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
 		C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B7405B241DBDB30028AE18 /* BarView.swift */; };
@@ -61,14 +53,6 @@
 		C7714578241960EC00906B63 /* BarChartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartRow.swift; sourceTree = "<group>"; };
 		C7714579241960EC00906B63 /* BarChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		C771457E2419616500906B63 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		C77145832419AF4900906B63 /* Legend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Legend.swift; sourceTree = "<group>"; };
-		C77145842419AF4900906B63 /* Path+QuadCurve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+QuadCurve.swift"; sourceTree = "<group>"; };
-		C77145852419AF4900906B63 /* IndicatorPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorPoint.swift; sourceTree = "<group>"; };
-		C77145862419AF4900906B63 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
-		C77145872419AF4900906B63 /* LineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
-		C77145882419AF4900906B63 /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
-		C77145892419AF4900906B63 /* MagnifierRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagnifierRect.swift; sourceTree = "<group>"; };
-		C771458A2419AF4900906B63 /* MultiLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineChartView.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
 		C7B7405B241DBDB30028AE18 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
@@ -133,7 +117,6 @@
 		C7714575241960BD00906B63 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				C77145822419AED700906B63 /* Line Chart */,
 				C77145802419ABAB00906B63 /* AppChart Bar Chart */,
 				C771457E2419616500906B63 /* Helpers.swift */,
 			);
@@ -149,21 +132,6 @@
 				C7714576241960EC00906B63 /* LabelView.swift */,
 			);
 			path = "AppChart Bar Chart";
-			sourceTree = "<group>";
-		};
-		C77145822419AED700906B63 /* Line Chart */ = {
-			isa = PBXGroup;
-			children = (
-				C77145852419AF4900906B63 /* IndicatorPoint.swift */,
-				C77145832419AF4900906B63 /* Legend.swift */,
-				C77145862419AF4900906B63 /* Line.swift */,
-				C77145872419AF4900906B63 /* LineChartView.swift */,
-				C77145882419AF4900906B63 /* LineView.swift */,
-				C77145892419AF4900906B63 /* MagnifierRect.swift */,
-				C771458A2419AF4900906B63 /* MultiLineChartView.swift */,
-				C77145842419AF4900906B63 /* Path+QuadCurve.swift */,
-			);
-			path = "Line Chart";
 			sourceTree = "<group>";
 		};
 		C78E79D824195CF20067FB08 /* Core Data */ = {
@@ -306,27 +274,19 @@
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
-				C771458B2419AF4900906B63 /* Legend.swift in Sources */,
-				C77145922419AF4900906B63 /* MultiLineChartView.swift in Sources */,
 				C7942D3324188219000EF862 /* BarCell.swift in Sources */,
 				C771457D241960EC00906B63 /* BarChartView.swift in Sources */,
-				C771458E2419AF4900906B63 /* Line.swift in Sources */,
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9041E8F423C448E90046B9BF /* ContentView.swift in Sources */,
-				C77145912419AF4900906B63 /* MagnifierRect.swift in Sources */,
 				C771457A241960EC00906B63 /* LabelView.swift in Sources */,
-				C771458F2419AF4900906B63 /* LineChartView.swift in Sources */,
 				C771457C241960EC00906B63 /* BarChartRow.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				C771457F2419616500906B63 /* Helpers.swift in Sources */,
-				C771458C2419AF4900906B63 /* Path+QuadCurve.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
-				C77145902419AF4900906B63 /* LineView.swift in Sources */,
 				C7942D312418623F000EF862 /* BarRow.swift in Sources */,
 				9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */,
-				C771458D2419AF4900906B63 /* IndicatorPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

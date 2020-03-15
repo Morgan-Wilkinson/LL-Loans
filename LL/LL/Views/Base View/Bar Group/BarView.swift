@@ -9,17 +9,18 @@
 import SwiftUI
 
 struct BarView: View {
-    private var data: ChartData
     public var title: String
     public var cornerImage: Image
     public var valueSpecifier:String
-
-    @State var barValues: [[CGFloat]]
+    
+    @State var monthsSeries: [String]
+    @State var barValues: [[Double]]
     @State var pickerSelection = 0
     @State private var width: CGFloat = 0
     @State private var touchLocation: CGFloat = -1.0
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
+    @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 {
         didSet{
             if(oldValue != self.currentValue && self.showValue) {
@@ -28,79 +29,87 @@ struct BarView: View {
         }
     }
 
-    public init(data:ChartData, title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", barValues: [[CGFloat]]){
-        self.data = data
+    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", monthsSeries: [String], barValues: [[Double]]){
         self.title = title
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
+        self._monthsSeries = State(initialValue: monthsSeries)
         self._barValues = State(initialValue: barValues)
     }
 
     public var body: some View {
-     GeometryReader { geometry in
-         ZStack{
-             Rectangle()
-                 .fill(Color.white)
-                 .cornerRadius(20)
-                 .shadow(radius: 8)
-             VStack(alignment: .leading){
-                    Picker(selection: self.$pickerSelection, label: Text("Stats")) {
-                        Text("Balance").tag(0)
-                        Text("Interest").tag(1)
-                        Text("Principal").tag(2)
-                    }.pickerStyle(SegmentedPickerStyle())
-                        .id(self.barValues[self.pickerSelection])
-                    .padding([.top, .leading, .trailing])
-                    HStack{
-                         // Shows Title
-                         if(!self.showValue){
-                             Text(self.title)
-                                 .font(.headline)
-                         }
-                         // Shows Values
-                         else{
-                             Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                                 .font(.headline)
-                         }
-                         Spacer()
-                         self.cornerImage
-                             .imageScale(.large)
-                    }.padding(.horizontal)
+         GeometryReader { geometry in
+             ZStack{
+                 Rectangle()
+                     .fill(Color.white)
+                     .cornerRadius(20)
+                     .shadow(radius: 8)
+                    //.padding()
+                 VStack(alignment: .leading){
+                        Picker(selection: self.$pickerSelection, label: Text("Stats"))
+                            {
+                            Text("Balance").tag(0)
+                            Text("Interest").tag(1)
+                            Text("Principal").tag(2)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                            .padding([.top, .leading, .trailing])
 
-                    BarRow(data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
-                .gesture(DragGesture()
-                .onChanged({ value in
-                    self.width = geometry.frame(in: CoordinateSpace.local).width
-                    self.touchLocation = value.location.x / self.width
-                    self.showValue = true
-                    self.currentValue = self.getCurrentValue()?.1 ?? 0
-                    self.showLabelValue = true
+                        HStack{
+                             // Shows Title
+                             if(!self.showValue){
+                                 Text(self.title)
+                                     .font(.headline)
+                             }
+                             // Shows Values
+                             else{
+                                Text("\(self.currentValue, specifier: self.valueSpecifier) - \(self.currentMonth)")
+                                     .font(.headline)
+                             }
+                             Spacer()
+                             self.cornerImage
+                                 .imageScale(.large)
+                         }.padding([.leading, .bottom, .trailing])
 
-                })
-                .onEnded({ value in
-                    self.showValue = false
-                    self.showLabelValue = false
-                    self.touchLocation = -1
-                }))
-                .gesture(TapGesture())
-             }
-            }.padding()
-             
-             
-        }
+                        BarRow(data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
+                      .gesture(DragGesture()
+                        .onChanged({ value in
+                            self.width = geometry.frame(in: CoordinateSpace.local).width
+                            self.touchLocation = value.location.x / self.width
+                            self.showValue = true
+                            self.currentValue = self.getCurrentValue()?.1 ?? 0
+                            self.currentMonth = self.getCurrentMonth()
+                            self.showLabelValue = true
+
+                        })
+                        .onEnded({ value in
+                            self.showValue = false
+                            self.showLabelValue = false
+                            self.touchLocation = -1
+                        }))
+                        .gesture(TapGesture())
+                 }.id(self.pickerSelection)
+            }
+        }.padding()
     }
     func getCurrentValue() -> (String,Double)? {
-     guard self.data.points.count > 0 else { return nil}
-     let index = max(0,min(self.data.points.count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.data.points.count))))))
-     return self.data.points[index]
+        guard self.barValues[self.pickerSelection].count > 0 else { return nil}
+     let index = max(0,min(self.barValues[self.pickerSelection].count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.barValues[self.pickerSelection].count))))))
+        return ChartData(points: self.barValues[self.pickerSelection]).points[index]
+    }
+    
+    func getCurrentMonth() -> String {
+        guard self.monthsSeries.count > 0 else { return ""}
+     let index = max(0,min(self.monthsSeries.count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.monthsSeries.count))))))
+        return self.monthsSeries[index]
     }
 }
 
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
-        BarView(data: ChartData(points: [75.0, 9635, 1523, 62.36, 159, 326.25, 159.3658, 15884]),
+        BarView(
         title: "Model 3 sales",
-        valueSpecifier: "%.2f",
+        valueSpecifier: "%.2f", monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
         barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]])
     }
 }
