@@ -21,13 +21,7 @@ struct BarView: View {
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
     @State private var currentMonth: String = ""
-    @State private var currentValue: Double = 0 {
-        didSet{
-            if(oldValue != self.currentValue && self.showValue) {
-                HapticFeedback.playSelection()
-            }
-        }
-    }
+    @State private var currentValue: Double = 0 
 
     public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", monthsSeries: [String], barValues: [[Double]]){
         self.title = title
