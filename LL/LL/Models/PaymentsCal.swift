@@ -62,11 +62,14 @@ class PaymentsCal {
         var balanceArray: [Double] = []
         let powerNMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), self.months) as NSNumber)
         
+           print("Balances")
         for index in 0...(self.months - 1) {
             let powerPMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), index) as NSNumber) // 5 months left
             let numerator2 = self.oriPrincipal * (powerNMonths - powerPMonths)
             let denominator2 = powerNMonths - 1
-
+            
+         
+            print((((numerator2 / denominator2) * 100).rounded() / 100))
             balanceArray.append(((numerator2 / denominator2) * 100).rounded() / 100)
         }
         return balanceArray
@@ -86,8 +89,9 @@ class PaymentsCal {
     // Returns an array of all the interest amounts based off of the array of balanaces
     func allInterest(allBalances: [Double]) -> [Double] {
         var allInterest: [Double] = []
-
+        print("\ninterest")
         for balance in allBalances{
+            print(((self.monthlyIntRate * balance) * 100).rounded() / 100)
             allInterest.append(((self.monthlyIntRate * balance) * 100).rounded() / 100)
         }
         return allInterest
@@ -97,8 +101,10 @@ class PaymentsCal {
     func allPrincipal(allInterest: [Double]) -> [Double] {
         var allPrincipal: [Double] = []
         let monthlyPayment = self.mortgageMonthly()
-
+        
+        print("\nBalance")
         for interest in allInterest {
+            print(((monthlyPayment - interest) * 100).rounded() / 100)
             allPrincipal.append(((monthlyPayment - interest) * 100).rounded() / 100)
         }
         return allPrincipal

@@ -43,8 +43,8 @@ struct BarView: View {
                         Picker(selection: self.$pickerSelection, label: Text("Stats"))
                             {
                             Text("Balance").tag(0)
-                            Text("Interest").tag(1)
-                            Text("Principal").tag(2)
+                            Text("Interest").tag(2)
+                            Text("Principal").tag(1)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                             .padding([.top, .leading, .trailing])

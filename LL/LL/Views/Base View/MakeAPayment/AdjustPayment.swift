@@ -29,7 +29,7 @@ struct AdjustPayment: View {
                 Divider()
                 TextField("What did you pay this month? E.g 150.95", text: self.$payment)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                    .padding(.horizontal)
                 // Button
             }
         }.padding()
