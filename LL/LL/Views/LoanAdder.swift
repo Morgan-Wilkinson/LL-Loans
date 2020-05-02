@@ -172,21 +172,15 @@ struct LoanAdder: View {
                 }.shadow(radius: 10)
                 
                 Section{
-                
-                    TextField("Description", text: self.$about)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .lineLimit(nil)
-                        .padding(.all)
-                        .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
-                        .cornerRadius(5)
-                    
-                    Button(action: {
-                        Text("kkkk")
-                    }){
-                        TextField("Description", text: self.$about)
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.white)
+                        MultilineTextField("Description", text: self.$about)
+                            .padding()
+                            .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
                     }
-                    
                 }
+                
             }.buttonStyle(PlainButtonStyle())
             .padding(.vertical)
             .foregroundColor(Color.blue)

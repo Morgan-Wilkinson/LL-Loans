@@ -76,6 +76,8 @@ struct LoanView: View {
 
 struct LoanView_Previews: PreviewProvider {
     static var previews: some View {
-        LoanView()
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        //Test data
+        return LoanView().environment(\.managedObjectContext, context)
     }
 }

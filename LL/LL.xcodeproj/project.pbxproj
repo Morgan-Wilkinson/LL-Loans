@@ -19,6 +19,7 @@
 		9041E90623C449A80046B9BF /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90523C449A80046B9BF /* LoanView.swift */; };
 		9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90723C449C30046B9BF /* LoanDetail.swift */; };
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
+		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
 		C7049FA82415E09300636392 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7049FA72415E09300636392 /* Card.swift */; };
 		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
@@ -43,6 +44,7 @@
 		9041E90523C449A80046B9BF /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 		9041E90723C449C30046B9BF /* LoanDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetail.swift; sourceTree = "<group>"; };
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
+		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				9041E90523C449A80046B9BF /* LoanView.swift */,
 				904BE86323C5789800884426 /* LoanAdder.swift */,
 				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
+				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
+				9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */,
 				C7942D3324188219000EF862 /* BarCell.swift in Sources */,
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */,

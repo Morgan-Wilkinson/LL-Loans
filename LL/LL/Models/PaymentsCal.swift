@@ -41,7 +41,7 @@ class PaymentsCal {
         var months: [String] = []
         
         for index in 0...self.months - 1 {
-            var next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
+            let next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
             months.append(format.string(from: next!))
         }
         return months
