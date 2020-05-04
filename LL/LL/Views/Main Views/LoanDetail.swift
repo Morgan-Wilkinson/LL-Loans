@@ -11,20 +11,27 @@ import SwiftUI
 
 struct LoanDetail: View{
     var loanItem: Loans
-    var myCalendar = Calendar.current
     @State private var showModal = false
     
     var body: some View {
+        // Data calculators
         let calculator = PaymentsCal(loan: self.loanItem)
         let monthlyPayment = calculator.mortgageMonthly()
         let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
-        var normalizedArray: [[Double]] = []
-        for array in balanceArray {
-            normalizedArray.append(calculator.normalizedValues(array: array))
-        }
-        let monthSeries = calculator.monthSeries()
         
+        var smallMonths: [[Double]] = []
+        for array in balanceArray {
+            smallMonths.append(calculator.smallMonthsValues(array: array))
+            //print("")
+        }
+        
+        // Months arrays
+        let smallMonthSeries = calculator.smallMonthSeries(length: smallMonths[0].count)
+        
+        // Time from start to now
         let timeTracker = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date())
+        
+        // Formatters for Date style
         let formatter1 = DateIntervalFormatter()
         let formatter2 = DateFormatter()
         
@@ -37,9 +44,10 @@ struct LoanDetail: View{
         return VStack {
             VStack{
                 // Loan Payment at a glance.
-                Card(subtitle: "Payment's At A Glance", title: "\(loanItem.origin) - \(loanItem.typeOfLoan) Loan", briefSummary: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)", description: "Principal: $\(balanceArray[2][timeTracker.month!]) \nInterest: $\(balanceArray[1][timeTracker.month!]) \nBalance: $\(balanceArray[0][timeTracker.month!]) \n\n \(loanItem.about)")
+                Card(subtitle: "\(loanItem.origin)", title: "\(loanItem.name) - \(loanItem.typeOfLoan) Loan", overview: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)",
+                    briefSummary: "Principal: $\(smallMonths[2][timeTracker.month!]) \nInterest: $\(smallMonths[1][timeTracker.month!]) \nBalance: $\(smallMonths[0][timeTracker.month!])", description: "\(loanItem.about)", month: "\(formatter2.string(from:loanItem.nextDueDate - 2628000))")
                 // Amortization Schedule
-                BarView(title: "History & Projections", monthsSeries: monthSeries, barValues: balanceArray)
+                BarView(title: "History & Projections", monthsSeries: smallMonthSeries, barValues: smallMonths)
                 //AdjustPayment()
                
            }

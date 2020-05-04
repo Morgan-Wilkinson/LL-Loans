@@ -23,7 +23,7 @@ struct BarView: View {
     @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 
 
-    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.1f", monthsSeries: [String], barValues: [[Double]]){
+    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", monthsSeries: [String], barValues: [[Double]]){
         self.title = title
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
@@ -41,10 +41,11 @@ struct BarView: View {
                     //.padding()
                  VStack(alignment: .leading){
                         Picker(selection: self.$pickerSelection, label: Text("Stats"))
-                            {
+                        {
+                            // Balance Interest Principal
                             Text("Balance").tag(0)
-                            Text("Interest").tag(2)
-                            Text("Principal").tag(1)
+                            Text("Interest").tag(1)
+                            Text("Principal").tag(2)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                             .padding([.top, .leading, .trailing])
@@ -86,12 +87,14 @@ struct BarView: View {
             }
         }.padding()
     }
+    // Returns the current value of the selected bar
     func getCurrentValue() -> Double{
         guard self.barValues[self.pickerSelection].count > 0 else { return 0}
      let index = max(0,min(self.barValues[self.pickerSelection].count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.barValues[self.pickerSelection].count))))))
         return self.barValues[self.pickerSelection][index]
     }
     
+    // Returns the current month of the selected bar 
     func getCurrentMonth() -> String {
         guard self.monthsSeries.count > 0 else { return ""}
      let index = max(0,min(self.monthsSeries.count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.monthsSeries.count))))))

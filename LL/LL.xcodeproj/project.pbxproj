@@ -11,7 +11,6 @@
 		9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EC23C448E90046B9BF /* AppDelegate.swift */; };
 		9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EE23C448E90046B9BF /* SceneDelegate.swift */; };
 		9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8F023C448E90046B9BF /* LL.xcdatamodeld */; };
-		9041E8F423C448E90046B9BF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8F323C448E90046B9BF /* ContentView.swift */; };
 		9041E8F623C448EC0046B9BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9041E8F523C448EC0046B9BF /* Assets.xcassets */; };
 		9041E8F923C448EC0046B9BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9041E8F823C448EC0046B9BF /* Preview Assets.xcassets */; };
 		9041E8FC23C448EC0046B9BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9041E8FA23C448EC0046B9BF /* LaunchScreen.storyboard */; };
@@ -20,6 +19,7 @@
 		9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90723C449C30046B9BF /* LoanDetail.swift */; };
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
 		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
+		9069D517245E66D700A14C55 /* TotalDebtCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D516245E66D700A14C55 /* TotalDebtCal.swift */; };
 		C7049FA82415E09300636392 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7049FA72415E09300636392 /* Card.swift */; };
 		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
@@ -35,7 +35,6 @@
 		9041E8EC23C448E90046B9BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9041E8EE23C448E90046B9BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9041E8F123C448E90046B9BF /* LL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LL.xcdatamodel; sourceTree = "<group>"; };
-		9041E8F323C448E90046B9BF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9041E8F523C448EC0046B9BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9041E8F823C448EC0046B9BF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9041E8FB23C448EC0046B9BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,7 +43,9 @@
 		9041E90523C449A80046B9BF /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 		9041E90723C449C30046B9BF /* LoanDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetail.swift; sourceTree = "<group>"; };
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
+		904D3A03245F767200EEC4E0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
+		9069D516245E66D700A14C55 /* TotalDebtCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDebtCal.swift; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		9041E8E023C448E90046B9BF = {
 			isa = PBXGroup;
 			children = (
+				904D3A03245F767200EEC4E0 /* MyPlayground.playground */,
 				9041E8EB23C448E90046B9BF /* LL */,
 				9041E8EA23C448E90046B9BF /* Products */,
 			);
@@ -90,7 +92,6 @@
 				C78E79D824195CF20067FB08 /* Core Data */,
 				9041E8EC23C448E90046B9BF /* AppDelegate.swift */,
 				9041E8EE23C448E90046B9BF /* SceneDelegate.swift */,
-				9041E8F323C448E90046B9BF /* ContentView.swift */,
 				9041E8F523C448EC0046B9BF /* Assets.xcassets */,
 				9041E8FA23C448EC0046B9BF /* LaunchScreen.storyboard */,
 				9041E8FD23C448EC0046B9BF /* Info.plist */,
@@ -108,6 +109,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		904D3A04245F890500EEC4E0 /* Main Views */ = {
+			isa = PBXGroup;
+			children = (
+				9041E90723C449C30046B9BF /* LoanDetail.swift */,
+				9041E90523C449A80046B9BF /* LoanView.swift */,
+				904BE86323C5789800884426 /* LoanAdder.swift */,
+				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
+				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
+			);
+			path = "Main Views";
+			sourceTree = "<group>";
+		};
 		C78E79D824195CF20067FB08 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,12 +133,8 @@
 		C78E79DA24195D620067FB08 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C78E79DD24195FB20067FB08 /* Base View */,
-				9041E90723C449C30046B9BF /* LoanDetail.swift */,
-				9041E90523C449A80046B9BF /* LoanView.swift */,
-				904BE86323C5789800884426 /* LoanAdder.swift */,
-				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
-				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
+				904D3A04245F890500EEC4E0 /* Main Views */,
+				C78E79DD24195FB20067FB08 /* Base Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,18 +143,19 @@
 			isa = PBXGroup;
 			children = (
 				902850F723D64C53007B78BC /* PaymentsCal.swift */,
+				9069D516245E66D700A14C55 /* TotalDebtCal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C78E79DD24195FB20067FB08 /* Base View */ = {
+		C78E79DD24195FB20067FB08 /* Base Views */ = {
 			isa = PBXGroup;
 			children = (
 				C794AAF0241EF86B0054B6C1 /* MakeAPayment */,
 				C7B74059241DBB190028AE18 /* Bar Group */,
 				C7B7405A241DBB2E0028AE18 /* Card Group */,
 			);
-			path = "Base View";
+			path = "Base Views";
 			sourceTree = "<group>";
 		};
 		C794AAF0241EF86B0054B6C1 /* MakeAPayment */ = {
@@ -261,7 +271,7 @@
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
-				9041E8F423C448E90046B9BF /* ContentView.swift in Sources */,
+				9069D517245E66D700A14C55 /* TotalDebtCal.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,

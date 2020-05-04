@@ -34,7 +34,12 @@ struct BarRow: View {
     }
     
     func normalizedValue(index: Int) -> Double {
-        return Double(self.data[index])/Double(self.maxValue)
+        if (self.data[index] == 0 || self.maxValue == 0){
+            return 0
+        }
+        else {
+            return Double(self.data[index])/Double(self.maxValue)
+        }
     }
 }
 
