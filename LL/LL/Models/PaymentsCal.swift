@@ -28,7 +28,7 @@ class PaymentsCal {
         // Loan Variables.
         self.interest = Double(truncating: (self.loan.interestRate))
         self.oriPrincipal = Double(truncating: (self.loan.originalPrincipal))
-        self.curPrincipal = Double(truncating: (self.loan.originalPrincipal)) /////////////////
+        self.curPrincipal = Double(truncating: (self.loan.originalPrincipal))
         self.months = (Int)(truncating: self.loan.termMonths)
         self.monthlyIntRate = (interest / 100) / 12 // 12 due to 12 months
         timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
@@ -36,45 +36,52 @@ class PaymentsCal {
     
     
     func smallMonthsValues(array: [Double]) -> [Double] {
+        let fourMonthBuffer = 4
+        let leeway  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
         var smallMonths: [Double] = []
-        let threeMonths  = Date() - 7884000 // 7884000 is 3 months in seconds (TimeInterval)
-        let totalMonths = self.months
-        let checkTimeBuffer = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
-        var timeLeft: Int = 0
-        
-        // Decides on where to start the array
-        let timeBuff = checkTimeBuffer <= 3 ? 0 : Calendar.current.dateComponents([.month, .day], from: threeMonths, to: Date()).month!
+        var timeLeft: Int
+
+        // Returns how much months have passed since the start of the loan to the current Date
+        let timeBuffer = leeway > fourMonthBuffer ? (leeway - fourMonthBuffer) : 0
+        print(leeway)
+        // Returns how much months are left
+        let totalMonthsLeft = self.months - leeway
+        print(totalMonthsLeft)
         
         // Decides on how far to go with the array
-        if (totalMonths > 12){
-            if((totalMonths - 1) - timeBuff >= 12){
-                timeLeft = timeBuff + 12
+        if (totalMonthsLeft > 12){
+            if((totalMonthsLeft - 1) >= (timeBuffer + 12)){
+                timeLeft = timeBuffer + 12
             }
             else{
-                timeLeft = totalMonths - 1 - timeBuff
+                timeLeft = totalMonthsLeft - 1 - timeBuffer
             }
         }
         else{
-            timeLeft = totalMonths - 1
+            print("thi")
+            timeLeft = self.months - 1
         }
-
-        for i in timeBuff...timeLeft{
+        print(timeBuffer)
+        // Add mounts based on the range of time we are in the present.
+        for i in timeBuffer...timeLeft{
             smallMonths.append(array[i])
         }
-        
         return smallMonths
     }
     
     func smallMonthSeries(length: Int) -> [String] {
         var months: [String] = []
+        let oneMonth = 2628000
+        let threeMonthBuffer = 3
         let checkTimeBuffer = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
         // Decides on where to start the array
-        let timeBuff = checkTimeBuffer <= 3 ? Date() : Date() - 7884000 // 3 months behind todays Date
+        let timeBuff = checkTimeBuffer <= threeMonthBuffer ? Date() - TimeInterval((oneMonth * (checkTimeBuffer - 1))) : Date() - TimeInterval(oneMonth * threeMonthBuffer)
         
         for index in 0...length - 1 {
             let next = Calendar.current.date(byAdding: .month, value: index, to: timeBuff)
             months.append(format.string(from: next!))
         }
+        
         
         return months
     }
@@ -91,10 +98,16 @@ class PaymentsCal {
     }
     
     func arrayBalanceMonInterestMonPrincipal() -> [[Double]] {
-        let allbalanceArray: [Double] = self.allBalances()
-        let monInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
-        let monPrincipalArray: [Double] = self.allPrincipal(allInterest: monInterestArray)
-        return [allbalanceArray, monInterestArray, monPrincipalArray]
+        var allbalanceArray: [Double] = self.allBalances()
+        var allInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
+        var allPrincipalArray: [Double] = self.allPrincipal(allInterest: allInterestArray)
+        
+        // Removes the parts of the calulation that are of no use to the user.
+        allbalanceArray.removeFirst()
+        allInterestArray.removeLast()
+        allPrincipalArray.removeLast()
+        
+        return [allbalanceArray, allInterestArray, allPrincipalArray]
     }
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]
@@ -107,10 +120,8 @@ class PaymentsCal {
             let powerPMonths = Double(truncating: pow((Decimal)(1 + monthlyIntRate), index) as NSNumber)
             let numerator2 = self.oriPrincipal * (powerNMonths - powerPMonths)
             let denominator2 = powerNMonths - 1
-            print(((numerator2 / denominator2) * 100).rounded() / 100)
             balanceArray.append(((numerator2 / denominator2) * 100).rounded() / 100)
         }
-        print("\n\n\n")
         return balanceArray
     }
     
@@ -131,9 +142,7 @@ class PaymentsCal {
         
         for balance in allBalances{
             allInterest.append(((self.monthlyIntRate * balance) * 100).rounded() / 100)
-            print(((self.monthlyIntRate * balance) * 100).rounded() / 100)
         }
-        
         return allInterest
     }
     
@@ -145,6 +154,7 @@ class PaymentsCal {
         for interest in allInterest {
             allPrincipal.append(((monthlyPayment - interest) * 100).rounded() / 100)
         }
+        
         return allPrincipal
     }
     

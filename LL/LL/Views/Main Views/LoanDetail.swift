@@ -28,8 +28,11 @@ struct LoanDetail: View{
         // Months arrays
         let smallMonthSeries = calculator.smallMonthSeries(length: smallMonths[0].count)
         
-        // Time from start to now
-        let timeTracker = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date())
+        // The array is set to have index four be the current Month or any month less than 4.
+        let threeMonthBuffer = 3
+        let leeway  = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
+        let currentMonth = leeway > threeMonthBuffer ? 3 : leeway
+        print(leeway)
         
         // Formatters for Date style
         let formatter1 = DateIntervalFormatter()
@@ -45,9 +48,9 @@ struct LoanDetail: View{
             VStack{
                 // Loan Payment at a glance.
                 Card(subtitle: "\(loanItem.origin)", title: "\(loanItem.name) - \(loanItem.typeOfLoan) Loan", overview: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)",
-                    briefSummary: "Principal: $\(smallMonths[2][timeTracker.month!]) \nInterest: $\(smallMonths[1][timeTracker.month!]) \nBalance: $\(smallMonths[0][timeTracker.month!])", description: "\(loanItem.about)", month: "\(formatter2.string(from:loanItem.nextDueDate - 2628000))")
+                    briefSummary: "Principal: $\(smallMonths[2][currentMonth]) \nInterest: $\(smallMonths[1][currentMonth]) \nBalance: $\(smallMonths[0][currentMonth])", description: "\(loanItem.about)", month: "\(formatter2.string(from:loanItem.nextDueDate - 2628000))")
                 // Amortization Schedule
-                BarView(title: "History & Projections", monthsSeries: smallMonthSeries, barValues: smallMonths)
+                BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: smallMonthSeries, barValues: smallMonths)
                 //AdjustPayment()
                
            }
@@ -66,7 +69,7 @@ struct LoanDetail: View{
             }.navigationBarTitle("\(loanItem.name)")
  */
         }
-        .navigationBarTitle("\(loanItem.name.capitalizingFirstLetter()) Data")
+        .navigationBarTitle("\(loanItem.name.capitalizingFirstLetter())")
         .navigationBarItems(trailing: NavigationLink(destination: LoanEditor(loan: self.loanItem)){
             HStack{
                     Image(systemName: "pencil.circle.fill")

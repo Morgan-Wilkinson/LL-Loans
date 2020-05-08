@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 
 struct BarCell: View {
+    var currentMonth: Int
     var value: Double
     var index: Int = 0
     var width: Float
@@ -22,9 +23,10 @@ struct BarCell: View {
     @Binding var touchLocation: CGFloat
     
     public var body: some View {
-        ZStack {
+        let gradientColor: LinearGradient = index == currentMonth ? LinearGradient(gradient: Gradient(colors: [.orange, .yellow, .blue, .purple]), startPoint: .top, endPoint: .bottom): LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom)
+        return ZStack {
             RoundedRectangle(cornerRadius: 4)
-                .fill(LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom))
+                .fill(gradientColor)
             }
             .frame(width: CGFloat(self.cellWidth))
             .scaleEffect(CGSize(width: 1, height: self.scaleValue), anchor: .bottom)
@@ -37,6 +39,6 @@ struct BarCell: View {
 
 struct BarCell_Previews: PreviewProvider {
     static var previews: some View {
-        BarCell(value: Double(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
+        BarCell(currentMonth: 4, value: Double(0.75), width: 320, numberOfDataPoints: 12, touchLocation: .constant(-1))
     }
 }

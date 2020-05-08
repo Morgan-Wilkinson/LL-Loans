@@ -11,7 +11,8 @@ import SwiftUI
 struct BarView: View {
     public var title: String
     public var cornerImage: Image
-    public var valueSpecifier:String
+    public var valueSpecifier: String
+    public var currentMonthIndex: Int
     
     @State var monthsSeries: [String]
     @State var barValues: [[Double]]
@@ -23,10 +24,11 @@ struct BarView: View {
     @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 
 
-    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", monthsSeries: [String], barValues: [[Double]]){
+    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", currentMonthIndex: Int, monthsSeries: [String], barValues: [[Double]]){
         self.title = title
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
+        self.currentMonthIndex = currentMonthIndex
         self._monthsSeries = State(initialValue: monthsSeries)
         self._barValues = State(initialValue: barValues)
     }
@@ -66,7 +68,7 @@ struct BarView: View {
                                  .imageScale(.large)
                          }.padding([.leading, .bottom, .trailing])
 
-                        BarRow(data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
+                    BarRow(currentMonthIndex: self.currentMonthIndex, data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
                       .gesture(DragGesture()
                         .onChanged({ value in
                             self.width = geometry.frame(in: CoordinateSpace.local).width
@@ -105,8 +107,8 @@ struct BarView: View {
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
         BarView(
-        title: "Model 3 sales",
-        valueSpecifier: "%.2f", monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
+        title: "Model 3 sales", cornerImage: Image(systemName: "chart.bar"),
+        valueSpecifier: "%.2f", currentMonthIndex: 4, monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
         barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]])
     }
 }

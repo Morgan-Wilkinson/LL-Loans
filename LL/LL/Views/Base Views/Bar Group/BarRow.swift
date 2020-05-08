@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BarRow: View {
-    
+    var currentMonthIndex: Int
     @Binding var data: [Double]
     var maxValue: Double {
         data.max() ?? 0
@@ -19,7 +19,8 @@ struct BarRow: View {
         GeometryReader { geometry in
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.data.count * 3)){
                 ForEach(0..<self.data.count, id: \.self) { i in
-                    BarCell(value: self.normalizedValue(index: i),
+                    //let currentMonthBool =
+                    BarCell(currentMonth: self.currentMonthIndex, value: self.normalizedValue(index: i),
                             index: i,
                             width: Float(geometry.frame(in: .local).width - 22),
                             numberOfDataPoints: self.data.count,
@@ -45,7 +46,7 @@ struct BarRow: View {
 
 struct BarRow_Previews: PreviewProvider {
     static var previews: some View {
-        BarRow(data: .constant([8,23,54,32,12,37,7]), touchLocation: .constant(-1))
+        BarRow(currentMonthIndex: 4, data: .constant([8,23,54,32,12,37,7]), touchLocation: .constant(-1))
     }
 }
 
