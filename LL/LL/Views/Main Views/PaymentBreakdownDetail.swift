@@ -11,40 +11,78 @@ import SwiftUI
 struct PaymentBreakdownDetail: View {
     var valueSpecifier: String = "%.2f"
     public var title: String
+    public var monthlyPayment: Double = 0
     @State var monthsSeries: [String]
     @State var barValues: [[Double]]
 
     public var body: some View {
-        
-             //ZStack{
-                 //VStack(alignment: .leading){
-                    //ScrollView{
-                    HStack {
-                        
-                        List(){
-                            Section(header: Text("Date")) {
-                                ForEach(monthsSeries,  id: \.self){ month in
-                                    Text("\(month)")
-                                        .font(.body)
-                                        .fontWeight(.medium)
-                                        
-                                }
-                            }
-                        }.navigationBarTitle(self.title)
-                        .listStyle(GroupedListStyle())
-                        .disabled(true)
-                        
-                        
-                        BreakdownList(title: "Principal", barValues: barValues[2])
-                        BreakdownList(title: "Interest", barValues: barValues[1])
-                        BreakdownList(title: "Balance", barValues: barValues[0])
-                    }
-                    //Rectangle().fill(Color.gray).opacity(0.4).frame(width: CGFloat(1))
-                //}
+        VStack {
+            List(){
                 
-            //}.padding(.horizontal)
-            
-        //}
+                HStack{
+                    Group {
+                        Text("Date")
+                            .fontWeight(.regular)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                        
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Payment")
+                            .fontWeight(.regular)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                        
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Principal")
+                            .fontWeight(.regular)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                    
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Interest")
+                            .fontWeight(.regular)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Balance")
+                            .fontWeight(.regular)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                    }
+                }.padding()
+                
+                
+                
+                
+                
+                
+                
+               ForEach(0..<barValues[0].count, id: \.self) { i in
+                   BreakdownRow(month: self.monthsSeries[i], payment: self.barValues[0][i], principal: self.barValues[1][i], interest: self.barValues[2][i], balance: self.barValues[0][i])
+               }
+            }
+        }.navigationBarTitle(self.title)
     }
 }
 
@@ -57,8 +95,9 @@ struct PaymentBreakdownDetail_Previews: PreviewProvider {
 
 
 /*
- ForEach(0..<self.monthsSeries.count, id: \.self) { i in
-     BreakdownList(month: self.monthsSeries[i], payment: self.barValues[0][i], principal: self.barValues[1][i], interest: self.barValues[2][i])
-     
- }
- */
+List(){
+   ForEach(0..<barValues[0].count, id: \.self) { i in
+       BreakdownRow(month: self.monthsSeries[i], payment: self.barValues[0][i], principal: self.barValues[1][i], interest: self.barValues[2][i], balance: self.barValues[0][i])
+   }
+}.navigationBarTitle(self.title)
+*/

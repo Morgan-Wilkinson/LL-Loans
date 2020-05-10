@@ -9,31 +9,30 @@
 import SwiftUI
 
 struct BreakdownList: View {
-    var title: String
+    //var title: String
     var barValues: [Double]
     var valueSpecifier: String = "%.2f"
     
     var body: some View {
-        List(){
-            Section(header: Text(title)) {
+        //List(){
+            //Section(header: Text(title)) {
                 ForEach(barValues,  id: \.self){ value in
                     Text("\(value, specifier: self.valueSpecifier)")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .multilineTextAlignment(.leading)
+                        .fontWeight(.regular)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 
-                }
-            }
+                //}
+           // }
         }
-        .listStyle(GroupedListStyle())
-        .disabled(true)
+       // .listStyle(GroupedListStyle())
+        //.disabled(true)
         
     }
 }
 
 struct BreakdownList_Previews: PreviewProvider {
     static var previews: some View {
-        BreakdownList(title: "Principal",
-        barValues: [854, 1520, 3698, 157.2, 158.3698])
+        BreakdownList(barValues: [854, 1520, 3698, 157.2, 158.3698])
     }
 }
