@@ -19,6 +19,7 @@ struct LoanDetail: View{
         let monthlyPayment = calculator.mortgageMonthly()
         let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
         
+        let allMonthSeries = calculator.allMonthsSeries()
         var smallMonths: [[Double]] = []
         for array in balanceArray {
             smallMonths.append(calculator.smallMonthsValues(array: array))
@@ -44,40 +45,39 @@ struct LoanDetail: View{
         formatter2.dateStyle = .short
         formatter2.dateFormat = "d MMM y"
         
-        return VStack {
-            VStack{
-                // Loan Payment at a glance.
-                Card(subtitle: "\(loanItem.origin)", title: "\(loanItem.name) - \(loanItem.typeOfLoan) Loan", overview: "Next Payment - \(formatter2.string(from: loanItem.nextDueDate)) for $\(monthlyPayment)",
-                    briefSummary: "Principal: $\(smallMonths[2][currentMonth]) \nInterest: $\(smallMonths[1][currentMonth]) \nBalance: $\(smallMonths[0][currentMonth])", description: "\(loanItem.about)", month: "\(formatter2.string(from:loanItem.nextDueDate - 2628000))")
-                // Amortization Schedule
-                BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: smallMonthSeries, barValues: smallMonths)
-                //AdjustPayment()
-               
-           }
-            /*
-            List {
-                Section(header: Text("Analysis of Loan History").font(.headline), footer: Text("Here you can find information about your payments and the remaining time for your loan.")){
-                    VStack(alignment: .leading){
-                        Text("Time passed: \(test.month!) months and \(test.day!) days.")
-                        Text("Time remaining: \(Int(truncating: loanItem.termMonths) - test.month!) months.")
+        return GeometryReader { geometry in
+            ScrollView {
+                VStack{
+                    // Loan Payment at a glance.
+                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Next Payment - \(formatter2.string(from: self.loanItem.nextDueDate)) for $\(monthlyPayment)",
+                        briefSummary: "Principal: $\(smallMonths[2][currentMonth]) \nInterest: $\(smallMonths[1][currentMonth]) \nBalance: $\(smallMonths[0][currentMonth])", description: "\(self.loanItem.about)", month: "\(formatter2.string(from:self.loanItem.nextDueDate - 2628000))")
                     
-                        Spacer()
-                        Spacer()
-                        Text("With your regular payments of $\(loanItem.regularPayments) a month, you will actually pay off this loan in \(cal.finishPayment()) months.")
+                    // Amortization Schedule
+                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: smallMonthSeries, barValues: smallMonths)
+                    
+                
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Payment Breakdown", monthsSeries: allMonthSeries, barValues: balanceArray)) {
+                        Text("Payment Breakdown")
+                            .fontWeight(.bold)
+                            .font(.headline)
+                            .padding(8)
+                            .background(Color.white)
+                            .foregroundColor(.accentColor)
+                            .padding(2)
+                            .border(Color.purple, width: 2)
                     }
-                }
-            }.navigationBarTitle("\(loanItem.name)")
- */
-        }
-        .navigationBarTitle("\(loanItem.name.capitalizingFirstLetter())")
-        .navigationBarItems(trailing: NavigationLink(destination: LoanEditor(loan: self.loanItem)){
-            HStack{
-                    Image(systemName: "pencil.circle.fill")
-                        .foregroundColor(.blue)
-                        .imageScale(.medium)
-                    Text("Edit")
+                }.frame(height: geometry.size.height)
             }
-        })
+            .navigationBarTitle("\(self.loanItem.name.capitalizingFirstLetter())")
+            .navigationBarItems(trailing: NavigationLink(destination: LoanEditor(loan: self.loanItem)){
+                HStack{
+                        Image(systemName: "pencil.circle.fill")
+                            .foregroundColor(.blue)
+                            .imageScale(.medium)
+                        Text("Edit")
+                }
+            })
+        }
     }
 }
 
@@ -90,3 +90,19 @@ extension String {
         self = self.capitalizingFirstLetter()
     }
 }
+
+
+       /*
+           List {
+               Section(header: Text("Analysis of Loan History").font(.headline), footer: Text("Here you can find information about your payments and the remaining time for your loan.")){
+                   VStack(alignment: .leading){
+                       Text("Time passed: \(test.month!) months and \(test.day!) days.")
+                       Text("Time remaining: \(Int(truncating: loanItem.termMonths) - test.month!) months.")
+                   
+                       Spacer()
+                       Spacer()
+                       Text("With your regular payments of $\(loanItem.regularPayments) a month, you will actually pay off this loan in \(cal.finishPayment()) months.")
+                   }
+               }
+           }.navigationBarTitle("\(loanItem.name)")
+*/

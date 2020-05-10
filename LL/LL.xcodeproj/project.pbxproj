@@ -20,6 +20,8 @@
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
 		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
 		9069D517245E66D700A14C55 /* TotalDebtCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D516245E66D700A14C55 /* TotalDebtCal.swift */; };
+		90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */; };
+		90A0D85624673AFD00279F14 /* BreakdownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A0D85524673AFD00279F14 /* BreakdownList.swift */; };
 		C7049FA82415E09300636392 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7049FA72415E09300636392 /* Card.swift */; };
 		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
@@ -46,6 +48,8 @@
 		904D3A03245F767200EEC4E0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		9069D516245E66D700A14C55 /* TotalDebtCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDebtCal.swift; sourceTree = "<group>"; };
+		90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBreakdownDetail.swift; sourceTree = "<group>"; };
+		90A0D85524673AFD00279F14 /* BreakdownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownList.swift; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
@@ -117,8 +121,17 @@
 				904BE86323C5789800884426 /* LoanAdder.swift */,
 				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
+				90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */,
 			);
 			path = "Main Views";
+			sourceTree = "<group>";
+		};
+		90A0D85424673AE100279F14 /* Payment Breakdown */ = {
+			isa = PBXGroup;
+			children = (
+				90A0D85524673AFD00279F14 /* BreakdownList.swift */,
+			);
+			path = "Payment Breakdown";
 			sourceTree = "<group>";
 		};
 		C78E79D824195CF20067FB08 /* Core Data */ = {
@@ -151,6 +164,7 @@
 		C78E79DD24195FB20067FB08 /* Base Views */ = {
 			isa = PBXGroup;
 			children = (
+				90A0D85424673AE100279F14 /* Payment Breakdown */,
 				C794AAF0241EF86B0054B6C1 /* MakeAPayment */,
 				C7B74059241DBB190028AE18 /* Bar Group */,
 				C7B7405A241DBB2E0028AE18 /* Card Group */,
@@ -261,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90A0D85624673AFD00279F14 /* BreakdownList.swift in Sources */,
 				9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */,
 				9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */,
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
@@ -273,6 +288,7 @@
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9069D517245E66D700A14C55 /* TotalDebtCal.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
+				90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
 				C7942D312418623F000EF862 /* BarRow.swift in Sources */,

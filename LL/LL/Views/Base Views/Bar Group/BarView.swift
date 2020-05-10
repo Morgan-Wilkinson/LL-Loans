@@ -42,15 +42,13 @@ struct BarView: View {
                      .shadow(radius: 8)
                     //.padding()
                  VStack(alignment: .leading){
-                        Picker(selection: self.$pickerSelection, label: Text("Stats"))
-                        {
+                        Picker(selection: self.$pickerSelection, label: Text("Stats")){
                             // Balance Interest Principal
                             Text("Balance").tag(0)
                             Text("Interest").tag(1)
                             Text("Principal").tag(2)
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                            .padding([.top, .leading, .trailing])
+                        }.pickerStyle(SegmentedPickerStyle())
+                        .padding([.top, .leading, .trailing])
 
                         HStack{
                              // Shows Title
