@@ -14,7 +14,13 @@ struct LoanView: View {
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
     @State private var navigationSelectionTag: Int? = 0
-
+    let backgroundColor = UIColor(displayP3Red: 0.500, green: 0.5, blue: 0.819, alpha: 1.0)
+    let color = UIColor(named: "Dashboard")
+    init() {
+        UITableView.appearance().backgroundColor = color
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -26,26 +32,18 @@ struct LoanView: View {
                     List {
                         Section(header: Text("Loans").font(.headline), footer: Text("Here is an overview of all your loans.")){
                             ForEach(self.loans, id: \.id) { loan in
-                                VStack{
+                                //VStack{
                                     NavigationLink(destination: LoanDetail(loanItem: loan)) {
                                         VStack(alignment: .leading){
-                                            HStack{
-                                                Text("\(loan.name) - ")
-                                                Text("$\(loan.currentPrincipal)")
-                                            }
-                                            Text("Next Payment Date: \(formatter.string(from: loan.nextDueDate))").font(.caption)
+                                            SimpleRow(name: loan.name, origin: loan.origin, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
                                         }
                                     }
-                                }
+                                //}
                             }.onDelete(perform: deleteLoans)
-                            
-                        }
-                        
-                        Section(header: Text("Total").font(.headline), footer: Text("Here is the total amount owed as of \(Date()).")){
-                            Text("Total Debt")
-                        }
-                    }
+                        }//.foregroundColor(Color.red) 
+                    }.background(Color.white)
                     .listStyle(GroupedListStyle())
+                    .listRowInsets(EdgeInsets())
                     .navigationBarTitle("Overview")
                 }.navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: LoanAdder()){ // Error on EditButton delete
                            HStack{

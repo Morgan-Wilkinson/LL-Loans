@@ -15,25 +15,24 @@ struct LoanDetail: View{
     
     var body: some View {
         // Data calculators
-        let calculator = PaymentsCal(loan: self.loanItem)
-        let monthlyPayment = calculator.mortgageMonthly()
-        let balanceArray = calculator.arrayBalanceMonInterestMonPrincipal()
+        let paymentsCalculator = PaymentsCal(loan: self.loanItem)
+        let monthlyPayment = paymentsCalculator.mortgageMonthly()
+        let balanceArray = paymentsCalculator.arrayBalanceInterestPrincipal()
         
-        let allMonthSeries = calculator.allMonthsSeries()
+        // Months formator
+        let allMonthSeries = paymentsCalculator.allMonthsSeries()
         var smallMonths: [[Double]] = []
         for array in balanceArray {
-            smallMonths.append(calculator.smallMonthsValues(array: array))
+            smallMonths.append(paymentsCalculator.smallMonthsValues(array: array))
             //print("")
         }
-        
         // Months arrays
-        let smallMonthSeries = calculator.smallMonthSeries(length: smallMonths[0].count)
+        let smallMonthSeries = paymentsCalculator.smallMonthSeries(length: smallMonths[0].count)
         
         // The array is set to have index four be the current Month or any month less than 4.
         let threeMonthBuffer = 3
         let leeway  = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
         let currentMonth = leeway > threeMonthBuffer ? 3 : leeway
-        print(leeway)
         
         // Formatters for Date style
         let formatter1 = DateIntervalFormatter()
@@ -41,7 +40,6 @@ struct LoanDetail: View{
         
         formatter1.dateStyle = .short
         formatter1.timeStyle = .none
-        
         formatter2.dateStyle = .short
         formatter2.dateFormat = "d MMM y"
         

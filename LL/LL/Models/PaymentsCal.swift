@@ -34,6 +34,16 @@ class PaymentsCal {
         timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
     }
     
+    func totalInterestSoFar(interestArray: [Double]) -> [Double]{
+        var totalInterestSoFar: [Double] = []
+        
+        totalInterestSoFar.append(interestArray[0])
+        for i in 1..<interestArray.count{
+            totalInterestSoFar.append(totalInterestSoFar[i - 1] + interestArray[i])
+        }
+        
+        return totalInterestSoFar
+    }
     
     func smallMonthsValues(array: [Double]) -> [Double] {
         let fourMonthBuffer = 4
@@ -43,10 +53,8 @@ class PaymentsCal {
 
         // Returns how much months have passed since the start of the loan to the current Date
         let timeBuffer = leeway > fourMonthBuffer ? (leeway - fourMonthBuffer) : 0
-        print(leeway)
         // Returns how much months are left
         let totalMonthsLeft = self.months - leeway
-        print(totalMonthsLeft)
         
         // Decides on how far to go with the array
         if (totalMonthsLeft > 12){
@@ -58,10 +66,8 @@ class PaymentsCal {
             }
         }
         else{
-            print("thi")
             timeLeft = self.months - 1
         }
-        print(timeBuffer)
         // Add mounts based on the range of time we are in the present.
         for i in timeBuffer...timeLeft{
             smallMonths.append(array[i])
@@ -97,17 +103,19 @@ class PaymentsCal {
         return months
     }
     
-    func arrayBalanceMonInterestMonPrincipal() -> [[Double]] {
+    func arrayBalanceInterestPrincipal() -> [[Double]] {
         var allbalanceArray: [Double] = self.allBalances()
         var allInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
         var allPrincipalArray: [Double] = self.allPrincipal(allInterest: allInterestArray)
+        var interestTotals: [Double] = self.totalInterestSoFar(interestArray: allInterestArray)
         
         // Removes the parts of the calulation that are of no use to the user.
         allbalanceArray.removeFirst()
         allInterestArray.removeLast()
         allPrincipalArray.removeLast()
-        
-        return [allbalanceArray, allInterestArray, allPrincipalArray]
+        interestTotals.removeLast()
+
+        return [allbalanceArray, allInterestArray, allPrincipalArray, interestTotals]
     }
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]

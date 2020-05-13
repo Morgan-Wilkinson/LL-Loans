@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PaymentBreakdownDetail: View {
-    var valueSpecifier: String = "%.2f"
+    let valueSpecifier: String = "%.2f"
     public var title: String
     public var monthlyPayment: Double = 0
     @State var monthsSeries: [String]
