@@ -38,9 +38,10 @@ fileprivate struct UITextViewWrapper: UIViewRepresentable {
         if uiView.text != self.text {
             uiView.text = self.text
         }
-        if uiView.window != nil, !uiView.isFirstResponder {
-            uiView.becomeFirstResponder()
-        }
+        // This makes it be the first text field to be highlighted.
+        //if uiView.window != nil, !uiView.isFirstResponder {
+          //  uiView.becomeFirstResponder()
+        //}
         UITextViewWrapper.recalculateHeight(view: uiView, result: $calculatedHeight)
     }
 

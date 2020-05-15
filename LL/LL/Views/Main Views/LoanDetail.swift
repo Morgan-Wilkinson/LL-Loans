@@ -54,15 +54,20 @@ struct LoanDetail: View{
                     BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: smallMonthSeries, barValues: smallMonths)
                     
                 
-                    NavigationLink(destination: PaymentBreakdownDetail(title: "Payment Breakdown", monthsSeries: allMonthSeries, barValues: balanceArray)) {
-                        Text("Payment Breakdown")
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthsSeries: allMonthSeries, barValues: balanceArray)) {
+                        Text("Amortization Schedule")
                             .fontWeight(.bold)
                             .font(.headline)
-                            .padding(8)
-                            .background(Color.white)
-                            .foregroundColor(.accentColor)
-                            .padding(2)
-                            .border(Color.purple, width: 2)
+                            .padding(.horizontal, 50.0)
+                            .padding(.vertical, 12.0)
+                            .background(Color.green)
+                            .cornerRadius(5)
+                            .foregroundColor(.white)
+                            .padding(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.blue, lineWidth: 3)
+                            )
                     }
                 }.frame(height: geometry.size.height)
             }

@@ -10,70 +10,74 @@ import SwiftUI
 
 struct BreakdownRow: View {
     var month: String
-    var payment: Double
     var principal: Double
     var interest: Double
     var balance: Double
     var valueSpecifier: String = "%.2f"
     
     var body: some View {
-        HStack{
-            Group {
-                Text("\(month)")
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
+        GeometryReader { geometry in
+            HStack{
+                Group {
+                    Text("\(self.month)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: geometry.size.width / 6)
+                    Divider()
+                    Spacer()
+                }
                 
-                Divider()
-                Spacer()
-            }
-            
-            Group{
-                Text("\((principal + interest), specifier: valueSpecifier)")
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
+                Group{
+                    Text("\((self.principal + self.interest), specifier: self.valueSpecifier)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: geometry.size.width / 6)
+                    Divider()
+                    Spacer()
+                }
                 
-                Divider()
-                Spacer()
-            }
-            
-            Group{
-                Text("\(principal, specifier: valueSpecifier)")
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-            
-                Divider()
-                Spacer()
-            }
-            
-            Group{
-                Text("\(interest, specifier: valueSpecifier)")
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                Divider()
-                Spacer()
-            }
-            
-            Group{
-                Text("\(balance, specifier: valueSpecifier)")
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-            }
-        }.padding()
+                Group{
+                    Text("\(self.principal, specifier: self.valueSpecifier)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: geometry.size.width / 6)
+                    Divider()
+                    Spacer()
+                }
+                
+                Group{
+                    Text("\(self.interest, specifier: self.valueSpecifier)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: geometry.size.width / 6)
+                    Divider()
+                    Spacer()
+                }
+                
+                Group{
+                    Text("\(self.balance, specifier: self.valueSpecifier)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: geometry.size.width / 6)
+                    Spacer()
+                }
+            }.padding()
+        }
     }
 }
 
 struct BreakdownRow_Previews: PreviewProvider {
     static var previews: some View {
-        BreakdownRow(month: "Jan 20", payment: 3000.00, principal: 1500.00, interest: 1500.00, balance: 10000)
+        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000)
     }
 }

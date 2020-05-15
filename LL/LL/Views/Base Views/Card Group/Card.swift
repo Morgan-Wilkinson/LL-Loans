@@ -19,7 +19,7 @@ struct Card: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
+            Rectangle()
                 .fill(Color.white)
             VStack {
                 VStack(alignment: .leading) {

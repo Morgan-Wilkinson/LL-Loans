@@ -8,6 +8,36 @@
 
 import SwiftUI
 import CoreData
+struct HeaderRowColor: View{
+    var title: String
+    var icon: String?
+    
+    var body: some View{
+        HStack {
+            if icon?.isEmpty == false{
+            Image(systemName: icon!)
+                .foregroundColor(.accentColor)
+                .imageScale(.medium)
+                .padding(.leading)
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.accentColor)
+                .padding([.top, .bottom, .trailing])
+            }
+            else{
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.accentColor)
+                    .padding()
+            }
+            
+            Spacer()
+        }.listRowInsets(EdgeInsets())
+        .background(Color("MintGreen"))
+        
+    }
+}
+
 
 struct LoanAdder: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -27,12 +57,13 @@ struct LoanAdder: View {
     @State private var startDate = Date()
     @State private var remainingMonths = Date()
     @State private var selectedLoanType = 0
-    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
+    @State private var typeOfLoan = ["Mortgage", "Car | Auto", "Personal", "Student", "Installment"]
     
     @State private var loanPickerVisible = false
     @State private var startDatePickerVisible = false
     @State private var currentDatePickerVisible = false
     
+    let listRowColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
     var disableForm: Bool {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || termMonths.isEmpty
     }
@@ -52,136 +83,162 @@ struct LoanAdder: View {
         formatter.dateStyle = .short
         formatter.dateFormat = "d MMM y"
         
-        return List {
-            VStack {
-                Section{
-                    TextField("Loan Name", text: self.$loanTitle)
+        return VStack(alignment: .leading) {
+            List {
+                Group{
+                    Section(header: HeaderRowColor(title: "Loan Name")){
+                        TextField("Loan Name", text: self.$loanTitle)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding(.all)
+                            .background(listRowColor)
+                            .cornerRadius(5)
+                            .padding(.bottom, 20.0)
+                    }
+                    
+                    
+                    Section(header: HeaderRowColor(title: "Origin")){
+                        TextField("Loan Origin", text: self.$origin)
                         .textFieldStyle(PlainTextFieldStyle())
                         .padding(.all)
-                        .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
+                        .background(listRowColor)
                         .cornerRadius(5)
-                    TextField("Loan Origin", text: self.$origin)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(.all)
-                    .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
-                    .cornerRadius(5)
+                        .padding(.bottom, 20.0)
+                    }
                 }
-                
                 // Loan type picker
-                ZStack{
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .fill(Color.white)
-                    VStack{
-                        HStack{
-                            Text("Loan Type")
-                            Spacer()
-                            Button(typeOfLoan[self.selectedLoanType]) {
-                                self.loanPickerVisible.toggle()
-                            }
-                        }
-                        
-                        if self.loanPickerVisible{
-                            HStack{
-                                Spacer()
-                                Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
-                                    ForEach(0 ..< typeOfLoan.count) {
-                                        Text(self.typeOfLoan[$0])
+                Group{
+                    Section(header: HeaderRowColor(title: "Loan Type")) {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .fill(Color.white)
+                            VStack{
+                                HStack{
+                                    Text("Loan Type")
+                                    Spacer()
+                                    Button(typeOfLoan[self.selectedLoanType]) {
+                                        self.loanPickerVisible.toggle()
                                     }
                                 }
-                                .labelsHidden()
-                                .onTapGesture {
-                                    self.loanPickerVisible.toggle()
+                                
+                                if self.loanPickerVisible{
+                                    HStack{
+                                        Spacer()
+                                        Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
+                                            ForEach(0 ..< typeOfLoan.count) {
+                                                Text(self.typeOfLoan[$0])
+                                            }
+                                        }
+                                        .labelsHidden()
+                                        .onTapGesture {
+                                            self.loanPickerVisible.toggle()
+                                        }
+                                        Spacer()
+                                    }
                                 }
-                                Spacer()
-                            }
-                        }
-                    }.padding()
-                }.shadow(radius: 10)
-                
-                
-                
-                Section{
-                    TextField("What's the principal?", text: self.$principal)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.decimalPad)
-                        .padding(.all)
-                        .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
-                        .cornerRadius(5)
-                    
-                    TextField("What's the annual interest rate? E.g 9%, 5.5%", text: self.$interestRate)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.decimalPad)
-                        .padding(.all)
-                        .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
-                        .cornerRadius(5)
-                    
-                    TextField("What's the term in months?", text: self.$termMonths)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.numberPad)
-                        .padding(.all)
-                        .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
-                        .cornerRadius(5)
+                            }.padding()
+                        }.shadow(radius: 2)
+                        .padding(.bottom, 20.0)
+                    }
                 }
                 
-                ZStack{
-                   RoundedRectangle(cornerRadius: 5, style: .continuous)
-                   .fill(Color.white)
-                    VStack{
-                        // Start Date picker
-                        HStack{
-                            Text("Start Date")
-                            Spacer()
-                            Button("\(formatter.string(from: self.startDate))") {
-                                self.startDatePickerVisible.toggle()
-                            }
-                        }
-                        if self.startDatePickerVisible {
-                            HStack{
-                                Spacer()
-                                DatePicker("", selection: self.$startDate, in: ...Date(), displayedComponents: .date)
-                                .labelsHidden()
-                                .onTapGesture {
-                                    self.startDatePickerVisible.toggle()
+                Group{
+                    Section(header: HeaderRowColor(title: "Principal", icon: "dollarsign.circle")){
+                        TextField("What's the principal?", text: self.$principal)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .keyboardType(.decimalPad)
+                            .padding(.all)
+                            .background(listRowColor)
+                            .cornerRadius(5)
+                            .padding(.bottom, 20.0)
+                    }
+                    Section(header: HeaderRowColor(title: "Annual Interest Rate")){
+                        TextField("What's the annual interest rate? E.g 9%, 5.5%", text: self.$interestRate)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .keyboardType(.decimalPad)
+                            .padding(.all)
+                            .background(listRowColor)
+                            .cornerRadius(5)
+                            .padding(.bottom, 20.0)
+                    }
+                    Section(header: HeaderRowColor(title: "Term")){
+                        TextField("What's the term in months?", text: self.$termMonths)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .keyboardType(.numberPad)
+                            .padding(.all)
+                            .background(listRowColor)
+                            .cornerRadius(5)
+                            .padding(.bottom, 20.0)
+                    }
+                }
+                Group{
+                    Section(header: HeaderRowColor(title: "Loan Start Date")) {
+                        ZStack{
+                           RoundedRectangle(cornerRadius: 5, style: .continuous)
+                           .fill(Color.white)
+                            VStack{
+                                // Start Date picker
+                                HStack{
+                                    Text("Start Date")
+                                    Spacer()
+                                    Button("\(formatter.string(from: self.startDate))") {
+                                        self.startDatePickerVisible.toggle()
+                                    }
                                 }
-                                Spacer()
-                            }
-                        }
-                    }.padding()
-                }.shadow(radius: 10)
-                
-                ZStack{
-                    RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .fill(Color.white)
-                     VStack{
-                        // Current Due Date Picker
-                        HStack{
-                            Text("Current Due Date")
-                            Spacer()
-                            Button("\(formatter.string(from: self.currentDueDate))") {
-                                self.currentDatePickerVisible.toggle()
-                            }
-                        }
-                        if self.currentDatePickerVisible {
-                            HStack{
-                                Spacer()
-                                DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
-                                .labelsHidden()
-                                .onTapGesture {
-                                    self.currentDatePickerVisible.toggle()
+                                if self.startDatePickerVisible {
+                                    HStack{
+                                        Spacer()
+                                        DatePicker("", selection: self.$startDate, in: ...Date(), displayedComponents: .date)
+                                        .labelsHidden()
+                                        .onTapGesture {
+                                            self.startDatePickerVisible.toggle()
+                                        }
+                                        Spacer()
+                                    }
                                 }
-                                Spacer()
-                            }
-                        }
-                    }.padding()
-                }.shadow(radius: 10)
-                
-                Section{
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 5)
+                            }.padding()
+                        }.shadow(radius: 2)
+                        .padding(.bottom, 20.0)
+                    }
+                    
+                    Section(header: HeaderRowColor(title: "Loan Payment Date")){
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
                             .fill(Color.white)
-                        MultilineTextField("Description", text: self.$about)
-                            .padding()
-                            .background(Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0))
+                             VStack{
+                                // Current Due Date Picker
+                                HStack{
+                                    Text("Current Due Date")
+                                    Spacer()
+                                    Button("\(formatter.string(from: self.currentDueDate))") {
+                                        self.currentDatePickerVisible.toggle()
+                                    }
+                                }
+                                if self.currentDatePickerVisible {
+                                    HStack{
+                                        Spacer()
+                                        DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
+                                        .labelsHidden()
+                                        .onTapGesture {
+                                            self.currentDatePickerVisible.toggle()
+                                        }
+                                        Spacer()
+                                    }
+                                }
+                            }.padding()
+                        }.shadow(radius: 2)
+                        .padding(.bottom, 20.0)
+                    }
+                }
+                
+                Group{
+                    Section(header: HeaderRowColor(title: "Description")){
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.white)
+                            MultilineTextField("Description", text: self.$about)
+                                .padding()
+                                .background(listRowColor)
+                        }
                     }
                 }
                 

@@ -38,7 +38,7 @@ struct BarView: View {
              ZStack{
                  Rectangle()
                      .fill(Color.white)
-                     .cornerRadius(20)
+                     //.cornerRadius(1)
                      .shadow(radius: 8)
                     //.padding()
                  VStack(alignment: .leading){

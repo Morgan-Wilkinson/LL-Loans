@@ -29,7 +29,7 @@ struct LoanEditor: View {
     @State private var startDate: Date
     @State private var remainingMonths: Date
     @State private var selectedLoanType = 0
-    @State private var typeOfLoan = ["Mortgage", "Refinance", "Home Equity", "Car | Auto", "Personal", "Business", "Student", "Installment", "Payday", "Debt Consolidation"]
+    @State private var typeOfLoan = ["Mortgage", "Car | Auto", "Personal", "Student", "Installment"]
     
     init(loan: Loans) {
       self.loan = loan

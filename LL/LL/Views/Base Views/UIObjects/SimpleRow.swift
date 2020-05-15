@@ -17,7 +17,7 @@ struct SimpleRow: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
+            Rectangle()
                 .fill(Color("MintGreen"))
             VStack {
                 VStack(alignment: .leading) {

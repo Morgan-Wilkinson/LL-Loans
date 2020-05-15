@@ -14,10 +14,10 @@ struct LoanView: View {
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
     @State private var navigationSelectionTag: Int? = 0
-    let backgroundColor = UIColor(displayP3Red: 0.500, green: 0.5, blue: 0.819, alpha: 1.0)
-    let color = UIColor(named: "Dashboard")
+    
+    
     init() {
-        UITableView.appearance().backgroundColor = color
+        UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
     }
     
@@ -30,7 +30,7 @@ struct LoanView: View {
             VStack {
                 VStack{
                     List {
-                        Section(header: Text("Loans").font(.headline), footer: Text("Here is an overview of all your loans.")){
+                        //Section(header: Text("Loans").font(.headline), footer: Text("Here is an overview of all your loans.")){
                             ForEach(self.loans, id: \.id) { loan in
                                 //VStack{
                                     NavigationLink(destination: LoanDetail(loanItem: loan)) {
@@ -40,12 +40,13 @@ struct LoanView: View {
                                     }
                                 //}
                             }.onDelete(perform: deleteLoans)
-                        }//.foregroundColor(Color.red) 
-                    }.background(Color.white)
-                    .listStyle(GroupedListStyle())
+                        //}//.foregroundColor(Color.red)
+                    }
+                    //.listStyle(GroupedListStyle())
                     .listRowInsets(EdgeInsets())
-                    .navigationBarTitle("Overview")
-                }.navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: LoanAdder()){ // Error on EditButton delete
+                    .navigationBarTitle("Loans")
+                }.navigationBarItems(leading: EditButton(), trailing:
+                    NavigationLink(destination: LoanAdder()){
                            HStack{
                                    Image(systemName: "plus.circle.fill")
                                        .foregroundColor(.blue)
@@ -54,7 +55,7 @@ struct LoanView: View {
                            }
                        }
                    )
-            }
+            }.background(Color("Dashboard"))
         }
     }
     func deleteLoans(at offsets: IndexSet) {

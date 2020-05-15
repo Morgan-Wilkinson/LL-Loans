@@ -25,7 +25,7 @@ struct BarCell: View {
     public var body: some View {
         let gradientColor: LinearGradient = index == currentMonth ? LinearGradient(gradient: Gradient(colors: [.orange, .yellow, .blue, .purple]), startPoint: .top, endPoint: .bottom): LinearGradient(gradient: Gradient(colors: [.purple, .red, .blue]), startPoint: .top, endPoint: .bottom)
         return ZStack {
-            RoundedRectangle(cornerRadius: 4)
+            Rectangle()
                 .fill(gradientColor)
             }
             .frame(width: CGFloat(self.cellWidth))

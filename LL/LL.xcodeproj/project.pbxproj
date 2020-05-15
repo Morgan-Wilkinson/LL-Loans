@@ -120,9 +120,9 @@
 		904D3A04245F890500EEC4E0 /* Main Views */ = {
 			isa = PBXGroup;
 			children = (
-				9041E90723C449C30046B9BF /* LoanDetail.swift */,
 				9041E90523C449A80046B9BF /* LoanView.swift */,
 				904BE86323C5789800884426 /* LoanAdder.swift */,
+				9041E90723C449C30046B9BF /* LoanDetail.swift */,
 				C7C6987F2416AEE000E44EEE /* LoanEditor.swift */,
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
 				90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */,
