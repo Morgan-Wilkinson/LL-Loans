@@ -10,18 +10,33 @@ import SwiftUI
 
 struct SimpleRow: View {
     var name: String
+    var loanType: String
     var origin: String
+    var currentDueDate: Date
     var nextDueDate: String
     var dueAmount: Double
     let valueSpecifier: String = "%.2f"
-    
+    var dueSoon: Color
+    init(name: String, loanType: String, origin: String, currentDueDate: Date, nextDueDate: String, dueAmount: Double){
+        self.name = name
+        self.loanType = loanType
+        self.origin = origin
+        self.currentDueDate = currentDueDate
+        self.nextDueDate = nextDueDate
+        self.dueAmount = dueAmount
+        dueSoon = Calendar.current.dateComponents([.day], from: currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("SimpleRow")
+    }
+        
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color("MintGreen"))
+                .fill(dueSoon)
             VStack {
                 VStack(alignment: .leading) {
                     HStack{
+                        Text(loanType)
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
                         Spacer()
                         Text(origin)
                             .font(.headline)
@@ -84,13 +99,9 @@ struct SimpleRow: View {
 struct SimpleRow_Previews: PreviewProvider {
     static var previews: some View {
         List{
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
-            SimpleRow(name: "This is the footer", origin: "West Bank", nextDueDate: "May 20", dueAmount: 1000.00)
+            SimpleRow(name: "This is the footer", loanType: "Student", origin: "West Bank", currentDueDate: Date(), nextDueDate: "May 20", dueAmount: 1000.00)
+            SimpleRow(name: "This is the footer", loanType: "Student", origin: "West Bank", currentDueDate: Date(), nextDueDate: "May 20", dueAmount: 1000.00)
+            SimpleRow(name: "This is the footer", loanType: "Student", origin: "West Bank", currentDueDate: Date(), nextDueDate: "May 20", dueAmount: 1000.00)
         }
     }
 }

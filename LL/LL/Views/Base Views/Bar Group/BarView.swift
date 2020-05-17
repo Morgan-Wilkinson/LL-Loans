@@ -37,9 +37,9 @@ struct BarView: View {
          GeometryReader { geometry in
              ZStack{
                  Rectangle()
-                     .fill(Color.white)
+                     .fill(Color("SimpleRow"))
                      //.cornerRadius(1)
-                     .shadow(radius: 8)
+                     .shadow(radius: 5)
                     //.padding()
                  VStack(alignment: .leading){
                         Picker(selection: self.$pickerSelection, label: Text("Stats")){
@@ -54,12 +54,14 @@ struct BarView: View {
                              // Shows Title
                              if(!self.showValue){
                                  Text(self.title)
-                                     .font(.headline)
+                                    .font(.headline)
+                                    .foregroundColor(Color("Text"))
                              }
                              // Shows Values
                              else{
                                 Text("\(self.currentValue, specifier: self.valueSpecifier) - \(self.currentMonth)")
-                                     .font(.headline)
+                                    .font(.headline)
+                                    .foregroundColor(Color("Text"))
                              }
                              Spacer()
                              self.cornerImage

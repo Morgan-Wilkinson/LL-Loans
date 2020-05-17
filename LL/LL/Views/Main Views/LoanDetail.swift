@@ -24,7 +24,6 @@ struct LoanDetail: View{
         var smallMonths: [[Double]] = []
         for array in balanceArray {
             smallMonths.append(paymentsCalculator.smallMonthsValues(array: array))
-            //print("")
         }
         // Months arrays
         let smallMonthSeries = paymentsCalculator.smallMonthSeries(length: smallMonths[0].count)
@@ -62,7 +61,7 @@ struct LoanDetail: View{
                             .padding(.vertical, 12.0)
                             .background(Color.green)
                             .cornerRadius(5)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("AmortizationText"))
                             .padding(5)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)

@@ -20,7 +20,7 @@ struct Card: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.white)
+                .fill(Color("SimpleRow"))
             VStack {
                 VStack(alignment: .leading) {
                     HStack{
@@ -48,12 +48,12 @@ struct Card: View {
                     Text(briefSummary)
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                     
                      Divider()// Maybe say breakdown
                     Text(description)
                         .font(.footnote)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("Text"))
                 }
                 Spacer()
             }
@@ -61,7 +61,7 @@ struct Card: View {
             
         }
         .padding()
-        .shadow(radius: 10)
+        .shadow(radius: 5)
     }
 }
 

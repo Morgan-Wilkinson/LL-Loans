@@ -14,12 +14,12 @@ struct PaymentBreakdownDetail: View {
     public var monthlyPayment: Double = 0
     @State var monthsSeries: [String]
     @State var barValues: [[Double]]
-
+    
     public var body: some View {
         GeometryReader { geometry in
             VStack{
                 ZStack{
-                    Rectangle().fill(Color("MintGreen"))
+                    Rectangle().fill(Color("SimpleRow"))
                         .frame(width: geometry.size.width, height: geometry.size.height / 15)
                     HStack(){
                         Group {
@@ -86,6 +86,7 @@ struct PaymentBreakdownDetail: View {
                     ForEach(0..<self.barValues[0].count, id: \.self) { i in
                        BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i])
                     }.listRowInsets(EdgeInsets())
+                    .listStyle(PlainListStyle())
                 }
             }
         }.navigationBarTitle(self.title)

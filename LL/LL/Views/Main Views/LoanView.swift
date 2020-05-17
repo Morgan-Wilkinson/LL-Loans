@@ -16,48 +16,39 @@ struct LoanView: View {
     @State private var navigationSelectionTag: Int? = 0
     
     
+    /*
     init() {
-        UITableView.appearance().backgroundColor = .clear
-        UITableViewCell.appearance().backgroundColor = .clear
+       // UITableView.appearance().backgroundColor = .clear
+       // UITableViewCell.appearance().backgroundColor = .clear
+       // UITableView.appearance().separatorStyle = .none
     }
-    
+    */
     var body: some View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.dateFormat = "d MMM y"
         
         return NavigationView {
-            VStack {
-                VStack{
-                    List {
-                        //Section(header: Text("Loans").font(.headline), footer: Text("Here is an overview of all your loans.")){
-                            ForEach(self.loans, id: \.id) { loan in
-                                //VStack{
-                                    NavigationLink(destination: LoanDetail(loanItem: loan)) {
-                                        VStack(alignment: .leading){
-                                            SimpleRow(name: loan.name, origin: loan.origin, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
-                                        }
-                                    }
-                                //}
-                            }.onDelete(perform: deleteLoans)
-                        //}//.foregroundColor(Color.red)
+            List{
+                ForEach(self.loans, id: \.id) { loan in
+                    NavigationLink(destination: LoanDetail(loanItem: loan)) {
+                        SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, currentDueDate: loan.currentDueDate, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
                     }
-                    //.listStyle(GroupedListStyle())
-                    .listRowInsets(EdgeInsets())
-                    .navigationBarTitle("Loans")
-                }.navigationBarItems(leading: EditButton(), trailing:
-                    NavigationLink(destination: LoanAdder()){
-                           HStack{
-                                   Image(systemName: "plus.circle.fill")
-                                       .foregroundColor(.blue)
-                                       .imageScale(.medium)
-                                   Text("Loan")
-                           }
-                       }
-                   )
-            }.background(Color("Dashboard"))
+                }.onDelete(perform: self.deleteLoans)
+            }//.listStyle(PlainListStyle())
+            .navigationBarTitle(Text("Loans"))
+            .navigationBarItems(leading: EditButton(), trailing:
+                NavigationLink(destination: LoanAdder()){
+               HStack{
+                   Image(systemName: "plus.circle.fill")
+                       .foregroundColor(.blue)
+                       .imageScale(.medium)
+                   Text("Loan")
+               }
+            })
         }
     }
+    
     func deleteLoans(at offsets: IndexSet) {
         for offset in offsets {
             // find this loan in our fetch request
@@ -66,9 +57,11 @@ struct LoanView: View {
             // delete it from the context
             managedObjectContext.delete(loan)
         }
-
-        // save the context
-        try? managedObjectContext.save()
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print("Error While Deleting Loan")
+        }
     }
 }
 
