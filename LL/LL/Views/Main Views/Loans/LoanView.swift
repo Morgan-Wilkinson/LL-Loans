@@ -28,14 +28,30 @@ struct LoanView: View {
         formatter.dateStyle = .short
         formatter.dateFormat = "d MMM y"
         
+        let formatter2 = DateFormatter()
+        formatter2.dateStyle = .long
+        
+        let headerText = self.loans.count != 0 ? "Loans" : ""
+        let footerText = self.loans.count != 0 ? "Here are your loans as of \(formatter2.string(from: Date()))!" : "You're not tracking any loans, add some!"
+       
         return NavigationView {
             List{
-                ForEach(self.loans, id: \.id) { loan in
-                    NavigationLink(destination: LoanDetail(loanItem: loan)) {
-                        SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, currentDueDate: loan.currentDueDate, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
+                Section(header: Text(headerText), footer: Text(footerText)) {
+                    
+                    if self.loans.count == 0 {
+                        NoLoans()
                     }
-                }.onDelete(perform: self.deleteLoans)
-            }//.listStyle(PlainListStyle())
+                    else {
+                        ForEach(self.loans, id: \.id) { loan in
+                            NavigationLink(destination: LoanDetail(loanItem: loan)) {
+                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, currentDueDate: loan.currentDueDate, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
+                            }.buttonStyle(PlainButtonStyle())
+                            // This will change the background to show due items
+                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("SimpleRow"))
+                        }.onDelete(perform: self.deleteLoans)
+                    }
+                }
+            }.listStyle(GroupedListStyle())
             .navigationBarTitle(Text("Loans"))
             .navigationBarItems(leading: EditButton(), trailing:
                 NavigationLink(destination: LoanAdder()){
@@ -65,7 +81,20 @@ struct LoanView: View {
     }
 }
 
-
+struct NoLoans: View {
+    
+    var body: some View{
+        NavigationLink(destination: LoanAdder()) {
+            Text("New Loan")
+                .fontWeight(.bold)
+                .font(.title)
+                .multilineTextAlignment(.leading)
+                .foregroundColor(Color("SimpleRow"))
+                .padding(5)
+        }.listRowBackground(Color.blue)
+        .buttonStyle(PlainButtonStyle())
+    }
+}
 struct LoanView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

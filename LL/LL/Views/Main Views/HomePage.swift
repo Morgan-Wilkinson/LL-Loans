@@ -17,20 +17,20 @@ struct HomePage: View {
         TabView(selection: $selection) {
             LoanView().environment(\.managedObjectContext, context)
                 .tabItem {
-                    Image(systemName: "phone.fill")
+                    //Image("LoansIcon")
                     Text("Loans")
                 }
                 .tag(0)
-            Settings()
+            WhatIf()
                .tabItem {
                   Image(systemName: "tv.fill")
-                  Text("Settings")
+                  Text("What If?")
                 }
                 .tag(1)
-            Settings()
+            Refinance()
                 .tabItem {
                     Image(systemName: "tv.fill")
-                    Text("Settings")
+                    Text("Refinance")
                 }
                 .tag(2)
         }//.edgesIgnoringSafeArea(.top)

@@ -8,21 +8,24 @@
 
 import SwiftUI
 import CoreData
+
 struct HeaderRowColor: View{
     var title: String
-    var icon: String?
+    var nameIcon: String?
+    var moreInfoIcon: String?
+    var explanation: String?
     
     var body: some View{
         HStack {
-            if icon?.isEmpty == false{
-            Image(systemName: icon!)
-                .foregroundColor(.accentColor)
-                .imageScale(.medium)
-                .padding(.leading)
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.accentColor)
-                .padding([.top, .bottom, .trailing])
+            if nameIcon?.isEmpty == false{
+                Image(systemName: nameIcon!)
+                    .foregroundColor(.accentColor)
+                    .imageScale(.medium)
+                    .padding(.leading)
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.accentColor)
+                    .padding([.top, .bottom, .trailing])
             }
             else{
                 Text(title)
@@ -32,9 +35,21 @@ struct HeaderRowColor: View{
             }
             
             Spacer()
+            // Choose different icon for exclamiation
+            if explanation?.isEmpty == false {
+                Image(systemName: moreInfoIcon!)
+                    .foregroundColor(.accentColor)
+                    .imageScale(.medium)
+                    .padding()
+                    .contextMenu{
+                        Text(explanation!)
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                    }
+            }
         }.listRowInsets(EdgeInsets())
-        .background(Color("SimpleRow"))
-        
+        .buttonStyle(PlainButtonStyle())
+        .background(Color("TextFieldBox"))
     }
 }
 
@@ -43,12 +58,11 @@ struct LoanAdder: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
-    let formatter = NumberFormatter()
-    var components = DateComponents()
     @State private var loanTitle = ""
     @State private var origin = ""
     @State private var principal = ""
     @State private var interestRate = ""
+    @State private var termYears = ""
     @State private var termMonths = ""
     @State private var about = ""
     @State private var currentDueDate = Date()
@@ -59,26 +73,20 @@ struct LoanAdder: View {
     @State private var selectedLoanType = 0
     @State private var typeOfLoan = ["Mortgage", "Car | Auto", "Personal", "Student", "Installment"]
     
+    // Pickers
     @State private var loanPickerVisible = false
     @State private var startDatePickerVisible = false
     @State private var currentDatePickerVisible = false
     
-    let listRowColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
+    // Info Explainers
+    @State private var showPopover: Bool = false
+    
+    let formatter = NumberFormatter()
+    let textBoxColor = Color("TextFieldBox")
     var disableForm: Bool {
-        loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || termMonths.isEmpty
+        loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || (termMonths.isEmpty && termYears.isEmpty)
     }
     
-    /*
-    init(){
-        // Remove colors
-        UITableView.appearance().backgroundColor = .clear
-        UITableViewCell.appearance().backgroundColor = .clear
-
-        // Remove form upper and lower space
-        UITableView.appearance().tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: Double.leastNonzeroMagnitude))
-        UITableView.appearance().tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: Double.leastNonzeroMagnitude))
-    }*/
-
     var body: some View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -86,28 +94,27 @@ struct LoanAdder: View {
         
         return List {
             Group{
-                Section(header: HeaderRowColor(title: "Loan Name")){
+                Section(header: HeaderRowColor(title: "Loan Name", nameIcon: "doc", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
                     TextField("Loan Name", text: self.$loanTitle)
                         .textFieldStyle(PlainTextFieldStyle())
                         .padding(.all)
-                        .background(listRowColor)
+                        .background(textBoxColor)
                         .cornerRadius(5)
-                        .padding(.bottom, 20.0)
+                        //.padding(.bottom, 20.0)
                 }
                 
                 
-                Section(header: HeaderRowColor(title: "Origin")){
+                Section(header: HeaderRowColor(title: "Origin", nameIcon: "globe", moreInfoIcon: "questionmark.circle", explanation: "Where is the loan from?")){
                     TextField("Loan Origin", text: self.$origin)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(.all)
-                    .background(listRowColor)
+                    .background(textBoxColor)
                     .cornerRadius(5)
-                    .padding(.bottom, 20.0)
                 }
             }
             // Loan type picker
             Group{
-                Section(header: HeaderRowColor(title: "Loan Type")) {
+                Section(header: HeaderRowColor(title: "Loan Type", nameIcon: "square.stack.fill")) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                         .fill(Color.white)
@@ -137,41 +144,86 @@ struct LoanAdder: View {
                             }
                         }.padding()
                     }.shadow(radius: 2)
-                    .padding(.bottom, 20.0)
                 }
             }
             
             Group{
-                Section(header: HeaderRowColor(title: "Principal", icon: "dollarsign.circle")){
-                    TextField("What's the principal?", text: self.$principal)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.decimalPad)
-                        .padding(.all)
-                        .background(listRowColor)
-                        .cornerRadius(5)
-                        .padding(.bottom, 20.0)
+                Section(header: HeaderRowColor(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(textBoxColor)
+                        HStack{
+                            Spacer()
+                            Image(systemName: "dollarsign.circle")
+                            TextField("What's the principal?", text: self.$principal)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                                .padding(.all)
+                                .background(textBoxColor)
+                                .cornerRadius(5)
+                                //.padding(.bottom, 20.0)
+                        }
+                    }
                 }
-                Section(header: HeaderRowColor(title: "Annual Interest Rate")){
-                    TextField("What's the annual interest rate? E.g 9%, 5.5%", text: self.$interestRate)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.decimalPad)
-                        .padding(.all)
-                        .background(listRowColor)
-                        .cornerRadius(5)
-                        .padding(.bottom, 20.0)
-                }
-                Section(header: HeaderRowColor(title: "Term")){
-                    TextField("What's the term in months?", text: self.$termMonths)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.numberPad)
-                        .padding(.all)
-                        .background(listRowColor)
-                        .cornerRadius(5)
-                        .padding(.bottom, 20.0)
+                Section(header: HeaderRowColor(title: "Annual Interest Rate (APR)", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(textBoxColor)
+                        HStack{
+                            TextField("What's the annual interest rate (APR)?", text: self.$interestRate)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                                .padding(.all)
+                                .cornerRadius(5)
+                                //.padding(.bottom, 20.0)
+                            Image(systemName: "percent")
+                            Spacer()
+                        }
+                    }
                 }
             }
             Group{
-                Section(header: HeaderRowColor(title: "Loan Start Date")) {
+                Section(header: HeaderRowColor(title: "Term", nameIcon: "hourglass.bottomhalf.fill", moreInfoIcon: "questionmark.circle", explanation: "Enter the loan's terms in either years, months or both!")){
+                    HStack{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(textBoxColor)
+                            HStack{
+                                TextField("Years", text: self.$termYears)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                                    .keyboardType(.numberPad)
+                                    .padding([.top, .leading, .bottom])
+                                    .background(textBoxColor)
+                                    .cornerRadius(5)
+                                    //.padding(.bottom, 20.0)
+                                Text("Years")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
+                        }
+                        Divider()
+                            
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(textBoxColor)
+                            HStack{
+                                TextField("Months", text: self.$termMonths)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                                    .keyboardType(.numberPad)
+                                    .padding(.all)
+                                    .background(textBoxColor)
+                                    .cornerRadius(5)
+                                    //.padding(.bottom, 20.0)
+                                Text("Months")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+            }
+            Group{
+                Section(header: HeaderRowColor(title: "Loan Start Date", nameIcon: "calendar.circle")) {
                     ZStack{
                        RoundedRectangle(cornerRadius: 5, style: .continuous)
                        .fill(Color.white)
@@ -197,17 +249,17 @@ struct LoanAdder: View {
                             }
                         }.padding()
                     }.shadow(radius: 2)
-                    .padding(.bottom, 20.0)
+                    //.padding(.bottom, 20.0)
                 }
                 
-                Section(header: HeaderRowColor(title: "Loan Payment Date")){
+                Section(header: HeaderRowColor(title: "Loan Payment Date", nameIcon: "calendar.circle")){
                     ZStack{
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                         .fill(Color.white)
                          VStack{
                             // Current Due Date Picker
                             HStack{
-                                Text("Current Due Date")
+                                Text("Due Date")
                                 Spacer()
                                 Button("\(formatter.string(from: self.currentDueDate))") {
                                     self.currentDatePickerVisible.toggle()
@@ -226,29 +278,37 @@ struct LoanAdder: View {
                             }
                         }.padding()
                     }.shadow(radius: 2)
-                    .padding(.bottom, 20.0)
+                    //.padding(.bottom, 20.0)
                 }
             }
             
             Group{
-                Section(header: HeaderRowColor(title: "Description")){
+                Section(header: HeaderRowColor(title: "Description", nameIcon: "text.bubble")){
                     ZStack{
                         RoundedRectangle(cornerRadius: 5)
                             .fill(Color.white)
                         MultilineTextField("Description", text: self.$about)
                             .padding()
-                            .background(listRowColor)
+                            .background(textBoxColor)
                     }
                 }
             }
         }
+        .navigationBarTitle("New Loan")
         .buttonStyle(PlainButtonStyle())
-        .padding(.vertical)
+        .listStyle(PlainListStyle())
+        .padding(.bottom)
         .foregroundColor(Color.blue)
         .navigationBarItems(
         trailing: Button(action: ({
             
         // Save the items. All items have a default value that should actually be used.
+        if self.termYears.isEmpty == false {
+            let months = self.formatter.number(from: self.termMonths) ?? 0
+            let years = self.formatter.number(from: self.termYears) ?? 0
+            
+            self.termMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
+        }
         let loanSaver = Loans(context: self.managedObjectContext)
         loanSaver.id = UUID()
         loanSaver.name = self.loanTitle
@@ -278,7 +338,7 @@ struct LoanAdder: View {
                 Text("Save")
             }
         }.disabled(disableForm))
-        .navigationBarTitle("New Loan")
+        
     }
 }
 

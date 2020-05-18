@@ -24,6 +24,7 @@ struct LoanDetail: View{
         var smallMonths: [[Double]] = []
         for array in balanceArray {
             smallMonths.append(paymentsCalculator.smallMonthsValues(array: array))
+
         }
         // Months arrays
         let smallMonthSeries = paymentsCalculator.smallMonthSeries(length: smallMonths[0].count)
@@ -54,19 +55,14 @@ struct LoanDetail: View{
                     
                 
                     NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthsSeries: allMonthSeries, barValues: balanceArray)) {
-                        Text("Amortization Schedule")
-                            .fontWeight(.bold)
-                            .font(.headline)
-                            .padding(.horizontal, 50.0)
-                            .padding(.vertical, 12.0)
-                            .background(Color.green)
-                            .cornerRadius(5)
-                            .foregroundColor(Color("AmortizationText"))
-                            .padding(5)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.blue, lineWidth: 3)
-                            )
+                        ZStack{
+                            Rectangle().fill(Color.blue)
+                            Text("Amortization Schedule")
+                                .fontWeight(.bold)
+                                .font(.headline)
+                                .cornerRadius(5)
+                                .foregroundColor(Color("SimpleRow"))
+                        }.frame(height: geometry.size.height / 12)
                     }
                 }.frame(height: geometry.size.height)
             }
