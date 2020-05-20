@@ -20,81 +20,60 @@ struct MonthlyPayment: View {
     
     let valueSpec: String = "%.2f"
     let textBoxColor = Color("TextFieldBox")
+    let cardColor = Color("Cards")
+    let bigButtonText = Color("BigButtonText")
+    let bigButtonColor = Color("BigButtonColor")
     let formatter = NumberFormatter()
     
     var disableForm: Bool {
-        formPrincipal.isEmpty || formInterestRate.isEmpty || (formTermYears.isEmpty && formTermMonths.isEmpty)
+        formPrincipal.isEmpty || formInterestRate.isEmpty || (formTermYears.isEmpty && formTermMonths.isEmpty) || formPrincipal == "0" || formInterestRate == "0" || (formTermYears == "0" && formTermMonths == "0")
     }
     var body: some View {
         return VStack{
             List {
                 Group{
-                    Section(header: HeaderRowColor(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(textBoxColor)
-                            HStack{
-                                Spacer()
-                                Image(systemName: "dollarsign.circle")
-                                TextField("What's the principal?", text: self.$formPrincipal)
-                                    .textFieldStyle(PlainTextFieldStyle())
-                                    .keyboardType(.decimalPad)
-                                    .padding(.all)
-                                    .background(textBoxColor)
-                                    .cornerRadius(5)
-                                    //.padding(.bottom, 20.0)
-                            }
+                    Section(header: ExplainationHeader(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required")){
+                        HStack{
+                            Spacer()
+                            Image(systemName: "dollarsign.circle")
+                            TextField("What's the principal?", text: self.$formPrincipal)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .padding(.all)
+                                .cornerRadius(5)
                         }
                     }
-                    Section(header: HeaderRowColor(title: "Annual Interest Rate (APR)", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(textBoxColor)
-                            HStack{
-                                TextField("What's the annual interest rate (APR)?", text: self.$formInterestRate)
-                                    .textFieldStyle(PlainTextFieldStyle())
-                                    .keyboardType(.decimalPad)
-                                    .padding(.all)
-                                    .cornerRadius(5)
-                                    //.padding(.bottom, 20.0)
-                                Image(systemName: "percent")
-                                Spacer()
-                            }
+                    Section(header: ExplainationHeader(title: "Annual Interest Rate (APR)", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required")){
+                        HStack{
+                            TextField("What's the annual interest rate (APR)?", text: self.$formInterestRate)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .padding(.all)
+                                .cornerRadius(5)
+                            Image(systemName: "percent")
+                            Spacer()
                         }
                     }
                 }
                 Group{
-                    Section(header: HeaderRowColor(title: "Term", nameIcon: "hourglass.bottomhalf.fill", moreInfoIcon: "questionmark.circle", explanation: "Enter the loan's terms in either years, months or both!")){
+                    Section(header: ExplainationHeader(title: "Term", nameIcon: "hourglass.bottomhalf.fill", moreInfoIcon: "questionmark.circle", explanation: "Enter the loan's terms in either years, months or both.")){
                         HStack{
                             ZStack{
-                                RoundedRectangle(cornerRadius: 5)
-                                    .fill(textBoxColor)
                                 HStack{
                                     TextField("Years", text: self.$formTermYears)
                                         .textFieldStyle(PlainTextFieldStyle())
-                                        .keyboardType(.numberPad)
                                         .padding([.top, .leading, .bottom])
-                                        .background(textBoxColor)
                                         .cornerRadius(5)
-                                        //.padding(.bottom, 20.0)
                                     Text("Years")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
                             }
                             Divider()
-                                
                             ZStack{
-                                RoundedRectangle(cornerRadius: 5)
-                                    .fill(textBoxColor)
                                 HStack{
                                     TextField("Months", text: self.$formTermMonths)
                                         .textFieldStyle(PlainTextFieldStyle())
-                                        .keyboardType(.numberPad)
-                                        .padding(.all)
-                                        .background(textBoxColor)
+                                        .padding([.top, .leading, .bottom])
                                         .cornerRadius(5)
-                                        //.padding(.bottom, 20.0)
                                     Text("Months")
                                         .fontWeight(.bold)
                                     Spacer()
@@ -116,36 +95,32 @@ struct MonthlyPayment: View {
                     let interestRate = Double(self.formInterestRate) ?? 0
                     let termMonths = Int(self.formTermMonths) ?? 0
                     
-                    let calculator = WhatIfCalculator(principal: principal, interestRate: interestRate, months: termMonths)
+                    let calculator = MonthlyPaymentWhatIf(principal: principal, interestRate: interestRate, months: termMonths)
                     self.monthlyPayments = calculator.mortgageMonthly()
                     self.totalInterest = calculator.totalInterest()
                     self.showAnswer = true
                 })) {
                     HStack{
-                        Image(systemName: "plus.slash.minus")
-                            .imageScale(.large)
                         Text("Calculate")
                             .fontWeight(.bold)
                             .font(.title)
                             .multilineTextAlignment(.leading)
-                            .padding(5)
-                    }.foregroundColor(Color("SimpleRow"))
-                    .listRowBackground(Color.blue)
+                    }.foregroundColor(self.bigButtonText)
+                    .listRowBackground(bigButtonColor)
                 }.disabled(self.disableForm)
-                
-            }
-            .navigationBarTitle("New Loan")
+            }.environment(\.horizontalSizeClass, .regular)
+            .navigationBarTitle("Monthly Payment")
             .buttonStyle(PlainButtonStyle())
-            .listStyle(PlainListStyle())
-            .listSeparatorStyle(style: .none)
+            .listStyle(GroupedListStyle())
             .foregroundColor(Color.blue)
                 
             if self.showAnswer {
                 VStack{
                     ZStack{
                         Rectangle()
-                            .fill(Color("SimpleRow"))
+                            .fill(self.cardColor)
                             .frame(height: 100)
+                            .shadow(radius: 2)
                         VStack(alignment: .leading) {
                             Text("Your monthly payment would be $\(self.monthlyPayments, specifier: self.valueSpec).")
                                 .font(.headline)
@@ -157,7 +132,7 @@ struct MonthlyPayment: View {
                                 .lineLimit(3)
                         }.padding()
                     }.padding()
-                    .shadow(radius: 5)
+                    
                 }
             }
         }

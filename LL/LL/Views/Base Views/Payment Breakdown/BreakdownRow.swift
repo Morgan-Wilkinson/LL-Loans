@@ -13,6 +13,7 @@ struct BreakdownRow: View {
     var principal: Double
     var interest: Double
     var balance: Double
+    var monthlyPayment: Double
     var valueSpecifier: String = "%.2f"
     
     var body: some View {
@@ -30,7 +31,7 @@ struct BreakdownRow: View {
                 }
                 
                 Group{
-                    Text("\((self.principal + self.interest), specifier: self.valueSpecifier)")
+                    Text("\(self.monthlyPayment, specifier: self.valueSpecifier)")
                         .fontWeight(.regular)
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
@@ -78,6 +79,6 @@ struct BreakdownRow: View {
 
 struct BreakdownRow_Previews: PreviewProvider {
     static var previews: some View {
-        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000)
+        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000, monthlyPayment: 30.00)
     }
 }

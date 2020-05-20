@@ -9,51 +9,46 @@
 import SwiftUI
 
 struct WhatIf: View {
+    let BigButtonText = Color("BigButtonText")
+    let bigButtonColor = Color("BigButtonColor")
+    let cardColor = Color("Cards")
     var body: some View {
         NavigationView {
             List(){
-                Section(header: CalculatorHeader(), footer: Text("Here are some calculators that can quickly check different scenarios for you!")){
+                Section(header: SectionHeaderView(text: "Calculators", icon: "plusminus"), footer: Text("Here are some calculators that can quickly check different scenarios for you.")){
                     Group{
                         NavigationLink(destination: MonthlyPayment()) {
                             HStack{
                                 Image(systemName: "calendar")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(BigButtonText)
                                     .imageScale(.medium)
-                                Text("Monthly Payment")
+                                Text("Monthly Payment Checker")
                                     .fontWeight(.semibold)
-                                    .font(.title)
+                                    .font(.headline)
                                     .multilineTextAlignment(.leading)
-                                    .foregroundColor(Color("Text"))
+                                    .foregroundColor(BigButtonText)
                             }
                         }
                         
-                        NavigationLink(destination: RefinanceChecker()) {
+                        NavigationLink(destination: DebtToIncomeRatioChecker()) {
                             HStack{
                                 Image(systemName: "arrow.2.circlepath")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(BigButtonText)
                                     .imageScale(.medium)
-                                Text("Refinance Checker")
+                                Text("Debt-Income Ratio")
                                     .fontWeight(.semibold)
-                                    .font(.title)
+                                    .font(.headline)
                                     .multilineTextAlignment(.leading)
-                                    .foregroundColor(Color("Text"))
+                                    .foregroundColor(BigButtonText)
                             }
                         }
                     }
-                }.listRowBackground(Color("UpcomingPayment"))
+                }.listRowBackground(bigButtonColor)
                 .buttonStyle(PlainButtonStyle())
             }.navigationBarTitle(Text("What If Calculator"))
             .listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
             
-        }
-    }
-}
-
-struct CalculatorHeader: View {
-    var body: some View{
-        HStack{
-            Image(systemName: "plusminus")
-            Text("Calculators")
         }
     }
 }

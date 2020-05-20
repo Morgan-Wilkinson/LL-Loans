@@ -19,7 +19,6 @@ struct BarRow: View {
         GeometryReader { geometry in
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.data.count * 3)){
                 ForEach(0..<self.data.count, id: \.self) { i in
-                    //let currentMonthBool =
                     BarCell(currentMonth: self.currentMonthIndex, value: self.normalizedValue(index: i),
                             index: i,
                             width: Float(geometry.frame(in: .local).width - 22),
@@ -49,8 +48,3 @@ struct BarRow_Previews: PreviewProvider {
         BarRow(currentMonthIndex: 4, data: .constant([8,23,54,32,12,37,7]), touchLocation: .constant(-1))
     }
 }
-
-/*
- RoundedRectangle(cornerRadius: 25, style: .continuous)
- .fill(Color.white)
- */

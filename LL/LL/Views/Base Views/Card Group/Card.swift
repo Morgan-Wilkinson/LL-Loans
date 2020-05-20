@@ -14,54 +14,51 @@ struct Card: View {
     //var backgroundImage: Image
     var overview: String
     var briefSummary: String
-    var description: String
+    var description: String?
     var month: String
+    let cardColor = Color("Cards")
+    let textColor = Color("Text")
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color("SimpleRow"))
-            VStack {
-                VStack(alignment: .leading) {
-                    HStack{
-                        Text("Payment's At A Glance")
-                            .font(.headline)
-                            .foregroundColor(.accentColor)
-                        Spacer()
-                        Text("\(subtitle)")
-                            .font(.headline)
-                            .foregroundColor(.accentColor)
-                    }
-                    Text(title)
-                        .font(.title)
-                        .foregroundColor(.primary)
-                        .lineLimit(3)
-                    Text(overview)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.accentColor)
-                    
-                    Divider()
-                    Text("Payment Breakdown for \(month)")
+        VStack {
+            VStack(alignment: .leading) {
+                HStack{
+                    Text("Payment's At A Glance")
                         .font(.headline)
                         .foregroundColor(.accentColor)
-                    Text(briefSummary)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(Color("Text"))
-                    
-                     Divider()// Maybe say breakdown
-                    Text(description)
-                        .font(.footnote)
-                        .foregroundColor(Color("Text"))
+                    Spacer()
+                    Text("\(subtitle)")
+                        .font(.headline)
+                        .foregroundColor(.accentColor)
                 }
-                Spacer()
+                Text(title)
+                    .font(.title)
+                    .foregroundColor(.primary)
+                    .lineLimit(3)
+                Text(overview)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.accentColor)
+                
+                Divider()
+                Text("Payment Breakdown for \(month)")
+                    .font(.headline)
+                    .foregroundColor(.accentColor)
+                Text(briefSummary)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(textColor)
+                
+                if description?.isEmpty != true {
+                    Divider()// Maybe say breakdown
+                    Text(description!)
+                        .font(.footnote)
+                        .foregroundColor(textColor)
+                }
             }
-            .padding()
-            
+            Spacer()
         }
         .padding()
-        .shadow(radius: 5)
     }
 }
 

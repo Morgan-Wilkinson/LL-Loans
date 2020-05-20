@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PaymentsCal {
+    @Environment(\.managedObjectContext) var managedObjectContext
     var loan: Loans
     var interest: Double
     var monthlyIntRate: Double
     var oriPrincipal: Double
-    var curPrincipal: Double
     var months: Int
     var timeTracker: DateComponents
     
@@ -28,7 +29,6 @@ class PaymentsCal {
         // Loan Variables.
         self.interest = Double(truncating: (self.loan.interestRate))
         self.oriPrincipal = Double(truncating: (self.loan.originalPrincipal))
-        self.curPrincipal = Double(truncating: (self.loan.originalPrincipal))
         self.months = (Int)(truncating: self.loan.termMonths)
         self.monthlyIntRate = (interest / 100) / 12 // 12 due to 12 months
         timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
@@ -45,65 +45,21 @@ class PaymentsCal {
         return totalInterestSoFar
     }
     
-    func smallMonthsValues(array: [Double]) -> [Double] {
-        let fourMonthBuffer = 4
-        let leeway  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
-        var smallMonths: [Double] = []
-        var timeLeft: Int
-
-        // Returns how much months have passed since the start of the loan to the current Date
-        let timeBuffer = leeway > fourMonthBuffer ? (leeway - fourMonthBuffer) : 0
-        // Returns how much months are left
-        let totalMonthsLeft = self.months - leeway
-        
-        // Decides on how far to go with the array
-        if (totalMonthsLeft > 12){
-            if((totalMonthsLeft - 1) >= (timeBuffer + 12)){
-                timeLeft = timeBuffer + 12
-            }
-            else{
-                timeLeft = totalMonthsLeft - 1 - timeBuffer
-            }
-        }
-        else{
-            timeLeft = self.months - 1
-        }
-        // Add mounts based on the range of time we are in the present.
-        for i in timeBuffer...timeLeft{
-            smallMonths.append(array[i])
-        }
-        return smallMonths
-    }
-    
-    func smallMonthSeries(length: Int) -> [String] {
-        var months: [String] = []
-        let oneMonth = 2628000
-        let threeMonthBuffer = 3
-        let checkTimeBuffer = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
-        // Decides on where to start the array
-        let timeBuff = checkTimeBuffer <= threeMonthBuffer ? Date() - TimeInterval((oneMonth * (checkTimeBuffer - 1))) : Date() - TimeInterval(oneMonth * threeMonthBuffer)
-        
-        for index in 0...length - 1 {
-            let next = Calendar.current.date(byAdding: .month, value: index, to: timeBuff)
-            months.append(format.string(from: next!))
-        }
-        
-        
-        return months
-    }
-    
-    func allMonthsSeries() -> [String] {
+    func allMonthsSeries() -> [String]{
         let startDate = self.loan.startDate
-        var months: [String] = []
-        
+        var monthsArray: [String] = []
         for index in 0...self.months - 1 {
             let next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
-            months.append(format.string(from: next!))
+            monthsArray.append(format.string(from: next!))
         }
-        return months
+        
+       return monthsArray
     }
     
-    func arrayBalanceInterestPrincipal() -> [[Double]] {
+    func runner() {
+        loan.regularPayments = monthlyPayment()
+        
+        // Assigns the arrays to temp holders
         var allbalanceArray: [Double] = self.allBalances()
         var allInterestArray: [Double] = self.allInterest(allBalances: allbalanceArray)
         var allPrincipalArray: [Double] = self.allPrincipal(allInterest: allInterestArray)
@@ -114,8 +70,15 @@ class PaymentsCal {
         allInterestArray.removeLast()
         allPrincipalArray.removeLast()
         interestTotals.removeLast()
-
-        return [allbalanceArray, allInterestArray, allPrincipalArray, interestTotals]
+        
+        // Assign and save the months values
+        loan.balanceArray = allbalanceArray
+        loan.interestArray = allInterestArray
+        loan.principalArray = allPrincipalArray
+        loan.interestTotalsArray = interestTotals
+        
+        // Assign and save the months strings
+        loan.monthsSeries = allMonthsSeries()
     }
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]
@@ -157,7 +120,7 @@ class PaymentsCal {
     // Returns an array of all the principal amounts based off of the array of interest
     func allPrincipal(allInterest: [Double]) -> [Double] {
         var allPrincipal: [Double] = []
-        let monthlyPayment = self.mortgageMonthly()
+        let monthlyPayment = self.monthlyPayment()
         
         for interest in allInterest {
             allPrincipal.append(((monthlyPayment - interest) * 100).rounded() / 100)
@@ -168,30 +131,19 @@ class PaymentsCal {
     
     // P = L[c(1 + c)n]/[(1 + c)n - 1]
     // Returns the monthly payments for this loan based off of the original ammount
-    func mortgageMonthly() -> Double {
+    func monthlyPayment() -> Double{
 
         let power = Double(truncating: pow((Decimal)(1 + self.monthlyIntRate), self.months) as NSNumber)
         let numerator = self.oriPrincipal * (self.monthlyIntRate * power)
         let denominator = power - 1
 
         let roundedMonthly = ((numerator / denominator) * 100).rounded() / 100
-    
+        
         return roundedMonthly
-    }
-    
-    // Returns the interest for the based off the curPrinicpal.
-    func currentInterest() -> Double{
-        let currentInterest = ((self.monthlyIntRate * self.curPrincipal) * 100).rounded() / 100 // Maybe chance oriPrincipal to loan.current balance?
-        return currentInterest
-    }
-
-    func currentPrincipal() -> Double {
-        let currentPrincipal = ((self.mortgageMonthly() - self.currentInterest()) * 100).rounded() / 100
-        return currentPrincipal
     }
 
     // Returns the balance for the current month.
-    func mortgageBalanceForCurrentDate() -> Double {
+    func monthlyBalanceForCurrentDate() -> Double {
        let passedMonths = self.timeTracker.month!
        let remainingMonths = Int(truncating: self.loan.termMonths) - passedMonths
        
@@ -206,3 +158,17 @@ class PaymentsCal {
        return roundedBalance
    }
 }
+
+// These formulas are obsolete as they need curPrincipal
+/*
+   // Returns the interest for the based off the curPrinicpal.
+   func currentInterest() -> Double{
+       let currentInterest = ((self.monthlyIntRate * self.curPrincipal) * 100).rounded() / 100 // Maybe chance oriPrincipal to loan.current balance?
+       return currentInterest
+   }
+
+   func currentPrincipal() -> Double {
+       let currentPrincipal = ((self.mortgageMonthly() - self.currentInterest()) * 100).rounded() / 100
+       return currentPrincipal
+   }
+    */

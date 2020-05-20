@@ -17,19 +17,19 @@ struct HomePage: View {
         TabView(selection: $selection) {
             LoanView().environment(\.managedObjectContext, context)
                 .tabItem {
-                    //Image("LoansIcon")
+                    Image(systemName: "doc.text.magnifyingglass")
                     Text("Loans")
                 }
                 .tag(0)
             WhatIf()
                .tabItem {
-                  Image(systemName: "tv.fill")
+                  Image(systemName: "questionmark.circle")
                   Text("What If?")
                 }
                 .tag(1)
             Refinance()
                 .tabItem {
-                    Image(systemName: "tv.fill")
+                    Image(systemName: "arrow.2.circlepath")
                     Text("Refinance")
                 }
                 .tag(2)
@@ -39,6 +39,6 @@ struct HomePage: View {
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage()
+        HomePage().environment(\.colorScheme, .dark)
     }
 }

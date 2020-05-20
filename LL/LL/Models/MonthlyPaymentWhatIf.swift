@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WhatIfCalculator{
+class MonthlyPaymentWhatIf{
     var principal: Double
     var interestRate: Double
     var months: Int

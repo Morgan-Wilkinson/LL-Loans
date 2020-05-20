@@ -10,29 +10,40 @@ import Foundation
 import CoreData
 
 public class Loans: NSManagedObject, Identifiable{
-    @NSManaged public var remainingMonths: Date
     @NSManaged public var startDate: Date
-    @NSManaged public var nextDueDate: Date
-    @NSManaged public var prevDueDate: Date
     @NSManaged public var currentDueDate: Date
     @NSManaged public var termMonths: NSNumber
     @NSManaged public var interestRate: NSNumber
-    @NSManaged public var currentPrincipal: NSNumber
     @NSManaged public var originalPrincipal: NSNumber
     @NSManaged public var regularPayments: Double
     @NSManaged public var typeOfLoan: String
     @NSManaged public var name: String
     @NSManaged public var about: String
     @NSManaged public var origin: String
+    
+    // Unique ID
     @NSManaged public var id: UUID
+    
+    // Big Arrays Holds All Values
+    @NSManaged public var balanceArray: [Double]
+    @NSManaged public var interestArray: [Double]
+    @NSManaged public var principalArray: [Double]
+    @NSManaged public var interestTotalsArray: [Double]
+    @NSManaged public var monthsSeries: [String]
+    
+    // Small Arrays
+    @NSManaged public var smallBalanceArray: [Double]
+    @NSManaged public var smallInterestArray: [Double]
+    @NSManaged public var smallPrincipalArray: [Double]
+    @NSManaged public var smallMonthsSeries: [String]
 }
 
 extension Loans {
-    // ❇️ The @FetchRequest property wrapper in the ContentView will call this function
+    // The @FetchRequest property wrapper in the ContentView will call this function
     static func allLoansFetchRequest() -> NSFetchRequest<Loans> {
         let request: NSFetchRequest<Loans> = Loans.fetchRequest() as! NSFetchRequest<Loans>
         
-        // ❇️ The @FetchRequest property wrapper in the ContentView requires a sort descriptor
+        // The @FetchRequest property wrapper in the ContentView requires a sort descriptor
         request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
           
         return request

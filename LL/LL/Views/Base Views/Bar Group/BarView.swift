@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct BarView: View {
+    let cardColor = Color("Cards")
+    let textColor = Color("Text")
     public var title: String
     public var cornerImage: Image
     public var valueSpecifier: String
@@ -34,60 +36,53 @@ struct BarView: View {
     }
 
     public var body: some View {
-         GeometryReader { geometry in
-             ZStack{
-                 Rectangle()
-                     .fill(Color("SimpleRow"))
-                     //.cornerRadius(1)
-                     .shadow(radius: 5)
-                    //.padding()
-                 VStack(alignment: .leading){
-                        Picker(selection: self.$pickerSelection, label: Text("Stats")){
-                            // Balance Interest Principal
-                            Text("Balance").tag(0)
-                            Text("Interest").tag(1)
-                            Text("Principal").tag(2)
-                        }.pickerStyle(SegmentedPickerStyle())
-                        .padding([.top, .leading, .trailing])
+        VStack(alignment: .leading){
+            Picker(selection: self.$pickerSelection, label: Text("Stats")){
+                // Balance Interest Principal
+                Text("Balance").tag(0)
+                Text("Interest").tag(1)
+                Text("Principal").tag(2)
+            }.pickerStyle(SegmentedPickerStyle())
+            .padding([.top])
 
-                        HStack{
-                             // Shows Title
-                             if(!self.showValue){
-                                 Text(self.title)
-                                    .font(.headline)
-                                    .foregroundColor(Color("Text"))
-                             }
-                             // Shows Values
-                             else{
-                                Text("\(self.currentValue, specifier: self.valueSpecifier) - \(self.currentMonth)")
-                                    .font(.headline)
-                                    .foregroundColor(Color("Text"))
-                             }
-                             Spacer()
-                             self.cornerImage
-                                 .imageScale(.large)
-                         }.padding([.leading, .bottom, .trailing])
-
-                    BarRow(currentMonthIndex: self.currentMonthIndex, data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
-                      .gesture(DragGesture()
-                        .onChanged({ value in
-                            self.width = geometry.frame(in: CoordinateSpace.local).width
-                            self.touchLocation = value.location.x / self.width
-                            self.showValue = true
-                            self.currentValue = self.getCurrentValue()
-                            self.currentMonth = self.getCurrentMonth()
-                            self.showLabelValue = true
-
-                        })
-                        .onEnded({ value in
-                            self.showValue = false
-                            self.showLabelValue = false
-                            self.touchLocation = -1
-                        }))
-                        .gesture(TapGesture())
-                 }.id(self.pickerSelection)
+            HStack{
+                 // Shows Title
+                 if(!self.showValue){
+                     Text(self.title)
+                        .font(.headline)
+                        .foregroundColor(self.textColor)
+                 }
+                 // Shows Values
+                 else{
+                    Text("\(self.currentValue, specifier: self.valueSpecifier) - \(self.currentMonth)")
+                        .font(.headline)
+                        .foregroundColor(self.textColor)
+                 }
+                 Spacer()
+                 self.cornerImage
+                     .imageScale(.large)
             }
-        }.padding()
+            
+            GeometryReader { geometry in
+                BarRow(currentMonthIndex: self.currentMonthIndex, data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
+                  .gesture(DragGesture()
+                    .onChanged({ value in
+                        self.width = geometry.frame(in: CoordinateSpace.local).width
+                        self.touchLocation = value.location.x / self.width
+                        self.showValue = true
+                        self.currentValue = self.getCurrentValue()
+                        self.currentMonth = self.getCurrentMonth()
+                        self.showLabelValue = true
+
+                    })
+                    .onEnded({ value in
+                        self.showValue = false
+                        self.showLabelValue = false
+                        self.touchLocation = -1
+                    }))
+                    .gesture(TapGesture())
+            }.id(self.pickerSelection)
+        }.frame(minHeight: 250)
     }
     // Returns the current value of the selected bar
     func getCurrentValue() -> Double{

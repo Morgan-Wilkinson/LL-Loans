@@ -15,14 +15,6 @@ struct LoanView: View {
     
     @State private var navigationSelectionTag: Int? = 0
     
-    
-    /*
-    init() {
-       // UITableView.appearance().backgroundColor = .clear
-       // UITableViewCell.appearance().backgroundColor = .clear
-       // UITableView.appearance().separatorStyle = .none
-    }
-    */
     var body: some View {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -31,27 +23,27 @@ struct LoanView: View {
         let formatter2 = DateFormatter()
         formatter2.dateStyle = .long
         
-        let headerText = self.loans.count != 0 ? "Loans" : ""
-        let footerText = self.loans.count != 0 ? "Here are your loans as of \(formatter2.string(from: Date()))!" : "You're not tracking any loans, add some!"
+        let footerText = self.loans.count != 0 ? "Here are your loans as of \(formatter2.string(from: Date()))!" : "You're not tracking any loans, add some."
        
         return NavigationView {
             List{
-                Section(header: Text(headerText), footer: Text(footerText)) {
+                Section(header: SectionHeaderView(text: "Loan Records", icon: "doc.text"), footer: Text(footerText)) {
                     
-                    if self.loans.count == 0 {
-                        NoLoans()
-                    }
-                    else {
+                    if self.loans.count > 0 {
                         ForEach(self.loans, id: \.id) { loan in
                             NavigationLink(destination: LoanDetail(loanItem: loan)) {
-                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, currentDueDate: loan.currentDueDate, nextDueDate: formatter.string(from: loan.nextDueDate), dueAmount: Double(truncating: loan.currentPrincipal))
+                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, startDate: formatter.string(from: loan.startDate), currentDueDate: loan.currentDueDate, dueAmount: loan.regularPayments)
                             }.buttonStyle(PlainButtonStyle())
+                            
                             // This will change the background to show due items
-                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("SimpleRow"))
+                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("Card"))
                         }.onDelete(perform: self.deleteLoans)
                     }
+                    NewLoanButton()
                 }
-            }.listStyle(GroupedListStyle())
+            }
+            .listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle(Text("Loans"))
             .navigationBarItems(leading: EditButton(), trailing:
                 NavigationLink(destination: LoanAdder()){
@@ -81,17 +73,18 @@ struct LoanView: View {
     }
 }
 
-struct NoLoans: View {
-    
+struct NewLoanButton: View {
+    let bigButtonText = Color("BigButtonText")
+    let bigButtonColor = Color("BigButtonColor")
     var body: some View{
         NavigationLink(destination: LoanAdder()) {
             Text("New Loan")
                 .fontWeight(.bold)
                 .font(.title)
                 .multilineTextAlignment(.leading)
-                .foregroundColor(Color("SimpleRow"))
+                .foregroundColor(bigButtonText)
                 .padding(5)
-        }.listRowBackground(Color.blue)
+        }.listRowBackground(bigButtonColor)
         .buttonStyle(PlainButtonStyle())
     }
 }
