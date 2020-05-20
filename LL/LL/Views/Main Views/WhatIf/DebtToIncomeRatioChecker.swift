@@ -51,6 +51,7 @@ struct DebtToIncomeRatioChecker: View {
                     }
                 }
                 
+                // Calculate Button
                 Button(action: ({
                     let grossIncome = Double(self.formIncome) ?? 0
                     let grossDebt = Double(self.formDebt) ?? 0
@@ -68,43 +69,36 @@ struct DebtToIncomeRatioChecker: View {
                     .listRowBackground(bigButtonColor)
                 }.disabled(self.disableForm)
                 
+                // Results 
+                if self.showAnswer {
+                    VStack(alignment: .leading) {
+                        if self.ratio <= 36 {
+                            Text("Your Debt to Income Ratio is \(self.ratio)%. This is considered ideal as it is under 36%")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                                
+                        }
+                        else if ((self.ratio > 36) && (self.ratio <= 50)) {
+                            Text("Your Debt to Income Ratio is \(self.ratio)%. This is considered ok as it is still under 50%. Having a DTI ratio of 36% or less is considered ideal. Paying down debt or increasing your income can help improve your DTI ratio.")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                                
+                        }
+                        else {
+                            Text("Your Debt to Income Ratio is \(self.ratio)%. You're Debt to Income Ratio has exceeded the limit. 50% is usually the highest Debt to Income Ratio that lenders will allow. Paying down debt or increasing your income can improve your DTI ratio.")
+                                .font(.headline)
+                                .foregroundColor(.accentColor)
+                                
+                        }
+                    }.padding()
+                }
             }.environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("Monthly Payment")
             .buttonStyle(PlainButtonStyle())
             .listStyle(GroupedListStyle())
             .foregroundColor(Color.blue)
                 
-            if self.showAnswer {
-                VStack{
-                    Spacer()
-                    ZStack{
-                        Rectangle()
-                            .fill(self.cardColor)
-                            .frame(height: 300)
-                            .shadow(radius: 3)
-                        VStack(alignment: .leading) {
-                            if self.ratio <= 36 {
-                                Text("Your Debt to Income Ratio is \(self.ratio)%. This is considered ideal as it is under 36%")
-                                    .font(.headline)
-                                    .foregroundColor(.accentColor)
-                                    
-                            }
-                            else if ((self.ratio > 36) && (self.ratio <= 50)) {
-                                Text("Your Debt to Income Ratio is \(self.ratio)%. This is considered ok as it is still under 50%. Having a DTI ratio of 36% or less is considered ideal. Paying down debt or increasing your income can help improve your DTI ratio.")
-                                    .font(.headline)
-                                    .foregroundColor(.accentColor)
-                                    
-                            }
-                            else {
-                                Text("Your Debt to Income Ratio is \(self.ratio)%. You're Debt to Income Ratio has exceeded the limit. 50% is usually the highest Debt to Income Ratio that lenders will allow. Paying down debt or increasing your income can improve your DTI ratio.")
-                                    .font(.headline)
-                                    .foregroundColor(.accentColor)
-                                    
-                            }
-                        }.padding()
-                    }.padding()
-                }
-            }
+            
         }
     }
 }

@@ -83,6 +83,7 @@ struct MonthlyPayment: View {
                     }
                 }
                 
+                // Calculate Button
                 Button(action: ({
                     if self.formTermYears.isEmpty == false {
                         let months = self.formatter.number(from: self.formTermMonths) ?? 0
@@ -108,33 +109,25 @@ struct MonthlyPayment: View {
                     }.foregroundColor(self.bigButtonText)
                     .listRowBackground(bigButtonColor)
                 }.disabled(self.disableForm)
+                
+                // Results
+                if self.showAnswer {
+                    VStack(alignment: .leading) {
+                        Text("Your monthly payment would be $\(self.monthlyPayments, specifier: self.valueSpec).")
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                            .lineLimit(3)
+                        Text("Your total interest would be $\(self.totalInterest, specifier: self.valueSpec).")
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                            .lineLimit(3)
+                    }.padding()
+                }
             }.environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("Monthly Payment")
             .buttonStyle(PlainButtonStyle())
             .listStyle(GroupedListStyle())
             .foregroundColor(Color.blue)
-                
-            if self.showAnswer {
-                VStack{
-                    ZStack{
-                        Rectangle()
-                            .fill(self.cardColor)
-                            .frame(height: 100)
-                            .shadow(radius: 2)
-                        VStack(alignment: .leading) {
-                            Text("Your monthly payment would be $\(self.monthlyPayments, specifier: self.valueSpec).")
-                                .font(.headline)
-                                .foregroundColor(.accentColor)
-                                .lineLimit(3)
-                            Text("Your total interest would be $\(self.totalInterest, specifier: self.valueSpec).")
-                                .font(.headline)
-                                .foregroundColor(.accentColor)
-                                .lineLimit(3)
-                        }.padding()
-                    }.padding()
-                    
-                }
-            }
         }
     }
 }
