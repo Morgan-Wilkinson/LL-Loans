@@ -18,27 +18,26 @@ struct LoanDetail: View{
     @State private var showModal = false
     
     var body: some View {
+        // Formatters for Date style
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.dateFormat = "d MMM y"
+        
         // The array is set to have index four be the current Month or any month less than 4.
         let threeMonthBuffer = 3
-        let leeway  = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
-        let currentMonth = leeway > threeMonthBuffer ? threeMonthBuffer : leeway
+        let monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
+        let currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
         
-        // Formatters for Date style
-        let formatter1 = DateIntervalFormatter()
-        let formatter2 = DateFormatter()
-        
-        formatter1.dateStyle = .short
-        formatter1.timeStyle = .none
-        formatter2.dateStyle = .short
-        formatter2.dateFormat = "d MMM y"
+        let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
+        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex + 1, to: loanItem.startDate)!))
         
         return GeometryReader { geometry in
-            List {
-               
+            List {///////////////////// fix overview next month
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
-                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Next Payment - \(formatter2.string(from: self.loanItem.currentDueDate)) for $\(self.loanItem.regularPayments)",
-                        briefSummary: "Principal: $\(self.loanItem.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loanItem.smallInterestArray[currentMonth]) \nBalance: $\(self.loanItem.smallBalanceArray[currentMonth])", description: "\(self.loanItem.about)", month: "\(formatter2.string(from:self.loanItem.currentDueDate - 2628000))")
+                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Next Payment - \(currentDueDate) for $\(self.loanItem.regularPayments)",
+                        briefSummary: "Principal: $\(self.loanItem.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loanItem.smallInterestArray[currentMonth]) \nBalance: $\(self.loanItem.smallBalanceArray[currentMonth])", description: "\(self.loanItem.about)", month: "\(dateFormatter.string(from:self.loanItem.currentDueDate))")
                 }
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
                     // Current 12 month preview
@@ -56,9 +55,9 @@ struct LoanDetail: View{
                     }.listRowBackground(self.bigButtonColor)
                     .buttonStyle(PlainButtonStyle())
                 }
-               // }.frame(height: geometry.size.height)
+               
             }
-            //.listStyle(GroupedListStyle())
+            .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("\(self.loanItem.name.capitalizingFirstLetter())")
             .navigationBarItems(trailing: NavigationLink(destination: LoanEditor(loan: self.loanItem)){

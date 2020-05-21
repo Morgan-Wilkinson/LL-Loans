@@ -15,16 +15,17 @@ struct LoanView: View {
     
     @State private var navigationSelectionTag: Int? = 0
     
+    let dateFormatter = DateFormatter()
+    
+    init() {
+        dateFormatter.dateStyle = .long
+        dateFormatter.dateFormat = "MMMM d, y"
+    }
+    
     var body: some View {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.dateFormat = "d MMM y"
         
-        let formatter2 = DateFormatter()
-        formatter2.dateStyle = .long
+        let footerText = self.loans.count != 0 ? "Here are your loans as of \(dateFormatter.string(from: Date()))" : "You're not tracking any loans, add some."
         
-        let footerText = self.loans.count != 0 ? "Here are your loans as of \(formatter2.string(from: Date()))!" : "You're not tracking any loans, add some."
-       
         return NavigationView {
             List{
                 Section(header: SectionHeaderView(text: "Loan Records", icon: "doc.text"), footer: Text(footerText)) {
@@ -32,9 +33,10 @@ struct LoanView: View {
                     if self.loans.count > 0 {
                         ForEach(self.loans, id: \.id) { loan in
                             NavigationLink(destination: LoanDetail(loanItem: loan)) {
-                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin, startDate: formatter.string(from: loan.startDate), currentDueDate: loan.currentDueDate, dueAmount: loan.regularPayments)
+                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
+                                          startDate: loan.startDate,
+                                          dueAmount: loan.regularPayments)
                             }.buttonStyle(PlainButtonStyle())
-                            
                             // This will change the background to show due items
                             //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("Card"))
                         }.onDelete(perform: self.deleteLoans)

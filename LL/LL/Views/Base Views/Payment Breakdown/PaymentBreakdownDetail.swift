@@ -15,82 +15,60 @@ struct PaymentBreakdownDetail: View {
     public var monthlyPayment: Double
     @State var monthsSeries: [String]
     @State var barValues: [[Double]]
-    
+    @State var maxWidth: CGFloat = 0
     public var body: some View {
-        GeometryReader { geometry in
-            VStack{
-                ZStack{
-                    Rectangle().fill(self.cardColor)
-                        .frame(width: geometry.size.width, height: geometry.size.height / 15)
-                    HStack(){
-                        Group {
-                            Text("Date")
-                                .fontWeight(.regular)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: geometry.size.width / 6)
-                            
-                            Divider()
-                            Spacer()
-                        }
-                        
-                        Group{
-                            Text("Payment")
-                                .fontWeight(.regular)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: geometry.size.width / 6)
-                            
-                            Divider()
-                            Spacer()
-                        }
-                        
-                        Group{
-                            Text("Principal")
-                                .fontWeight(.regular)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: geometry.size.width / 6)
-                        
-                            Divider()
-                            Spacer()
-                        }
-                        
-                        Group{
-                            Text("Interest")
-                                .fontWeight(.regular)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: geometry.size.width / 6)
-                            
-                            Divider()
-                            Spacer()
-                        }
-                        
-                        Group{
-                            Text("Balance")
-                                .fontWeight(.regular)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: geometry.size.width / 6)
-                            Spacer()
-                        }
-                    }.padding()
-                }.frame(width: geometry.size.width, height: geometry.size.height / 15)
-            
-                List(){
-                    ForEach(0..<self.barValues[0].count, id: \.self) { i in
-                        BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], monthlyPayment: self.monthlyPayment)
-                    }.listRowInsets(EdgeInsets())
-                    .listStyle(PlainListStyle())
+        List(){
+            GeometryReader { geometry in
+                HStack(){
+                    Group {
+                        Text("Date")
+                            .fontWeight(.regular)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: self.maxWidth)
+                        Divider()
+                        Spacer()
+                    }.onAppear(perform: {self.maxWidth = geometry.size.width / 5})
+                    
+                    Group{
+                        Text("Principal")
+                            .fontWeight(.regular)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: self.maxWidth)
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Interest")
+                            .fontWeight(.regular)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: self.maxWidth)
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Balance")
+                            .fontWeight(.regular)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: self.maxWidth)
+                        Spacer()
+                    }
                 }
             }
-        }.navigationBarTitle(self.title)
+            ForEach(0..<self.barValues[0].count, id: \.self) { i in
+                BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], monthlyPayment: self.monthlyPayment, maxWidth: self.$maxWidth)
+                    .listRowBackground(i % 2 == 0 ?  Color.amortizationRow1 : Color.amortizationRow2)
+            }
+        }
+        .listStyle(GroupedListStyle())
+        .environment(\.horizontalSizeClass, .regular)
+        .navigationBarTitle(self.title)
+        
     }
 }
 
@@ -109,3 +87,54 @@ List(){
    }
 }.navigationBarTitle(self.title)
 */
+
+
+
+/*
+ HStack(){
+     Group {
+         Text("Date")
+             .fontWeight(.regular)
+             .lineLimit(1)
+             .minimumScaleFactor(0.5)
+         //Divider()
+         Spacer()
+     }
+     /*
+     Group{
+         Text("Payment")
+             .fontWeight(.regular)
+             .lineLimit(1)
+             .minimumScaleFactor(0.5)
+         //Divider()
+         Spacer()
+     }
+     */
+     
+     Group{
+         Text("Principal")
+             .fontWeight(.regular)
+             .lineLimit(1)
+             .minimumScaleFactor(0.5)
+         //Divider()
+         Spacer()
+     }
+     
+     Group{
+         Text("Interest")
+             .fontWeight(.regular)
+             .lineLimit(1)
+             .minimumScaleFactor(0.5)
+         //Divider()
+         Spacer()
+     }
+     
+     Group{
+         Text("Balance")
+             .fontWeight(.regular)
+             .lineLimit(1)
+             .minimumScaleFactor(0.5)
+         Spacer()
+     }
+ }
+ */

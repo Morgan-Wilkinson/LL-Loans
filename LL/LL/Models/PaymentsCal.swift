@@ -34,28 +34,6 @@ class PaymentsCal {
         timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
     }
     
-    func totalInterestSoFar(interestArray: [Double]) -> [Double]{
-        var totalInterestSoFar: [Double] = []
-        
-        totalInterestSoFar.append(interestArray[0])
-        for i in 1..<interestArray.count{
-            totalInterestSoFar.append(totalInterestSoFar[i - 1] + interestArray[i])
-        }
-        
-        return totalInterestSoFar
-    }
-    
-    func allMonthsSeries() -> [String]{
-        let startDate = self.loan.startDate
-        var monthsArray: [String] = []
-        for index in 0...self.months - 1 {
-            let next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
-            monthsArray.append(format.string(from: next!))
-        }
-        
-       return monthsArray
-    }
-    
     func runner() {
         loan.regularPayments = monthlyPayment()
         
@@ -79,6 +57,28 @@ class PaymentsCal {
         
         // Assign and save the months strings
         loan.monthsSeries = allMonthsSeries()
+    }
+    
+    func totalInterestSoFar(interestArray: [Double]) -> [Double]{
+        var totalInterestSoFar: [Double] = []
+        
+        totalInterestSoFar.append(interestArray[0])
+        for i in 1..<interestArray.count{
+            totalInterestSoFar.append(totalInterestSoFar[i - 1] + interestArray[i])
+        }
+        
+        return totalInterestSoFar
+    }
+    
+    func allMonthsSeries() -> [String]{
+        let startDate = self.loan.startDate
+        var monthsArray: [String] = []
+        for index in 0...self.months - 1 {
+            let next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
+            monthsArray.append(format.string(from: next!))
+        }
+        
+       return monthsArray
     }
     
     // B = L[(1 + c)n - (1 + c)p]/[(1 + c)n - 1]

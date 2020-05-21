@@ -15,6 +15,7 @@ struct BreakdownRow: View {
     var balance: Double
     var monthlyPayment: Double
     var valueSpecifier: String = "%.2f"
+    @Binding var maxWidth: CGFloat
     
     var body: some View {
         GeometryReader { geometry in
@@ -25,18 +26,7 @@ struct BreakdownRow: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .frame(width: geometry.size.width / 6)
-                    Divider()
-                    Spacer()
-                }
-                
-                Group{
-                    Text("\(self.monthlyPayment, specifier: self.valueSpecifier)")
-                        .fontWeight(.regular)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .frame(width: geometry.size.width / 6)
+                        .frame(width: self.maxWidth)
                     Divider()
                     Spacer()
                 }
@@ -47,7 +37,7 @@ struct BreakdownRow: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .frame(width: geometry.size.width / 6)
+                        .frame(width: self.maxWidth)
                     Divider()
                     Spacer()
                 }
@@ -58,7 +48,7 @@ struct BreakdownRow: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .frame(width: geometry.size.width / 6)
+                        .frame(width: self.maxWidth)
                     Divider()
                     Spacer()
                 }
@@ -69,7 +59,7 @@ struct BreakdownRow: View {
                         .multilineTextAlignment(.leading)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
-                        .frame(width: geometry.size.width / 6)
+                        .frame(width: self.maxWidth)
                     Spacer()
                 }
             }.padding()
@@ -79,6 +69,6 @@ struct BreakdownRow: View {
 
 struct BreakdownRow_Previews: PreviewProvider {
     static var previews: some View {
-        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000, monthlyPayment: 30.00)
+        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000, monthlyPayment: 30.00, maxWidth: .constant(35))
     }
 }

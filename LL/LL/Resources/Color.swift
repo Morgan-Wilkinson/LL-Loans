@@ -23,5 +23,11 @@ extension Color {
         Color("LLHeaderText")
     }
     
+    public static var amortizationRow1: Color {
+        Color("AmortizationRow1")
+    }
     
+    public static var amortizationRow2: Color {
+        Color("AmortizationRow2")
+    }
 }

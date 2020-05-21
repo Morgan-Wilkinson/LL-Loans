@@ -32,7 +32,6 @@ struct ExplainationHeader: View{
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 14)
-            .background(Color.llHeaderBackground)
             .mask(RoundedRectangle(cornerRadius: 3, style: .continuous))
             .padding(.leading, -9)
             .padding(.bottom, -10)
@@ -46,7 +45,6 @@ struct ExplainationHeader: View{
                         .imageScale(.large)
                         .padding(.vertical, 12)
                         .padding(.horizontal, 15)
-                        .background(Color.llHeaderBackground)
                         .mask(RoundedRectangle(cornerRadius: 3, style: .continuous))
                         .contextMenu{
                             Text(explanation!)
@@ -56,7 +54,6 @@ struct ExplainationHeader: View{
                 }
             }
             .padding(.leading, -9)
-            .padding(.bottom, -10)
         }.listRowInsets(EdgeInsets())
         .buttonStyle(PlainButtonStyle())
 
