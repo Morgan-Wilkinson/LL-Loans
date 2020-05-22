@@ -12,7 +12,6 @@
 		9016AB2A2471E34900F43640 /* MonthlyPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB292471E34900F43640 /* MonthlyPayment.swift */; };
 		9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */; };
 		9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */; };
-		9016AB30247208C200F43640 /* ListLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB2F247208C200F43640 /* ListLineView.swift */; };
 		902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 902850F723D64C53007B78BC /* PaymentsCal.swift */; };
 		9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EC23C448E90046B9BF /* AppDelegate.swift */; };
 		9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E8EE23C448E90046B9BF /* SceneDelegate.swift */; };
@@ -35,6 +34,12 @@
 		90AB85932474A58A00E8F9E4 /* SmallMonthsCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */; };
 		90B24EFB246F31EE000820FD /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B24EFA246F31EE000820FD /* HomePage.swift */; };
 		90B39A4D2470ABED0088F223 /* NavConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B39A4C2470ABED0088F223 /* NavConfigurator.swift */; };
+		90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */; };
+		90E567212476FF4800B02672 /* CreditCardPayoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E567202476FF4800B02672 /* CreditCardPayoff.swift */; };
+		90E5672524770DA400B02672 /* CreditCardCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5672424770DA400B02672 /* CreditCardCalculator.swift */; };
+		90E5672724770F3000B02672 /* LabelDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5672624770F3000B02672 /* LabelDivider.swift */; };
+		90E567292477652600B02672 /* CompoundInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E567282477652600B02672 /* CompoundInterest.swift */; };
+		90E5672E24777AD700B02672 /* CompoundInterestCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5672D24777AD700B02672 /* CompoundInterestCalculator.swift */; };
 		C7049FA82415E09300636392 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7049FA72415E09300636392 /* Card.swift */; };
 		C7942D312418623F000EF862 /* BarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D302418623F000EF862 /* BarRow.swift */; };
 		C7942D3324188219000EF862 /* BarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7942D3224188219000EF862 /* BarCell.swift */; };
@@ -50,7 +55,6 @@
 		9016AB292471E34900F43640 /* MonthlyPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPayment.swift; sourceTree = "<group>"; };
 		9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeRatioChecker.swift; sourceTree = "<group>"; };
 		9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaymentWhatIf.swift; sourceTree = "<group>"; };
-		9016AB2F247208C200F43640 /* ListLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLineView.swift; sourceTree = "<group>"; };
 		902850F723D64C53007B78BC /* PaymentsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsCal.swift; sourceTree = "<group>"; };
 		9041E8E923C448E90046B9BF /* LL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9041E8EC23C448E90046B9BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +80,12 @@
 		90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMonthsCal.swift; sourceTree = "<group>"; };
 		90B24EFA246F31EE000820FD /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		90B39A4C2470ABED0088F223 /* NavConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavConfigurator.swift; sourceTree = "<group>"; };
+		90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefinanceCalculator.swift; sourceTree = "<group>"; };
+		90E567202476FF4800B02672 /* CreditCardPayoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPayoff.swift; sourceTree = "<group>"; };
+		90E5672424770DA400B02672 /* CreditCardCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCalculator.swift; sourceTree = "<group>"; };
+		90E5672624770F3000B02672 /* LabelDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDivider.swift; sourceTree = "<group>"; };
+		90E567282477652600B02672 /* CompoundInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterest.swift; sourceTree = "<group>"; };
+		90E5672D24777AD700B02672 /* CompoundInterestCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterestCalculator.swift; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
@@ -111,8 +121,11 @@
 			isa = PBXGroup;
 			children = (
 				9016AB232471A34A00F43640 /* WhatIf.swift */,
-				9016AB292471E34900F43640 /* MonthlyPayment.swift */,
+				90E567282477652600B02672 /* CompoundInterest.swift */,
+				90E567202476FF4800B02672 /* CreditCardPayoff.swift */,
 				9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */,
+				9016AB292471E34900F43640 /* MonthlyPayment.swift */,
+				90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */,
 			);
 			path = WhatIf;
 			sourceTree = "<group>";
@@ -191,6 +204,7 @@
 			children = (
 				90AB858C247440AE00E8F9E4 /* SectionHeaderView.swift */,
 				90A6E8BE24759E41004CA5C0 /* ExplainationHeader.swift */,
+				90E5672624770F3000B02672 /* LabelDivider.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -217,7 +231,6 @@
 			children = (
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
 				90B39A4C2470ABED0088F223 /* NavConfigurator.swift */,
-				9016AB2F247208C200F43640 /* ListLineView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -248,6 +261,8 @@
 				902850F723D64C53007B78BC /* PaymentsCal.swift */,
 				907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */,
 				9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */,
+				90E5672D24777AD700B02672 /* CompoundInterestCalculator.swift */,
+				90E5672424770DA400B02672 /* CreditCardCalculator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -368,8 +383,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9016AB30247208C200F43640 /* ListLineView.swift in Sources */,
+				90E5672E24777AD700B02672 /* CompoundInterestCalculator.swift in Sources */,
 				9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */,
+				90E5672724770F3000B02672 /* LabelDivider.swift in Sources */,
 				9016AB242471A34A00F43640 /* WhatIf.swift in Sources */,
 				9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */,
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
@@ -377,19 +393,23 @@
 				909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */,
 				9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
+				90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */,
 				9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
 				9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */,
 				C7942D3324188219000EF862 /* BarCell.swift in Sources */,
+				90E5672524770DA400B02672 /* CreditCardCalculator.swift in Sources */,
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				90A6E8BF24759E41004CA5C0 /* ExplainationHeader.swift in Sources */,
 				C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */,
 				90AB858D247440AE00E8F9E4 /* SectionHeaderView.swift in Sources */,
+				90E567292477652600B02672 /* CompoundInterest.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9016AB262471A37500F43640 /* Refinance.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */,
 				90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */,
+				90E567212476FF4800B02672 /* CreditCardPayoff.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
 				90AB85902474419000E8F9E4 /* Color.swift in Sources */,

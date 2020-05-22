@@ -50,7 +50,8 @@ struct ExplainationHeader: View{
                             Text(explanation!)
                                 .font(.headline)
                                 .foregroundColor(.accentColor)
-                        }
+                                .lineLimit(nil)
+                    }.lineLimit(nil)
                 }
             }
             .padding(.leading, -9)

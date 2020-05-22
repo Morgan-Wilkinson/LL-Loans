@@ -22,7 +22,7 @@ struct LoanDetail: View{
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateStyle = .short
-        dateFormatter.dateFormat = "d MMM y"
+        dateFormatter.dateFormat = "MMM d, y"
         
         // The array is set to have index four be the current Month or any month less than 4.
         let threeMonthBuffer = 3
@@ -30,13 +30,13 @@ struct LoanDetail: View{
         let currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
         
         let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
-        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex + 1, to: loanItem.startDate)!))
+        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loanItem.startDate)!))
         
         return GeometryReader { geometry in
-            List {///////////////////// fix overview next month
+            List {
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
-                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Next Payment - \(currentDueDate) for $\(self.loanItem.regularPayments)",
+                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loanItem.regularPayments)",
                         briefSummary: "Principal: $\(self.loanItem.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loanItem.smallInterestArray[currentMonth]) \nBalance: $\(self.loanItem.smallBalanceArray[currentMonth])", description: "\(self.loanItem.about)", month: "\(dateFormatter.string(from:self.loanItem.currentDueDate))")
                 }
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {

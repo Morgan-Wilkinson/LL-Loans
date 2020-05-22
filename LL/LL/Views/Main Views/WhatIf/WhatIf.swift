@@ -17,12 +17,25 @@ struct WhatIf: View {
             List(){
                 Section(header: SectionHeaderView(text: "Calculators", icon: "plusminus"), footer: Text("Here are some calculators that can quickly check different scenarios for you.")){
                     Group{
-                        NavigationLink(destination: MonthlyPayment()) {
+                        NavigationLink(destination: CompoundInterest()) {
                             HStack{
-                                Image(systemName: "calendar")
+                                Image(systemName: "clock")
                                     .foregroundColor(BigButtonText)
                                     .imageScale(.medium)
-                                Text("Monthly Payment Checker")
+                                Text("Compound Interest")
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(BigButtonText)
+                            }
+                        }
+                        
+                        NavigationLink(destination: CreditCardPayoff()) {
+                            HStack{
+                                Image(systemName: "creditcard")
+                                    .foregroundColor(BigButtonText)
+                                    .imageScale(.medium)
+                                Text("Credit Card Payoff")
                                     .fontWeight(.semibold)
                                     .font(.headline)
                                     .multilineTextAlignment(.leading)
@@ -32,10 +45,37 @@ struct WhatIf: View {
                         
                         NavigationLink(destination: DebtToIncomeRatioChecker()) {
                             HStack{
+                                Image(systemName: "divide")
+                                    .foregroundColor(BigButtonText)
+                                    .imageScale(.medium)
+                                    .rotationEffect(.degrees(90))
+                                Text("Debt-Income Ratio")
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(BigButtonText)
+                            }
+                        }
+                        
+                        NavigationLink(destination: MonthlyPayment()) {
+                            HStack{
+                                Image(systemName: "calendar")
+                                    .foregroundColor(BigButtonText)
+                                    .imageScale(.medium)
+                                Text("Monthly Payment & Interest")
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(BigButtonText)
+                            }
+                        }
+                        
+                        NavigationLink(destination: RefinanceCalculator()) {
+                            HStack{
                                 Image(systemName: "arrow.2.circlepath")
                                     .foregroundColor(BigButtonText)
                                     .imageScale(.medium)
-                                Text("Debt-Income Ratio")
+                                Text("Refinance Calculator")
                                     .fontWeight(.semibold)
                                     .font(.headline)
                                     .multilineTextAlignment(.leading)

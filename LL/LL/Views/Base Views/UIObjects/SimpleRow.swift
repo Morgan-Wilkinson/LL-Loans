@@ -61,15 +61,17 @@ struct SimpleRow: View {
                             
                             Text("\(dueAmount, specifier: valueSpecifier)")
                                 .fontWeight(.bold)
-                                .font(.caption)
+                                .font(.headline)
                                 .padding(5)
-                                .background(Color.gray)
-                                .foregroundColor(.white)
+                                //.background(Color.gray)
+                                .foregroundColor(.accentColor)
                                 .padding(5)
+                                /*
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 0)
                                         .stroke(Color.gray, lineWidth: 2)
                                 )
+                                */
                         }
                     }
                     Divider()
@@ -83,22 +85,24 @@ struct SimpleRow: View {
                             
                             Text(currentDueDate)
                                 .fontWeight(.bold)
-                                .font(.caption)
+                                .font(.headline)
                                 .padding(5)
-                                .background(Color.gray)
-                                .foregroundColor(.white)
+                                //.background(Color.gray)
+                                .foregroundColor(.accentColor)
                                 .padding(5)
+                                /*
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 0)
                                         .stroke(Color.gray, lineWidth: 2)
                                 )
+                                */
                         }
                     }
                 }
             }.padding()
         }
         //.padding()
-        .shadow(radius: 5)
+        //.shadow(radius: 5)
     }
 }
 

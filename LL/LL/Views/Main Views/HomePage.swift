@@ -21,18 +21,20 @@ struct HomePage: View {
                     Text("Loans")
                 }
                 .tag(0)
-            WhatIf()
-               .tabItem {
-                  Image(systemName: "questionmark.circle")
-                  Text("What If?")
-                }
-                .tag(1)
+            
             Refinance()
                 .tabItem {
                     Image(systemName: "arrow.2.circlepath")
                     Text("Refinance")
                 }
-                .tag(2)
+                .tag(1)
+            
+            WhatIf()
+            .tabItem {
+               Image(systemName: "questionmark.circle")
+               Text("What If?")
+             }
+             .tag(2)
         }//.edgesIgnoringSafeArea(.top)
     }
 }
