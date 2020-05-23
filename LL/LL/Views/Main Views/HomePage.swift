@@ -14,6 +14,7 @@ struct HomePage: View {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var body: some View {
+        // Test
         TabView(selection: $selection) {
             LoanView().environment(\.managedObjectContext, context)
                 .tabItem {
