@@ -97,20 +97,19 @@ struct LoanEditor: View {
                         
                         if self.loanPickerVisible{
                             HStack{
-                                Spacer()
                                 Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
                                     ForEach(0 ..< typeOfLoan.count) {
                                         Text(self.typeOfLoan[$0])
                                     }
                                 }
+                                .pickerStyle(WheelPickerStyle())
                                 .labelsHidden()
                                 .onTapGesture {
                                     self.loanPickerVisible.toggle()
                                 }
-                                Spacer()
                             }
                         }
-                    }.padding()
+                    }.padding(.vertical)
                 }
             }
             
@@ -179,16 +178,15 @@ struct LoanEditor: View {
                             }
                             if self.startDatePickerVisible {
                                 HStack{
-                                    Spacer()
                                     DatePicker("", selection: self.$startDate, in: ...Date(), displayedComponents: .date)
                                     .labelsHidden()
+                                    .datePickerStyle(WheelDatePickerStyle())
                                     .onTapGesture {
                                         self.startDatePickerVisible.toggle()
                                     }
-                                    Spacer()
                                 }
                             }
-                        }.padding()
+                        }.padding(.vertical)
                     }
                 }
                 
@@ -205,16 +203,14 @@ struct LoanEditor: View {
                             }
                             if self.currentDatePickerVisible {
                                 HStack{
-                                    Spacer()
                                     DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
                                     .labelsHidden()
+                                    .datePickerStyle(WheelDatePickerStyle())
                                     .onTapGesture {
                                         self.currentDatePickerVisible.toggle()
-                                    }
-                                    Spacer()
-                                }
+                                    }                                }
                             }
-                        }.padding()
+                         }.padding(.vertical)
                     }
                 }
             }
