@@ -22,7 +22,7 @@ public class Loans: NSManagedObject, Identifiable{
     @NSManaged public var origin: String
     
     // Unique ID
-    @NSManaged public var id: UUID
+    //@NSManaged public var id: UUID
     
     // Big Arrays Holds All Values
     @NSManaged public var balanceArray: [Double]

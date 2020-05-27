@@ -12,7 +12,7 @@ import SwiftUI
 extension Color {
     
     public static var llBackground: Color {
-        Color("Dasboard")
+        Color("Dashboard")
     }
     
     public static var llHeaderBackground: Color {
@@ -29,5 +29,21 @@ extension Color {
     
     public static var amortizationRow2: Color {
         Color("AmortizationRow2")
+    }
+    
+    public static var bigButton: Color {
+        Color("BigButtonColor")
+    }
+    
+    public static var bigButtonText: Color {
+        Color("BigButtonText")
+    }
+    
+    public static var cards: Color {
+        Color("Cards")
+    }
+    
+    public static var textBox: Color {
+        Color("TextFieldBox")
     }
 }
