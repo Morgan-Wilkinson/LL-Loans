@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90086FDA247D76820091FDF7 /* Introduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FD9247D76820091FDF7 /* Introduction.swift */; };
-		90086FDE247D781A0091FDF7 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FDD247D781A0091FDF7 /* PageViewController.swift */; };
-		90086FE0247DA4B50091FDF7 /* PageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FDF247DA4B50091FDF7 /* PageViewContainer.swift */; };
-		90086FE7247DA62A0091FDF7 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FE6247DA62A0091FDF7 /* MasterView.swift */; };
-		90086FEB247E0ACC0091FDF7 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FEA247E0ACC0091FDF7 /* OnboardingPage.swift */; };
-		90086FED247E0C2E0091FDF7 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FEC247E0C2E0091FDF7 /* PageIndicator.swift */; };
-		90086FEF247E0C600091FDF7 /* LCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90086FEE247E0C600091FDF7 /* LCButton.swift */; };
 		9016AB242471A34A00F43640 /* WhatIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB232471A34A00F43640 /* WhatIf.swift */; };
 		9016AB262471A37500F43640 /* Refinance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB252471A37500F43640 /* Refinance.swift */; };
 		9016AB2A2471E34900F43640 /* MonthlyPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB292471E34900F43640 /* MonthlyPayment.swift */; };
@@ -32,7 +25,8 @@
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
 		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
 		907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */; };
-		90981024247F27A200FF886A /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90981023247F27A200FF886A /* UIApplicationExt.swift */; };
+		9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90981029247F3C6700FF886A /* SplashScreen.swift */; };
+		9098102C247F619C00FF886A /* BookmarkSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9098102B247F619C00FF886A /* BookmarkSymbol.swift */; };
 		909F1B9524685BAB004A4D76 /* BreakdownRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1B9424685BAB004A4D76 /* BreakdownRow.swift */; };
 		909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1B9724687E69004A4D76 /* SimpleRow.swift */; };
 		90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */; };
@@ -58,13 +52,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		90086FD9247D76820091FDF7 /* Introduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introduction.swift; sourceTree = "<group>"; };
-		90086FDD247D781A0091FDF7 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		90086FDF247DA4B50091FDF7 /* PageViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewContainer.swift; sourceTree = "<group>"; };
-		90086FE6247DA62A0091FDF7 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
-		90086FEA247E0ACC0091FDF7 /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
-		90086FEC247E0C2E0091FDF7 /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
-		90086FEE247E0C600091FDF7 /* LCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCButton.swift; sourceTree = "<group>"; };
 		9016AB232471A34A00F43640 /* WhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIf.swift; sourceTree = "<group>"; };
 		9016AB252471A37500F43640 /* Refinance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refinance.swift; sourceTree = "<group>"; };
 		9016AB292471E34900F43640 /* MonthlyPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPayment.swift; sourceTree = "<group>"; };
@@ -85,7 +72,8 @@
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeCalculator.swift; sourceTree = "<group>"; };
-		90981023247F27A200FF886A /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
+		90981029247F3C6700FF886A /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		9098102B247F619C00FF886A /* BookmarkSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSymbol.swift; sourceTree = "<group>"; };
 		909F1B9424685BAB004A4D76 /* BreakdownRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownRow.swift; sourceTree = "<group>"; };
 		909F1B9724687E69004A4D76 /* SimpleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRow.swift; sourceTree = "<group>"; };
 		90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBreakdownDetail.swift; sourceTree = "<group>"; };
@@ -124,21 +112,13 @@
 		90086FE1247DA5C50091FDF7 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				90B24EFA246F31EE000820FD /* HomePage.swift */,
+				90981026247F3C4400FF886A /* Home */,
 				9016AB272471E22300F43640 /* Loans */,
 				9016AB282471E23B00F43640 /* WhatIf */,
 				90AB859124746B3400E8F9E4 /* Refinance */,
 				C78E79DD24195FB20067FB08 /* Base Views */,
 			);
 			path = HomePage;
-			sourceTree = "<group>";
-		};
-		90086FE2247DA5F20091FDF7 /* Master Routing */ = {
-			isa = PBXGroup;
-			children = (
-				90086FE6247DA62A0091FDF7 /* MasterView.swift */,
-			);
-			path = "Master Routing";
 			sourceTree = "<group>";
 		};
 		90086FE8247E0A7F0091FDF7 /* Calculators */ = {
@@ -152,14 +132,6 @@
 				90E5672424770DA400B02672 /* CreditCardCalculator.swift */,
 			);
 			path = Calculators;
-			sourceTree = "<group>";
-		};
-		90086FE9247E0AB10091FDF7 /* Onboarding Models */ = {
-			isa = PBXGroup;
-			children = (
-				90086FEA247E0ACC0091FDF7 /* OnboardingPage.swift */,
-			);
-			path = "Onboarding Models";
 			sourceTree = "<group>";
 		};
 		9016AB272471E22300F43640 /* Loans */ = {
@@ -184,18 +156,6 @@
 				90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */,
 			);
 			path = WhatIf;
-			sourceTree = "<group>";
-		};
-		9039DADA2478BCF900A45CB1 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				90086FD9247D76820091FDF7 /* Introduction.swift */,
-				90086FEC247E0C2E0091FDF7 /* PageIndicator.swift */,
-				90086FEE247E0C600091FDF7 /* LCButton.swift */,
-				90086FDF247DA4B50091FDF7 /* PageViewContainer.swift */,
-				90086FDD247D781A0091FDF7 /* PageViewController.swift */,
-			);
-			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		9041E8E023C448E90046B9BF = {
@@ -239,10 +199,20 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		90981026247F3C4400FF886A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				90B24EFA246F31EE000820FD /* HomePage.swift */,
+				90981029247F3C6700FF886A /* SplashScreen.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		909F1B9624687E4C004A4D76 /* UIObjects */ = {
 			isa = PBXGroup;
 			children = (
 				909F1B9724687E69004A4D76 /* SimpleRow.swift */,
+				9098102B247F619C00FF886A /* BookmarkSymbol.swift */,
 			);
 			path = UIObjects;
 			sourceTree = "<group>";
@@ -288,7 +258,6 @@
 			children = (
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
 				90B39A4C2470ABED0088F223 /* NavConfigurator.swift */,
-				90981023247F27A200FF886A /* UIApplicationExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -305,8 +274,6 @@
 		C78E79DA24195D620067FB08 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				90086FE2247DA5F20091FDF7 /* Master Routing */,
-				9039DADA2478BCF900A45CB1 /* Onboarding */,
 				90086FE1247DA5C50091FDF7 /* HomePage */,
 			);
 			path = Views;
@@ -315,7 +282,6 @@
 		C78E79DC24195DDE0067FB08 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				90086FE9247E0AB10091FDF7 /* Onboarding Models */,
 				90086FE8247E0A7F0091FDF7 /* Calculators */,
 			);
 			path = Models;
@@ -447,11 +413,7 @@
 				909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */,
 				9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
-				90086FE0247DA4B50091FDF7 /* PageViewContainer.swift in Sources */,
-				90086FEF247E0C600091FDF7 /* LCButton.swift in Sources */,
-				90086FED247E0C2E0091FDF7 /* PageIndicator.swift in Sources */,
 				90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */,
-				90086FEB247E0ACC0091FDF7 /* OnboardingPage.swift in Sources */,
 				9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
 				9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */,
@@ -460,25 +422,23 @@
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				90A6E8BF24759E41004CA5C0 /* ExplainationHeader.swift in Sources */,
 				C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */,
-				90981024247F27A200FF886A /* UIApplicationExt.swift in Sources */,
 				90AB858D247440AE00E8F9E4 /* SectionHeaderView.swift in Sources */,
 				90E567292477652600B02672 /* CompoundInterest.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9016AB262471A37500F43640 /* Refinance.swift in Sources */,
+				9098102C247F619C00FF886A /* BookmarkSymbol.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
+				9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */,
 				907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */,
 				90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */,
 				90E567212476FF4800B02672 /* CreditCardPayoff.swift in Sources */,
-				90086FE7247DA62A0091FDF7 /* MasterView.swift in Sources */,
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
 				90AB85902474419000E8F9E4 /* Color.swift in Sources */,
 				909F1B9524685BAB004A4D76 /* BreakdownRow.swift in Sources */,
 				C7942D312418623F000EF862 /* BarRow.swift in Sources */,
 				90B24EFB246F31EE000820FD /* HomePage.swift in Sources */,
-				90086FDA247D76820091FDF7 /* Introduction.swift in Sources */,
 				90B39A4D2470ABED0088F223 /* NavConfigurator.swift in Sources */,
-				90086FDE247D781A0091FDF7 /* PageViewController.swift in Sources */,
 				9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */,
 				90AB85932474A58A00E8F9E4 /* SmallMonthsCal.swift in Sources */,
 			);
