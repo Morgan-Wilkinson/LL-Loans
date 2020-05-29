@@ -40,6 +40,7 @@ struct LoanView: View {
                             // This will change the background to show due items
                             //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("Card"))
                         }.onDelete(perform: self.deleteLoans)
+                        // Maybe with animation
                     }
                     NewLoanButton()
                 }

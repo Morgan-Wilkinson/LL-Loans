@@ -48,20 +48,19 @@ struct LoanAdder: View {
     }
     
     var body: some View {
-        
         return List {
             Group{
                 Section(header: ExplainationHeader(title: "Loan Name", nameIcon: "doc.text", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
                     TextField("Loan Name", text: self.$loanTitle)
                         .textFieldStyle(PlainTextFieldStyle())
-                        .padding(.all)
+                        .padding([.top, .bottom, .trailing])
                         .cornerRadius(5)
                 }
                 
                 Section(header: ExplainationHeader(title: "Origin", nameIcon: "globe", moreInfoIcon: "questionmark.circle", explanation: "Where is the loan from?")){
                     TextField("Loan Origin", text: self.$origin)
                     .textFieldStyle(PlainTextFieldStyle())
-                    .padding(.all)
+                        .padding([.top, .bottom, .trailing])
                     .cornerRadius(5)
                 }
             }
@@ -98,7 +97,7 @@ struct LoanAdder: View {
                         Image(systemName: "dollarsign.circle")
                         TextField("What's the principal?", text: self.$principal)
                             .textFieldStyle(PlainTextFieldStyle())
-                            .padding(.all)
+                            .padding([.top, .bottom, .trailing])
                             .cornerRadius(5)
                     }
                 }
@@ -106,7 +105,7 @@ struct LoanAdder: View {
                     HStack{
                         TextField("What's the annual interest rate (APR)?", text: self.$interestRate)
                             .textFieldStyle(PlainTextFieldStyle())
-                            .padding(.all)
+                            .padding([.top, .bottom, .trailing])
                             .cornerRadius(5)
                         Image(systemName: "percent")
                         Spacer()
@@ -191,8 +190,7 @@ struct LoanAdder: View {
                     }
                 }
             }
-        }
-        .environment(\.horizontalSizeClass, .regular)
+        }.environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("New Loan")
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
@@ -241,6 +239,7 @@ struct LoanAdder: View {
                 Text("Save")
             }
         }.disabled(disableForm))
+        .keyboardAdaptive() // Fix white padding box
     }
 }
 

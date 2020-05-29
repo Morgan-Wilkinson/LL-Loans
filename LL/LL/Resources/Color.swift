@@ -46,4 +46,16 @@ extension Color {
     public static var textBox: Color {
         Color("TextFieldBox")
     }
+    
+    public static var splashScreen: Color {
+        Color("SplashScreen")
+    }
+    
+    public static var gradientStartSS: Color {
+        Color("GradientStart")
+    }
+    
+    public static var gradientEndSS: Color {
+        Color("GradientEnd")
+    }
 }

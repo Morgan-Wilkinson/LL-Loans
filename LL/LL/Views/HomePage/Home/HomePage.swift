@@ -44,9 +44,8 @@ struct HomePage: View {
             SplashScreen()
               .opacity(showSplash ? 1 : 0)
               .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                  SplashScreen.shouldAnimate = false
-                  withAnimation() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation(.easeInOut) {
                     self.showSplash = false
                   }
                 }
@@ -57,6 +56,6 @@ struct HomePage: View {
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage()//.environment(\.colorScheme, .dark)
+        HomePage().environment(\.colorScheme, .dark)
     }
 }

@@ -11,7 +11,6 @@ import SwiftUI
 struct Card: View {
     var subtitle: String
     var title: String
-    //var backgroundImage: Image
     var overview: String
     var briefSummary: String
     var description: String?
@@ -40,7 +39,7 @@ struct Card: View {
                     .foregroundColor(.accentColor)
                 
                 Divider()
-                Text("Payment Breakdown for \(month)")
+                Text("Payment Breakdown")
                     .font(.headline)
                     .foregroundColor(.accentColor)
                 Text(briefSummary)
