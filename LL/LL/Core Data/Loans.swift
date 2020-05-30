@@ -8,8 +8,11 @@
 
 import Foundation
 import CoreData
+import SwiftUI
+import Combine
 
 public class Loans: NSManagedObject, Identifiable{
+    
     @NSManaged public var startDate: Date
     @NSManaged public var currentDueDate: Date
     @NSManaged public var termMonths: NSNumber

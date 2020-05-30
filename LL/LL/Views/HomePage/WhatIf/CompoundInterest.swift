@@ -33,12 +33,11 @@ struct CompoundInterest: View {
     
     var disableForm: Bool {
         formPrincipal.isEmpty || formInterestRate.isEmpty ||
-            formTermYears.isEmpty || formPrincipal == "0" || formInterestRate == "0" || formTermYears == "0"
+            (formTermYears.isEmpty && formTermMonths.isEmpty) || formPrincipal == "0" || formInterestRate == "0" || (formTermYears == "0" && formTermMonths == "0")
     }
     
     var body: some View {
-        return VStack{
-            List {
+        return List {
                 Group{
                     Section(header: ExplainationHeader(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required")){
                         HStack{
@@ -46,16 +45,14 @@ struct CompoundInterest: View {
                             Image(systemName: "dollarsign.circle")
                             TextField("What's the principal?", text: self.$formPrincipal)
                                 .textFieldStyle(PlainTextFieldStyle())
-                                .padding(.all)
-                                .cornerRadius(5)
+                                .keyboardType(.decimalPad)
                         }
                     }
                     Section(header: ExplainationHeader(title: "Interest Rate", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required")){
                         HStack{
                             TextField("What's the interest rate?", text: self.$formInterestRate)
                                 .textFieldStyle(PlainTextFieldStyle())
-                                .padding(.all)
-                                .cornerRadius(5)
+                                .keyboardType(.decimalPad)
                             Image(systemName: "percent")
                             Spacer()
                         }
@@ -88,7 +85,7 @@ struct CompoundInterest: View {
                                         Spacer()
                                     }
                                 }
-                            }.padding()
+                            }
                         }
                     }
                 }
@@ -99,8 +96,7 @@ struct CompoundInterest: View {
                                 HStack{
                                     TextField("Years", text: self.$formTermYears)
                                         .textFieldStyle(PlainTextFieldStyle())
-                                        .padding([.top, .leading, .bottom])
-                                        .cornerRadius(5)
+                                        .keyboardType(.decimalPad)
                                     Text("Years")
                                         .fontWeight(.bold)
                                     Spacer()
@@ -111,8 +107,7 @@ struct CompoundInterest: View {
                                 HStack{
                                     TextField("Months", text: self.$formTermMonths)
                                         .textFieldStyle(PlainTextFieldStyle())
-                                        .padding([.top, .leading, .bottom])
-                                        .cornerRadius(5)
+                                        .keyboardType(.numberPad)
                                     Text("Months")
                                         .fontWeight(.bold)
                                     Spacer()
@@ -129,12 +124,13 @@ struct CompoundInterest: View {
                         let years = self.formatter.number(from: self.formTermYears) ?? 0
                         
                         self.formTermYears = "\((Double(truncating: months) / 12) + Double(truncating: years))"
-                        self.formTermMonths = ""
                     }
                     
                     self.principal = Double(self.formPrincipal) ?? 0
                     let interestRate = Double(self.formInterestRate) ?? 0
                     self.years = Double(self.formTermYears) ?? 0
+                    
+                    self.formTermYears = ""
                     
                     let calculator = CompoundInterestCalculator(prinicipal: self.principal, interest: interestRate, years: self.years, compoundType: self.typeOfCompoundInterestDouble[self.selectedCompoundType])
                     
@@ -148,8 +144,9 @@ struct CompoundInterest: View {
                             .fontWeight(.bold)
                             .font(.title)
                             .multilineTextAlignment(.leading)
-                    }.foregroundColor(Color.bigButtonText)
-                    .listRowBackground(Color.bigButton)
+                            .foregroundColor(Color.bigButtonText)
+                            .padding(.horizontal)
+                    }.listRowBackground(Color.bigButton)
                 }.disabled(self.disableForm)
                 
                 // Results
@@ -188,14 +185,19 @@ struct CompoundInterest: View {
                                 .foregroundColor(.accentColor)
                                 .lineLimit(3)
                         }
-                    }.padding()
+                    }
+                    .animation(.linear(duration: 0.3))
+                    .padding()
                 }
-            }.environment(\.horizontalSizeClass, .regular)
+            }
+            .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("Compound Interest")
             .buttonStyle(PlainButtonStyle())
             .listStyle(GroupedListStyle())
             .foregroundColor(Color.blue)
-        }
+            .onTapGesture {
+                self.endEditing(true)
+            }
     }
 }
 

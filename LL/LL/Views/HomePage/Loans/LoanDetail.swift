@@ -10,11 +10,11 @@ import Combine
 import SwiftUI
 
 struct LoanDetail: View{
-    
+    @Environment(\.presentationMode) var homeDismiss: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var managedObjectContext
-    var loanItem: Loans
+    @ObservedObject var loan: Loans
     
-    @State private var showModal = false
+    @State var showingEditor = false
     
     var body: some View {
         // Formatters for Date style
@@ -25,27 +25,28 @@ struct LoanDetail: View{
         
         // The array is set to have index four be the current Month or any month less than 4.
         let threeMonthBuffer = 3
-        let monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
+        let monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
         let currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
         
-        let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loanItem.startDate, to: Date()).month!
-        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loanItem.startDate)!))
+        let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
+        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
         
         return GeometryReader { geometry in
             List {
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
-                    Card(subtitle: "\(self.loanItem.origin)", title: "\(self.loanItem.name) - \(self.loanItem.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loanItem.regularPayments)",
-                        briefSummary: "Principal: $\(self.loanItem.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loanItem.smallInterestArray[currentMonth]) \nBalance: $\(self.loanItem.smallBalanceArray[currentMonth])", description: "\(self.loanItem.about)", month: "\(dateFormatter.string(from:self.loanItem.currentDueDate))")
+                    Card(subtitle: "\(self.loan.origin)", title: "\(self.loan.name) - \(self.loan.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loan.regularPayments)",
+                        briefSummary: "Principal: $\(self.loan.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loan.smallInterestArray[currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[currentMonth])", description: "\(self.loan.about)", month: "\(dateFormatter.string(from:self.loan.currentDueDate))")
                 }
+                // Charts
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
                     // Current 12 month preview
-                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: self.loanItem.smallMonthsSeries, barValues: [self.loanItem.smallBalanceArray, self.loanItem.smallInterestArray, self.loanItem.smallPrincipalArray])
-                    
+                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: self.loan.smallMonthsSeries, barValues: [self.loan.smallBalanceArray, self.loan.smallInterestArray, self.loan.smallPrincipalArray])
                 }
+                
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
-                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loanItem.regularPayments, monthsSeries: self.loanItem.monthsSeries, barValues: [self.loanItem.balanceArray, self.loanItem.interestArray, self.loanItem.principalArray])) {
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: [self.loan.balanceArray, self.loan.interestArray, self.loan.principalArray])) {
                         Text("Amortization Schedule")
                             .fontWeight(.bold)
                             .font(.headline)
@@ -54,18 +55,22 @@ struct LoanDetail: View{
                     }.listRowBackground(Color.bigButton)
                     .buttonStyle(PlainButtonStyle())
                 }
-               
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("\(self.loanItem.name.capitalizingFirstLetter())")
-            .navigationBarItems(trailing: NavigationLink(destination: LoanEditor(loan: self.loanItem)){
+            .navigationBarTitle("\(self.loan.name.capitalizingFirstLetter())")
+            .navigationBarItems(trailing: Button(action: {
+                self.showingEditor.toggle()}){
                 HStack{
                         Image(systemName: "pencil.circle.fill")
                             .foregroundColor(.blue)
                             .imageScale(.medium)
                         Text("Edit")
                 }
+            }.sheet(isPresented: self.$showingEditor, onDismiss: {
+                self.homeDismiss.wrappedValue.dismiss()
+            }) {
+                LoanEditor(loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })
         }
     }

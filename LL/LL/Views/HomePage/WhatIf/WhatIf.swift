@@ -84,7 +84,8 @@ struct WhatIf: View {
                     }
                 }.listRowBackground(Color.bigButton)
                 .buttonStyle(PlainButtonStyle())
-            }.navigationBarTitle(Text("What If Calculator"))
+            }.animation(.linear(duration: 0.3))
+            .navigationBarTitle(Text("What If Calculator"))
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             

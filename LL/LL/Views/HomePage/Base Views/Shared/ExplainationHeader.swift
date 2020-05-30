@@ -29,11 +29,11 @@ struct ExplainationHeader: View{
                     .fontWeight(.bold)
                     .foregroundColor(.llHeaderText)
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 14)
+            //.padding(.vertical, 8)
+            //.padding(.horizontal, 14)
             .mask(RoundedRectangle(cornerRadius: 3, style: .continuous))
-            .padding(.leading, -9)
-            .padding(.bottom, -10)
+            //.padding(.leading, -9)
+            //.padding(.bottom, -10)
             
             Spacer()
             // Choose different icon for exclamiation
@@ -64,7 +64,7 @@ struct ExplainationHeader_Previews: PreviewProvider {
     static var previews: some View {
         ExplainationHeader(title: "Origin", nameIcon: "globe", moreInfoIcon: "questionmark.circle", explanation: "Where is the loan from?")
             .previewLayout(.sizeThatFits)
-            .padding()
+            //.padding()
     }
 }
 

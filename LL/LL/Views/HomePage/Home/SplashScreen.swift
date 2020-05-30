@@ -18,7 +18,7 @@ struct SplashScreen: View {
                         .aspectRatio(1, contentMode: .fit)
                         .frame(width: 100, height: 100, alignment: .center)
                     Spacer()
-                    Text("LL: Loans")
+                    Text("Loan Record")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding()

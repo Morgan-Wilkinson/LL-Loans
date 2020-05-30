@@ -11,7 +11,7 @@ import CoreData
 
 struct LoanEditor: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode
     
     // Form Fields
     @State private var loanTitle: String
@@ -36,7 +36,7 @@ struct LoanEditor: View {
     let dateFormatter = DateFormatter()
     
     // Loan Object
-    var loan: Loans
+    @ObservedObject var loan: Loans
     
     // Form Data Checker
     var disableForm: Bool {
@@ -44,7 +44,7 @@ struct LoanEditor: View {
     }
     
     init(loan: Loans) {
-      self.loan = loan
+        self.loan = loan
         self._loanTitle = State(initialValue: loan.name)
         self._origin = State(initialValue: loan.origin)
         self._principal = State(initialValue: "\(loan.originalPrincipal)")
@@ -64,198 +64,193 @@ struct LoanEditor: View {
     
     var body: some View {
         
-        return List {
-            Group{
-                Section(header: ExplainationHeader(title: "Loan Name", nameIcon: "doc", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
-                    TextField("Loan Name", text: self.$loanTitle)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .padding(.all)
-                        .cornerRadius(5)
-                }
-                
-                
-                Section(header: ExplainationHeader(title: "Origin", nameIcon: "globe", moreInfoIcon: "questionmark.circle", explanation: "Where is the loan from?")){
-                    TextField("Loan Origin", text: self.$origin)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(.all)
-                    .cornerRadius(5)
-                }
-            }
-            // Loan type picker
-            Group{
-                Section(header: ExplainationHeader(title: "Loan Type", nameIcon: "square.stack.fill")) {
-                    HStack{
-                        Text("Loan Type")
-                        Spacer()
-                        Button(typeOfLoan[self.selectedLoanType]) {
-                            self.loanPickerVisible.toggle()
-                        }
-                    }.padding(.vertical)
+        return NavigationView {
+            List {
+                Group{
+                    Section(header: ExplainationHeader(title: "Loan Name", nameIcon: "doc", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
+                        TextField("Loan Name", text: self.$loanTitle)
+                            .textFieldStyle(PlainTextFieldStyle())
+                    }
                     
-                    if self.loanPickerVisible{
-                        Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
-                            ForEach(0 ..< typeOfLoan.count) {
-                                Text(self.typeOfLoan[$0])
+                    
+                    Section(header: ExplainationHeader(title: "Origin", nameIcon: "globe", moreInfoIcon: "questionmark.circle", explanation: "Where is the loan from?")){
+                        TextField("Loan Origin", text: self.$origin)
+                        .textFieldStyle(PlainTextFieldStyle())
+                    }
+                }
+                // Loan type picker
+                Group{
+                    Section(header: ExplainationHeader(title: "Loan Type", nameIcon: "square.stack.fill")) {
+                        HStack{
+                            Text("Loan Type")
+                            Spacer()
+                            Button(typeOfLoan[self.selectedLoanType]) {
+                                self.loanPickerVisible.toggle()
                             }
                         }
-                        .pickerStyle(WheelPickerStyle())
-                        .labelsHidden()
-                        .onTapGesture {
-                            self.loanPickerVisible.toggle()
-                        }
-                    }
-                }
-            }
-            
-            Group{
-                Section(header: ExplainationHeader(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
-                    HStack{
-                        Spacer()
-                        Image(systemName: "dollarsign.circle")
-                        TextField("What's the principal?", text: self.$principal)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .padding(.all)
-                            .cornerRadius(5)
-                    }
-                }
-                Section(header: ExplainationHeader(title: "Annual Interest Rate (APR)", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
-                    HStack{
-                        TextField("What's the annual interest rate (APR)?", text: self.$interestRate)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .padding(.all)
-                            .cornerRadius(5)
-                        Image(systemName: "percent")
-                        Spacer()
-                    }
-                }
-            }
-            Group{
-                Section(header: ExplainationHeader(title: "Term", nameIcon: "hourglass.bottomhalf.fill", moreInfoIcon: "questionmark.circle", explanation: "Enter the loan's terms in either years, months or both!")){
-                    HStack{
-                        ZStack{
-                            HStack{
-                                TextField("Years", text: self.$termYears)
-                                    .textFieldStyle(PlainTextFieldStyle())
-                                    .padding([.top, .leading, .bottom])
-                                    .cornerRadius(5)
-                                Text("Years")
-                                    .fontWeight(.bold)
-                                Spacer()
+                        
+                        if self.loanPickerVisible{
+                            Picker(selection: $selectedLoanType, label: Text("Loan Type")) {
+                                ForEach(0 ..< typeOfLoan.count) {
+                                    Text(self.typeOfLoan[$0])
+                                }
                             }
-                        }
-                        Divider()
-                        ZStack{
-                            HStack{
-                                TextField("Months", text: self.$termMonths)
-                                    .textFieldStyle(PlainTextFieldStyle())
-                                    .padding(.all)
-                                    .cornerRadius(5)
-                                Text("Months")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-            }
-            Group{
-                Section(header: ExplainationHeader(title: "Loan Start Date", nameIcon: "calendar.circle")) {
-                    // Start Date picker
-                    HStack{
-                        Text("Start Date")
-                        Spacer()
-                        Button("\(dateFormatter.string(from: self.startDate))") {
-                            self.startDatePickerVisible.toggle()
-                        }
-                    }.padding(.vertical)
-                    if self.startDatePickerVisible {
-                        DatePicker("", selection: self.$startDate, in: ...Date(), displayedComponents: .date)
+                            .pickerStyle(WheelPickerStyle())
                             .labelsHidden()
-                            .datePickerStyle(WheelDatePickerStyle())
                             .onTapGesture {
+                                self.loanPickerVisible.toggle()
+                            }
+                        }
+                    }
+                }
+                
+                Group{
+                    Section(header: ExplainationHeader(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
+                        HStack{
+                            Spacer()
+                            Image(systemName: "dollarsign.circle")
+                            TextField("What's the principal?", text: self.$principal)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                        }
+                    }
+                    Section(header: ExplainationHeader(title: "Annual Interest Rate (APR)", nameIcon: "percent", moreInfoIcon: "exclamationmark.shield", explanation: "Required!")){
+                        HStack{
+                            TextField("What's the annual interest rate (APR)?", text: self.$interestRate)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                            Image(systemName: "percent")
+                            Spacer()
+                        }
+                    }
+                }
+                Group{
+                    Section(header: ExplainationHeader(title: "Term", nameIcon: "hourglass.bottomhalf.fill", moreInfoIcon: "questionmark.circle", explanation: "Enter the loan's terms in either years, months or both!")){
+                        HStack{
+                            ZStack{
+                                HStack{
+                                    TextField("Years", text: self.$termYears)
+                                        .textFieldStyle(PlainTextFieldStyle())
+                                        .keyboardType(.numberPad)
+                                    Text("Years")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
+                            Divider()
+                            ZStack{
+                                HStack{
+                                    TextField("Months", text: self.$termMonths)
+                                        .textFieldStyle(PlainTextFieldStyle())
+                                        .keyboardType(.numberPad)
+                                    Text("Months")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
+                }
+                Group{
+                    Section(header: ExplainationHeader(title: "Loan Start Date", nameIcon: "calendar.circle")) {
+                        // Start Date picker
+                        HStack{
+                            Text("Start Date")
+                            Spacer()
+                            Button("\(dateFormatter.string(from: self.startDate))") {
                                 self.startDatePickerVisible.toggle()
                             }
-                    }
-                }
-                
-                Section(header: ExplainationHeader(title: "Loan Payment Date", nameIcon: "calendar.circle")){
-                    // Current Due Date Picker
-                    HStack{
-                        Text("Due Date")
-                        Spacer()
-                        Button("\(dateFormatter.string(from: self.currentDueDate))") {
-                            self.currentDatePickerVisible.toggle()
                         }
-                    }.padding(.vertical)
-                    if self.currentDatePickerVisible {
-                        DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
-                            .labelsHidden()
-                            .datePickerStyle(WheelDatePickerStyle())
-                            .onTapGesture {
+                        if self.startDatePickerVisible {
+                            DatePicker("", selection: self.$startDate, in: ...Date(), displayedComponents: .date)
+                                .labelsHidden()
+                                .datePickerStyle(WheelDatePickerStyle())
+                                .onTapGesture {
+                                    self.startDatePickerVisible.toggle()
+                                }
+                        }
+                    }
+                    
+                    Section(header: ExplainationHeader(title: "Loan Payment Date", nameIcon: "calendar.circle")){
+                        // Current Due Date Picker
+                        HStack{
+                            Text("Due Date")
+                            Spacer()
+                            Button("\(dateFormatter.string(from: self.currentDueDate))") {
                                 self.currentDatePickerVisible.toggle()
                             }
+                        }
+                        if self.currentDatePickerVisible {
+                            DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
+                                .labelsHidden()
+                                .datePickerStyle(WheelDatePickerStyle())
+                                .onTapGesture {
+                                    self.currentDatePickerVisible.toggle()
+                                }
+                        }
                     }
                 }
-            }
-            
-            Group{
-                Section(header: ExplainationHeader(title: "Description", nameIcon: "text.bubble")){
-                    ZStack{
+                
+                Group{
+                    Section(header: ExplainationHeader(title: "Description", nameIcon: "text.bubble")){
                         MultilineTextField("Description", text: self.$about)
-                            .padding()
                     }
                 }
             }
-        }
-        .environment(\.horizontalSizeClass, .regular)
-        .navigationBarTitle("Editor")
-        .buttonStyle(PlainButtonStyle())
-        .listStyle(GroupedListStyle())
-        .listStyle(PlainListStyle())
-        .foregroundColor(Color.blue)
-        .navigationBarItems(
-            trailing: Button(action: ({
-            // Save the items. All items have a default value that should actually be used.
-            if self.termYears.isEmpty == false {
-                let months = self.numberFormatter.number(from: self.termMonths) ?? 0
-                let years = self.numberFormatter.number(from: self.termYears) ?? 0
-                
-                self.termMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
-            }
-            self.loan.name = self.loanTitle
-            self.loan.origin = self.origin
-            self.loan.typeOfLoan = self.typeOfLoan[self.selectedLoanType]
-            self.loan.originalPrincipal = self.numberFormatter.number(from: self.principal) ?? 0
-            self.loan.interestRate = self.numberFormatter.number(from: self.interestRate) ?? 0
-            self.loan.about = self.about
-            self.loan.termMonths = self.numberFormatter.number(from: self.termMonths) ?? 0
-            self.loan.startDate = self.startDate
-            self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
-                
-            // Data calculators
-            let paymentsCalculator = PaymentsCal(loan: self.loan)
-            let smallMonthsCalculator = SmallMonthsCal(loan: self.loan)
-            // Fill in the rest of the values
-            // Fill the Loan object with the big arrays data
-            paymentsCalculator.runner()
-            // Fill the Loan object with the small arrays data
-            smallMonthsCalculator.runner()
-                
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                print("Failed")
-            }
-                self.mode.wrappedValue.dismiss()
-            }))
-            {
-                HStack{
-                    Image(systemName: "plus.circle.fill")
-                        .foregroundColor(.blue)
-                        .imageScale(.medium)
-                    Text("Save")
+            .animation(.linear(duration: 0.3))
+            .listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
+            .buttonStyle(PlainButtonStyle())
+            .modifier(AdaptsToSoftwareKeyboard())
+            .foregroundColor(Color.blue)
+            .navigationBarItems(
+                trailing: Button(action: ({
+                // Save the items. All items have a default value that should actually be used.
+                if self.termYears.isEmpty == false {
+                    let months = self.numberFormatter.number(from: self.termMonths) ?? 0
+                    let years = self.numberFormatter.number(from: self.termYears) ?? 0
+                    
+                    self.termMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
                 }
-            }.disabled(disableForm))
+                self.loan.name = self.loanTitle
+                self.loan.origin = self.origin
+                self.loan.typeOfLoan = self.typeOfLoan[self.selectedLoanType]
+                self.loan.originalPrincipal = self.numberFormatter.number(from: self.principal) ?? 0
+                self.loan.interestRate = self.numberFormatter.number(from: self.interestRate) ?? 0
+                self.loan.about = self.about
+                self.loan.termMonths = self.numberFormatter.number(from: self.termMonths) ?? 0
+                self.loan.startDate = self.startDate
+                self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
+                    
+                // Data calculators
+                let paymentsCalculator = PaymentsCal(loan: self.loan)
+                let smallMonthsCalculator = SmallMonthsCal(loan: self.loan)
+                // Fill in the rest of the values
+                // Fill the Loan object with the big arrays data
+                paymentsCalculator.runner()
+                // Fill the Loan object with the small arrays data
+                smallMonthsCalculator.runner()
+                    
+                do {
+                    try self.managedObjectContext.save()
+                } catch {
+                    print("Failed")
+                }
+                    self.presentationMode.wrappedValue.dismiss()
+                }))
+                {
+                    HStack{
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                            .imageScale(.medium)
+                        Text("Save")
+                    }
+                }.disabled(disableForm))
+            .navigationBarTitle("Editor", displayMode: .inline)
+            .onTapGesture {
+                self.endEditing(true)
+            }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -24,7 +24,7 @@ struct BarView: View {
     @State private var showLabelValue: Bool = false
     @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 
-
+    
     public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", currentMonthIndex: Int, monthsSeries: [String], barValues: [[Double]]){
         self.title = title
         self.cornerImage = cornerImage!

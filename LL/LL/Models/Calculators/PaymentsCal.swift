@@ -31,7 +31,7 @@ class PaymentsCal {
         self.oriPrincipal = Double(truncating: (self.loan.originalPrincipal))
         self.months = (Int)(truncating: self.loan.termMonths)
         self.monthlyIntRate = (interest / 100) / 12 // 12 due to 12 months
-        timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
+        self.timeTracker = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date())
     }
     
     func runner() {
@@ -73,7 +73,7 @@ class PaymentsCal {
     func allMonthsSeries() -> [String]{
         let startDate = self.loan.startDate
         var monthsArray: [String] = []
-        for index in 0...self.months - 1 {
+        for index in 1...self.months {
             let next = Calendar.current.date(byAdding: .month, value: index, to: startDate)
             monthsArray.append(format.string(from: next!))
         }

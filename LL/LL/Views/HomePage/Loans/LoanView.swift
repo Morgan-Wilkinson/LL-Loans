@@ -14,6 +14,7 @@ struct LoanView: View {
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
     @State private var navigationSelectionTag: Int? = 0
+    @State var showingAdder = false
     
     let dateFormatter = DateFormatter()
     
@@ -32,7 +33,7 @@ struct LoanView: View {
                     
                     if self.loans.count > 0 {
                         ForEach(self.loans, id: \.self) { loan in
-                            NavigationLink(destination: LoanDetail(loanItem: loan)) {
+                            NavigationLink(destination: LoanDetail(loan: loan)) {
                                 SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
                                           startDate: loan.startDate,
                                           dueAmount: loan.regularPayments)
@@ -42,21 +43,38 @@ struct LoanView: View {
                         }.onDelete(perform: self.deleteLoans)
                         // Maybe with animation
                     }
-                    NewLoanButton()
                 }
-            }
+                Section {
+                    Button(action: {
+                        self.showingAdder.toggle()
+                    }) {
+                        Text("New Loan")
+                            .fontWeight(.bold)
+                            .font(.title)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(Color.bigButtonText)
+                            .padding(5)
+                    }.listRowBackground(Color.bigButton)
+                    .sheet(isPresented: $showingAdder) {
+                        LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
+                    }
+                }
+            }.animation(.linear(duration: 0.3))
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
+            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarTitle(Text("Loans"))
-            .navigationBarItems(leading: EditButton(), trailing:
-                NavigationLink(destination: LoanAdder()){
-               HStack{
-                   Image(systemName: "plus.circle.fill")
-                       .foregroundColor(.blue)
-                       .imageScale(.medium)
-                   Text("Loan")
-               }
-            })
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+                    self.showingAdder.toggle()}){
+                    HStack{
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(.blue)
+                            .imageScale(.medium)
+                        Text("Loan")
+                    }
+                }.sheet(isPresented: self.$showingAdder) {
+                    LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
+                })
         }
     }
     
@@ -75,7 +93,7 @@ struct LoanView: View {
         }
     }
 }
-
+/*
 struct NewLoanButton: View {
     var body: some View{
         NavigationLink(destination: LoanAdder()) {
@@ -89,6 +107,8 @@ struct NewLoanButton: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
+ */
+
 struct LoanView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

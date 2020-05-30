@@ -23,6 +23,8 @@
 		9041E90623C449A80046B9BF /* LoanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90523C449A80046B9BF /* LoanView.swift */; };
 		9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9041E90723C449C30046B9BF /* LoanDetail.swift */; };
 		904BE86423C5789800884426 /* LoanAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904BE86323C5789800884426 /* LoanAdder.swift */; };
+		905394C12481809800894134 /* TapOutsideTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905394C02481809800894134 /* TapOutsideTextField.swift */; };
+		905394C52481872300894134 /* AdaptsToSoftwareKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */; };
 		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
 		907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */; };
 		9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90981029247F3C6700FF886A /* SplashScreen.swift */; };
@@ -36,9 +38,6 @@
 		90AB85932474A58A00E8F9E4 /* SmallMonthsCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */; };
 		90B24EFB246F31EE000820FD /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B24EFA246F31EE000820FD /* HomePage.swift */; };
 		90B42190248071A20061F6F1 /* CubeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4218F248071A20061F6F1 /* CubeSymbol.swift */; };
-		90B421922480AD890061F6F1 /* KeyboardHeightPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B421912480AD890061F6F1 /* KeyboardHeightPublisher.swift */; };
-		90B421942480ADC90061F6F1 /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B421932480ADC90061F6F1 /* KeyboardAdaptive.swift */; };
-		90B421962480ADFA0061F6F1 /* UIResponder-Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B421952480ADFA0061F6F1 /* UIResponder-Current.swift */; };
 		90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */; };
 		90E567212476FF4800B02672 /* CreditCardPayoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E567202476FF4800B02672 /* CreditCardPayoff.swift */; };
 		90E5672524770DA400B02672 /* CreditCardCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5672424770DA400B02672 /* CreditCardCalculator.swift */; };
@@ -60,7 +59,7 @@
 		9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeRatioChecker.swift; sourceTree = "<group>"; };
 		9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaymentWhatIf.swift; sourceTree = "<group>"; };
 		902850F723D64C53007B78BC /* PaymentsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsCal.swift; sourceTree = "<group>"; };
-		9041E8E923C448E90046B9BF /* LL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9041E8E923C448E90046B9BF /* Loan Record.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Loan Record.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9041E8EC23C448E90046B9BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9041E8EE23C448E90046B9BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9041E8F123C448E90046B9BF /* LL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LL.xcdatamodel; sourceTree = "<group>"; };
@@ -72,6 +71,8 @@
 		9041E90523C449A80046B9BF /* LoanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanView.swift; sourceTree = "<group>"; };
 		9041E90723C449C30046B9BF /* LoanDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetail.swift; sourceTree = "<group>"; };
 		904BE86323C5789800884426 /* LoanAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAdder.swift; sourceTree = "<group>"; };
+		905394C02481809800894134 /* TapOutsideTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapOutsideTextField.swift; sourceTree = "<group>"; };
+		905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeCalculator.swift; sourceTree = "<group>"; };
 		90981029247F3C6700FF886A /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -85,9 +86,6 @@
 		90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMonthsCal.swift; sourceTree = "<group>"; };
 		90B24EFA246F31EE000820FD /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		90B4218F248071A20061F6F1 /* CubeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeSymbol.swift; sourceTree = "<group>"; };
-		90B421912480AD890061F6F1 /* KeyboardHeightPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHeightPublisher.swift; sourceTree = "<group>"; };
-		90B421932480ADC90061F6F1 /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
-		90B421952480ADFA0061F6F1 /* UIResponder-Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder-Current.swift"; sourceTree = "<group>"; };
 		90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefinanceCalculator.swift; sourceTree = "<group>"; };
 		90E567202476FF4800B02672 /* CreditCardPayoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPayoff.swift; sourceTree = "<group>"; };
 		90E5672424770DA400B02672 /* CreditCardCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCalculator.swift; sourceTree = "<group>"; };
@@ -173,7 +171,7 @@
 		9041E8EA23C448E90046B9BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9041E8E923C448E90046B9BF /* LL.app */,
+				9041E8E923C448E90046B9BF /* Loan Record.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,9 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
-				90B421912480AD890061F6F1 /* KeyboardHeightPublisher.swift */,
-				90B421932480ADC90061F6F1 /* KeyboardAdaptive.swift */,
-				90B421952480ADFA0061F6F1 /* UIResponder-Current.swift */,
+				905394C02481809800894134 /* TapOutsideTextField.swift */,
+				905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,7 +349,7 @@
 				C7CEED972404CAA600694FEB /* Numerics */,
 			);
 			productName = LL;
-			productReference = 9041E8E923C448E90046B9BF /* LL.app */;
+			productReference = 9041E8E923C448E90046B9BF /* Loan Record.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -411,6 +408,7 @@
 			files = (
 				90E5672E24777AD700B02672 /* CompoundInterestCalculator.swift in Sources */,
 				9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */,
+				905394C12481809800894134 /* TapOutsideTextField.swift in Sources */,
 				9016AB242471A34A00F43640 /* WhatIf.swift in Sources */,
 				9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */,
 				9041E90623C449A80046B9BF /* LoanView.swift in Sources */,
@@ -424,7 +422,6 @@
 				9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */,
 				C7942D3324188219000EF862 /* BarCell.swift in Sources */,
 				90E5672524770DA400B02672 /* CreditCardCalculator.swift in Sources */,
-				90B421962480ADFA0061F6F1 /* UIResponder-Current.swift in Sources */,
 				902850F823D64C53007B78BC /* PaymentsCal.swift in Sources */,
 				90A6E8BF24759E41004CA5C0 /* ExplainationHeader.swift in Sources */,
 				C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */,
@@ -433,7 +430,6 @@
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
 				9016AB262471A37500F43640 /* Refinance.swift in Sources */,
 				9098102C247F619C00FF886A /* BookmarkSymbol.swift in Sources */,
-				90B421942480ADC90061F6F1 /* KeyboardAdaptive.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */,
 				907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */,
@@ -442,10 +438,10 @@
 				C7049FA82415E09300636392 /* Card.swift in Sources */,
 				9041E90823C449C30046B9BF /* LoanDetail.swift in Sources */,
 				90AB85902474419000E8F9E4 /* Color.swift in Sources */,
-				90B421922480AD890061F6F1 /* KeyboardHeightPublisher.swift in Sources */,
 				90B42190248071A20061F6F1 /* CubeSymbol.swift in Sources */,
 				909F1B9524685BAB004A4D76 /* BreakdownRow.swift in Sources */,
 				C7942D312418623F000EF862 /* BarRow.swift in Sources */,
+				905394C52481872300894134 /* AdaptsToSoftwareKeyboard.swift in Sources */,
 				90B24EFB246F31EE000820FD /* HomePage.swift in Sources */,
 				9041E8F223C448E90046B9BF /* LL.xcdatamodeld in Sources */,
 				90AB85932474A58A00E8F9E4 /* SmallMonthsCal.swift in Sources */,
@@ -595,9 +591,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LL;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -616,9 +612,9 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LL;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
