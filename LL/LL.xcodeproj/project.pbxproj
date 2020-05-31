@@ -74,6 +74,7 @@
 		905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeCalculator.swift; sourceTree = "<group>"; };
+		9097F88A24832CA200C3C0FC /* Loan Record.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Loan Record.entitlements"; sourceTree = "<group>"; };
 		90981029247F3C6700FF886A /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		9098102B247F619C00FF886A /* BookmarkSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSymbol.swift; sourceTree = "<group>"; };
 		909F1B9424685BAB004A4D76 /* BreakdownRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownRow.swift; sourceTree = "<group>"; };
@@ -189,6 +190,7 @@
 		9041E8EB23C448E90046B9BF /* LL */ = {
 			isa = PBXGroup;
 			children = (
+				9097F88A24832CA200C3C0FC /* Loan Record.entitlements */,
 				C78E79D824195CF20067FB08 /* Core Data */,
 				90B39A4B2470ABBE0088F223 /* Extensions */,
 				C78E79DC24195DDE0067FB08 /* Models */,
@@ -633,6 +635,7 @@
 			baseConfigurationReference = B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "LL/Loan Record.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"LL/Preview Content\"";
 				DEVELOPMENT_TEAM = NR2242L85P;
@@ -643,7 +646,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LL;
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -655,6 +658,7 @@
 			baseConfigurationReference = 09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "LL/Loan Record.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"LL/Preview Content\"";
 				DEVELOPMENT_TEAM = NR2242L85P;
@@ -665,7 +669,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LL;
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

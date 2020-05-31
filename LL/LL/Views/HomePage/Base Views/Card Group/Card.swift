@@ -32,7 +32,9 @@ struct Card: View {
                 Text(title)
                     .font(.title)
                     .foregroundColor(.primary)
-                    .lineLimit(3)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                
                 Text(overview)
                     .font(.subheadline)
                     .fontWeight(.semibold)

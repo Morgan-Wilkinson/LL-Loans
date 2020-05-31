@@ -51,6 +51,7 @@ struct SimpleRow: View {
                                 Text(name)
                                     .foregroundColor(.primary)
                                     .lineLimit(1)
+                                    .minimumScaleFactor(0.5)
                                     .font(.system(size: 25))
                                 Text(dateFormatter.string(from: startDate))
                                     .font(.footnote)
