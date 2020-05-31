@@ -38,7 +38,9 @@ extension Color {
     public static var bigButtonText: Color {
         Color("BigButtonText")
     }
-    
+    public static var upcomingPayment: Color {
+        Color("UpcomingPayment")
+    }
     public static var cards: Color {
         Color("Cards")
     }

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import GoogleMobileAds
 
 struct LoanView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -15,6 +16,9 @@ struct LoanView: View {
     
     @State private var navigationSelectionTag: Int? = 0
     @State var showingAdder = false
+    
+    @State var interstitial: GADInterstitial!
+    let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     let dateFormatter = DateFormatter()
     
@@ -39,7 +43,7 @@ struct LoanView: View {
                                           dueAmount: loan.regularPayments)
                             }.buttonStyle(PlainButtonStyle())
                             // This will change the background to show due items
-                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.currentDueDate, to: Date()).day! < 5 ?  Color("UpcomingPayment") : Color("Card"))
+                                .listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! < 5 ?  Color.upcomingPayment : Color.clear)
                         }.onDelete(perform: self.deleteLoans)
                         // Maybe with animation
                     }
@@ -55,11 +59,23 @@ struct LoanView: View {
                             .foregroundColor(Color.bigButtonText)
                             .padding(5)
                     }.listRowBackground(Color.bigButton)
-                    .sheet(isPresented: $showingAdder) {
+                    .sheet(isPresented: $showingAdder, onDismiss: {
+                        if self.interstitial.isReady {
+                            let root = UIApplication.shared.windows.first?.rootViewController
+                            self.interstitial.present(fromRootViewController: root!)
+                        }
+                        else {
+                            print("Not Ready")
+                        }}) {
                         LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
-            }.animation(.linear(duration: 0.3))
+            }.onAppear {
+                self.interstitial =  GADInterstitial(adUnitID: self.adID)
+                let req = GADRequest()
+                self.interstitial.load(req)
+            }
+            .animation(.linear(duration: 0.3))
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .navigationViewStyle(StackNavigationViewStyle())
@@ -72,7 +88,14 @@ struct LoanView: View {
                             .imageScale(.medium)
                         Text("Loan")
                     }
-                }.sheet(isPresented: self.$showingAdder) {
+            }.sheet(isPresented: self.$showingAdder, onDismiss: {
+                if self.interstitial.isReady {
+                    let root = UIApplication.shared.windows.first?.rootViewController
+                    self.interstitial.present(fromRootViewController: root!)
+                }
+                else {
+                    print("Not Ready")
+                }}) {
                     LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
                 })
         }

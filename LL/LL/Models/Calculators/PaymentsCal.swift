@@ -158,17 +158,3 @@ class PaymentsCal {
        return roundedBalance
    }
 }
-
-// These formulas are obsolete as they need curPrincipal
-/*
-   // Returns the interest for the based off the curPrinicpal.
-   func currentInterest() -> Double{
-       let currentInterest = ((self.monthlyIntRate * self.curPrincipal) * 100).rounded() / 100 // Maybe chance oriPrincipal to loan.current balance?
-       return currentInterest
-   }
-
-   func currentPrincipal() -> Double {
-       let currentPrincipal = ((self.mortgageMonthly() - self.currentInterest()) * 100).rounded() / 100
-       return currentPrincipal
-   }
-    */

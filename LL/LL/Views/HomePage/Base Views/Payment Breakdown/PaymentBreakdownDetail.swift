@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct PaymentBreakdownDetail: View {
     
@@ -16,6 +17,9 @@ struct PaymentBreakdownDetail: View {
     @State var monthsSeries: [String]
     @State var barValues: [[Double]]
     @State var maxWidth: CGFloat = 0
+    
+    @State var interstitial: GADInterstitial!
+    let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     public var body: some View {
         List(){
@@ -65,6 +69,10 @@ struct PaymentBreakdownDetail: View {
                 BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], monthlyPayment: self.monthlyPayment, maxWidth: self.$maxWidth)
                     .listRowBackground(i % 2 == 0 ?  Color.amortizationRow1 : Color.amortizationRow2)
             }
+        }.onAppear {
+            self.interstitial =  GADInterstitial(adUnitID: self.adID)
+            let req = GADRequest()
+            self.interstitial.load(req)
         }
         .listStyle(GroupedListStyle())
         .environment(\.horizontalSizeClass, .regular)

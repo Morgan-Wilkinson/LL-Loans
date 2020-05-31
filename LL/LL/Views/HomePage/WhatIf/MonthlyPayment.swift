@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct MonthlyPayment: View {
     @State private var formPrincipal = ""
@@ -18,6 +19,10 @@ struct MonthlyPayment: View {
     @State private var totalInterest: Double = 0
     @State private var termMonths: Int = 0
     @State private var showAnswer: Bool = false
+    
+    // Ads
+    @State var interstitial: GADInterstitial!
+    let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     let valueSpec: String = "%.2f"
     let formatter = NumberFormatter()
@@ -93,6 +98,15 @@ struct MonthlyPayment: View {
                 self.monthlyPayments = calculator.monthlyPayment()
                 self.totalInterest = calculator.totalInterest()
                 self.showAnswer = true
+                
+                if self.interstitial.isReady {
+                    let root = UIApplication.shared.windows.first?.rootViewController
+                    self.interstitial.present(fromRootViewController: root!)
+                }
+                else {
+                    print("Not Ready")
+                }
+                
             })) {
                 HStack{
                     Text("Calculate")
@@ -149,6 +163,11 @@ struct MonthlyPayment: View {
         .foregroundColor(Color.blue)
         .onTapGesture {
             self.endEditing(true)
+        }
+        .onAppear {
+            self.interstitial =  GADInterstitial(adUnitID: self.adID)
+            let req = GADRequest()
+            self.interstitial.load(req)
         }
     }
 }

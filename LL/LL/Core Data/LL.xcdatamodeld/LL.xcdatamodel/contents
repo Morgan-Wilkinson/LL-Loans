@@ -3,7 +3,6 @@
     <entity name="Loans" representedClassName=".Loans" syncable="YES">
         <attribute name="about" optional="YES" attributeType="String"/>
         <attribute name="balanceArray" optional="YES" attributeType="Transformable"/>
-        <attribute name="currentDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="interestArray" optional="YES" attributeType="Transformable"/>
         <attribute name="interestRate" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="interestTotalsArray" optional="YES" attributeType="Transformable"/>
@@ -22,6 +21,6 @@
         <attribute name="typeOfLoan" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Loans" positionX="-63" positionY="-18" width="128" height="328"/>
+        <element name="Loans" positionX="-63" positionY="-18" width="128" height="313"/>
     </elements>
 </model>

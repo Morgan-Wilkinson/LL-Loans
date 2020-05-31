@@ -8,10 +8,17 @@
 
 import SwiftUI
 import CoreData
+import GoogleMobileAds
 
 struct LoanEditor: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) private var presentationMode
+    
+    @Binding var dataChanged: Bool
+    
+    // Ads
+    @State var interstitial: GADInterstitial!
+    let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     // Form Fields
     @State private var loanTitle: String
@@ -21,7 +28,6 @@ struct LoanEditor: View {
     @State private var termYears = ""
     @State private var termMonths: String
     @State private var about: String
-    @State private var currentDueDate: Date
     @State private var startDate: Date
     @State private var selectedLoanType = 0
     @State private var typeOfLoan = ["Mortgage", "Car | Auto", "Personal", "Student", "Installment"]
@@ -29,7 +35,6 @@ struct LoanEditor: View {
     // Pickers
     @State private var loanPickerVisible = false
     @State private var startDatePickerVisible = false
-    @State private var currentDatePickerVisible = false
     
     // Styling Formatters
     let numberFormatter = NumberFormatter()
@@ -43,7 +48,9 @@ struct LoanEditor: View {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || (termMonths.isEmpty && termYears.isEmpty) || principal == "0" || interestRate == "0" || (termMonths == "0" && termYears == "0")
     }
     
-    init(loan: Loans) {
+    init(dataChanged: Binding<Bool>, loan: Loans) {
+        self._dataChanged = dataChanged
+        
         self.loan = loan
         self._loanTitle = State(initialValue: loan.name)
         self._origin = State(initialValue: loan.origin)
@@ -51,12 +58,11 @@ struct LoanEditor: View {
         self._interestRate = State(initialValue: "\(loan.interestRate)")
         self._termMonths = State(initialValue:"\(loan.termMonths)")
         self._about = State(initialValue: loan.about)
-        self._currentDueDate = State(initialValue: loan.currentDueDate)
         self._startDate = State(initialValue: loan.startDate)
         
         let i = self.typeOfLoan.firstIndex(where: { $0.hasPrefix("\(loan.typeOfLoan)")})
         self._selectedLoanType = State(initialValue: i ?? 0)
-        
+    
         // Date format
         dateFormatter.dateStyle = .short
         dateFormatter.dateFormat = "d MMM y"
@@ -170,25 +176,6 @@ struct LoanEditor: View {
                                 }
                         }
                     }
-                    
-                    Section(header: ExplainationHeader(title: "Loan Payment Date", nameIcon: "calendar.circle")){
-                        // Current Due Date Picker
-                        HStack{
-                            Text("Due Date")
-                            Spacer()
-                            Button("\(dateFormatter.string(from: self.currentDueDate))") {
-                                self.currentDatePickerVisible.toggle()
-                            }
-                        }
-                        if self.currentDatePickerVisible {
-                            DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
-                                .labelsHidden()
-                                .datePickerStyle(WheelDatePickerStyle())
-                                .onTapGesture {
-                                    self.currentDatePickerVisible.toggle()
-                                }
-                        }
-                    }
                 }
                 
                 Group{
@@ -196,6 +183,10 @@ struct LoanEditor: View {
                         MultilineTextField("Description", text: self.$about)
                     }
                 }
+            }.onAppear {
+                self.interstitial =  GADInterstitial(adUnitID: self.adID)
+                let req = GADRequest()
+                self.interstitial.load(req)
             }
             .animation(.linear(duration: 0.3))
             .listStyle(GroupedListStyle())
@@ -206,6 +197,7 @@ struct LoanEditor: View {
             .navigationBarItems(
                 trailing: Button(action: ({
                 // Save the items. All items have a default value that should actually be used.
+                self.dataChanged = true
                 if self.termYears.isEmpty == false {
                     let months = self.numberFormatter.number(from: self.termMonths) ?? 0
                     let years = self.numberFormatter.number(from: self.termYears) ?? 0
@@ -220,7 +212,7 @@ struct LoanEditor: View {
                 self.loan.about = self.about
                 self.loan.termMonths = self.numberFormatter.number(from: self.termMonths) ?? 0
                 self.loan.startDate = self.startDate
-                self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
+                //self.loan.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
                     
                 // Data calculators
                 let paymentsCalculator = PaymentsCal(loan: self.loan)

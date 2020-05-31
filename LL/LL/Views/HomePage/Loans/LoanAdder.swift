@@ -21,7 +21,6 @@ struct LoanAdder: View {
     @State private var termYears = ""
     @State private var termMonths = ""
     @State private var about = ""
-    @State private var currentDueDate = Date()
     @State private var nextDueDate = Date()
     @State private var startDate = Date()
     @State private var remainingMonths = Date()
@@ -154,25 +153,6 @@ struct LoanAdder: View {
                                 }
                         }
                     }
-                    
-                    Section(header: ExplainationHeader(title: "Loan Payment Date", nameIcon: "calendar.circle")){
-                        // Current Due Date Picker
-                        HStack{
-                            Text("Due Date")
-                            Spacer()
-                            Button("\(dateFormatter.string(from: self.currentDueDate))") {
-                                self.currentDatePickerVisible.toggle()
-                            }
-                        }
-                        if self.currentDatePickerVisible {
-                            DatePicker("", selection: self.$currentDueDate, in: ...Date(), displayedComponents: .date)
-                                .labelsHidden()
-                                .datePickerStyle(WheelDatePickerStyle())
-                                .onTapGesture {
-                                    self.currentDatePickerVisible.toggle()
-                                }
-                        }
-                    }
                 }
                 
                 Group{
@@ -205,7 +185,7 @@ struct LoanAdder: View {
                     loanSaver.about = self.about
                     loanSaver.termMonths = self.numberFormatter.number(from: self.termMonths) ?? 0
                     loanSaver.startDate = self.startDate
-                    loanSaver.currentDueDate = Calendar.current.startOfDay(for: self.currentDueDate)
+                    
                     
                     // Data calculators
                     let paymentsCalculator = PaymentsCal(loan: loanSaver)

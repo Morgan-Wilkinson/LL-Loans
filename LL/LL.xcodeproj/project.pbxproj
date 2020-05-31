@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9016AB242471A34A00F43640 /* WhatIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB232471A34A00F43640 /* WhatIf.swift */; };
-		9016AB262471A37500F43640 /* Refinance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB252471A37500F43640 /* Refinance.swift */; };
 		9016AB2A2471E34900F43640 /* MonthlyPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB292471E34900F43640 /* MonthlyPayment.swift */; };
 		9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */; };
 		9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */; };
@@ -38,7 +37,6 @@
 		90AB85932474A58A00E8F9E4 /* SmallMonthsCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */; };
 		90B24EFB246F31EE000820FD /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B24EFA246F31EE000820FD /* HomePage.swift */; };
 		90B42190248071A20061F6F1 /* CubeSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B4218F248071A20061F6F1 /* CubeSymbol.swift */; };
-		90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */; };
 		90E567212476FF4800B02672 /* CreditCardPayoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E567202476FF4800B02672 /* CreditCardPayoff.swift */; };
 		90E5672524770DA400B02672 /* CreditCardCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E5672424770DA400B02672 /* CreditCardCalculator.swift */; };
 		90E567292477652600B02672 /* CompoundInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E567282477652600B02672 /* CompoundInterest.swift */; };
@@ -50,11 +48,12 @@
 		C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B7405B241DBDB30028AE18 /* BarView.swift */; };
 		C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6987F2416AEE000E44EEE /* LoanEditor.swift */; };
 		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
+		CBEE36A3C4573CC31442627F /* Pods_LL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.release.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.release.xcconfig"; sourceTree = "<group>"; };
 		9016AB232471A34A00F43640 /* WhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIf.swift; sourceTree = "<group>"; };
-		9016AB252471A37500F43640 /* Refinance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Refinance.swift; sourceTree = "<group>"; };
 		9016AB292471E34900F43640 /* MonthlyPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPayment.swift; sourceTree = "<group>"; };
 		9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeRatioChecker.swift; sourceTree = "<group>"; };
 		9016AB2D2471EB5100F43640 /* MonthlyPaymentWhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPaymentWhatIf.swift; sourceTree = "<group>"; };
@@ -86,17 +85,18 @@
 		90AB85922474A58A00E8F9E4 /* SmallMonthsCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMonthsCal.swift; sourceTree = "<group>"; };
 		90B24EFA246F31EE000820FD /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		90B4218F248071A20061F6F1 /* CubeSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeSymbol.swift; sourceTree = "<group>"; };
-		90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefinanceCalculator.swift; sourceTree = "<group>"; };
 		90E567202476FF4800B02672 /* CreditCardPayoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardPayoff.swift; sourceTree = "<group>"; };
 		90E5672424770DA400B02672 /* CreditCardCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCalculator.swift; sourceTree = "<group>"; };
 		90E567282477652600B02672 /* CompoundInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterest.swift; sourceTree = "<group>"; };
 		90E5672D24777AD700B02672 /* CompoundInterestCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterestCalculator.swift; sourceTree = "<group>"; };
+		B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.debug.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.debug.xcconfig"; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7942D302418623F000EF862 /* BarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRow.swift; sourceTree = "<group>"; };
 		C7942D3224188219000EF862 /* BarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCell.swift; sourceTree = "<group>"; };
 		C794AAF1241EF8A60054B6C1 /* AdjustPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustPayment.swift; sourceTree = "<group>"; };
 		C7B7405B241DBDB30028AE18 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		C7C6987F2416AEE000E44EEE /* LoanEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanEditor.swift; sourceTree = "<group>"; };
+		F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,19 +105,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7CEED982404CAA600694FEB /* Numerics in Frameworks */,
+				CBEE36A3C4573CC31442627F /* Pods_LL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2238FE6FE080F881EF6B381F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */,
+				09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		90086FE1247DA5C50091FDF7 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
 				90981026247F3C4400FF886A /* Home */,
 				9016AB272471E22300F43640 /* Loans */,
 				9016AB282471E23B00F43640 /* WhatIf */,
-				90AB859124746B3400E8F9E4 /* Refinance */,
 				C78E79DD24195FB20067FB08 /* Base Views */,
 			);
 			path = HomePage;
@@ -155,7 +164,6 @@
 				90E567202476FF4800B02672 /* CreditCardPayoff.swift */,
 				9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */,
 				9016AB292471E34900F43640 /* MonthlyPayment.swift */,
-				90E5671E2476FC9A00B02672 /* RefinanceCalculator.swift */,
 			);
 			path = WhatIf;
 			sourceTree = "<group>";
@@ -165,6 +173,8 @@
 			children = (
 				9041E8EB23C448E90046B9BF /* LL */,
 				9041E8EA23C448E90046B9BF /* Products */,
+				2238FE6FE080F881EF6B381F /* Pods */,
+				A9E6F28A12D5ABBD987EDC8B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,14 +257,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		90AB859124746B3400E8F9E4 /* Refinance */ = {
-			isa = PBXGroup;
-			children = (
-				9016AB252471A37500F43640 /* Refinance.swift */,
-			);
-			path = Refinance;
-			sourceTree = "<group>";
-		};
 		90B39A4B2470ABBE0088F223 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +265,14 @@
 				905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A9E6F28A12D5ABBD987EDC8B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C78E79D824195CF20067FB08 /* Core Data */ = {
@@ -336,9 +346,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9041E90023C448EC0046B9BF /* Build configuration list for PBXNativeTarget "LL" */;
 			buildPhases = (
+				C939A135288E72BB89E78FED /* [CP] Check Pods Manifest.lock */,
 				9041E8E523C448E90046B9BF /* Sources */,
 				9041E8E623C448E90046B9BF /* Frameworks */,
 				9041E8E723C448E90046B9BF /* Resources */,
+				7511E8ED53ACE8C93BEF7DA4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -401,6 +413,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7511E8ED53ACE8C93BEF7DA4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LL/Pods-LL-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LL/Pods-LL-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LL/Pods-LL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C939A135288E72BB89E78FED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LL-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9041E8E523C448E90046B9BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -416,7 +470,6 @@
 				909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */,
 				9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
-				90E5671F2476FC9A00B02672 /* RefinanceCalculator.swift in Sources */,
 				9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */,
 				9041E90423C449900046B9BF /* Loans.swift in Sources */,
 				9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */,
@@ -428,7 +481,6 @@
 				90AB858D247440AE00E8F9E4 /* SectionHeaderView.swift in Sources */,
 				90E567292477652600B02672 /* CompoundInterest.swift in Sources */,
 				904BE86423C5789800884426 /* LoanAdder.swift in Sources */,
-				9016AB262471A37500F43640 /* Refinance.swift in Sources */,
 				9098102C247F619C00FF886A /* BookmarkSymbol.swift in Sources */,
 				C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */,
 				9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */,
@@ -578,6 +630,7 @@
 		};
 		9041E90123C448EC0046B9BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -599,6 +652,7 @@
 		};
 		9041E90223C448EC0046B9BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

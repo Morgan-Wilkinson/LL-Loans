@@ -8,13 +8,17 @@
 
 import Combine
 import SwiftUI
-
+import GoogleMobileAds
 struct LoanDetail: View{
     @Environment(\.presentationMode) var homeDismiss: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var loan: Loans
     
     @State var showingEditor = false
+    @State var dataChanged: Bool = false
+    // Ads
+    @State var interstitial: GADInterstitial!
+    let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     var body: some View {
         // Formatters for Date style
@@ -36,7 +40,7 @@ struct LoanDetail: View{
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
                     Card(subtitle: "\(self.loan.origin)", title: "\(self.loan.name) - \(self.loan.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loan.regularPayments)",
-                        briefSummary: "Principal: $\(self.loan.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loan.smallInterestArray[currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[currentMonth])", description: "\(self.loan.about)", month: "\(dateFormatter.string(from:self.loan.currentDueDate))")
+                        briefSummary: "Principal: $\(self.loan.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loan.smallInterestArray[currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[currentMonth])", description: "\(self.loan.about)", month: "\(dateFormatter.string(from:self.loan.startDate))")
                 }
                 // Charts
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
@@ -56,6 +60,11 @@ struct LoanDetail: View{
                     .buttonStyle(PlainButtonStyle())
                 }
             }
+            .onAppear {
+                self.interstitial =  GADInterstitial(adUnitID: self.adID)
+                let req = GADRequest()
+                self.interstitial.load(req)
+            }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .navigationBarTitle("\(self.loan.name.capitalizingFirstLetter())")
@@ -68,9 +77,19 @@ struct LoanDetail: View{
                         Text("Edit")
                 }
             }.sheet(isPresented: self.$showingEditor, onDismiss: {
-                self.homeDismiss.wrappedValue.dismiss()
+                if self.interstitial.isReady {
+                    let root = UIApplication.shared.windows.first?.rootViewController
+                    self.interstitial.present(fromRootViewController: root!)
+                }
+                else {
+                    print("Not Ready")
+                }
+                
+                if self.dataChanged {
+                    self.homeDismiss.wrappedValue.dismiss()
+                }
             }) {
-                LoanEditor(loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
+                LoanEditor(dataChanged: self.$dataChanged, loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })
         }
     }

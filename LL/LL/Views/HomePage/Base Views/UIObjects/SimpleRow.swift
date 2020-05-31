@@ -63,15 +63,8 @@ struct SimpleRow: View {
                                 .fontWeight(.bold)
                                 .font(.headline)
                                 .padding(5)
-                                //.background(Color.gray)
                                 .foregroundColor(.accentColor)
                                 .padding(5)
-                                /*
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 0)
-                                        .stroke(Color.gray, lineWidth: 2)
-                                )
-                                */
                         }
                     }
                     Divider()
@@ -87,22 +80,13 @@ struct SimpleRow: View {
                                 .fontWeight(.bold)
                                 .font(.headline)
                                 .padding(5)
-                                //.background(Color.gray)
                                 .foregroundColor(.accentColor)
                                 .padding(5)
-                                /*
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 0)
-                                        .stroke(Color.gray, lineWidth: 2)
-                                )
-                                */
                         }
                     }
                 }
             }.padding()
         }
-        //.padding()
-        //.shadow(radius: 5)
     }
 }
 

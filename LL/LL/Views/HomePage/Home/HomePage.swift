@@ -24,15 +24,6 @@ struct HomePage: View {
                         Text("Loans")
                     }
                     .tag(0)
-                
-                /*
-                Refinance()
-                    .tabItem {
-                        Image(systemName: "arrow.2.circlepath")
-                        Text("Refinance")
-                    }
-                    .tag(1)
-                */
                 WhatIf()
                 .tabItem {
                    Image(systemName: "questionmark.circle")
