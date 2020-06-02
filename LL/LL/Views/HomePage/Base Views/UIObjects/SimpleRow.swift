@@ -40,14 +40,10 @@ struct SimpleRow: View {
                         Text(loanType)
                             .font(.headline)
                             .foregroundColor(.accentColor)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
                         Spacer()
                         Text(origin)
                             .font(.headline)
                             .foregroundColor(.accentColor)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
                     }.padding(.bottom, 5.0)
                     Group{
                         HStack{
@@ -67,8 +63,6 @@ struct SimpleRow: View {
                             Text("\(dueAmount, specifier: valueSpecifier)")
                                 .fontWeight(.bold)
                                 .font(.headline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
                                 .padding(5)
                                 .foregroundColor(.accentColor)
                                 .padding(5)
