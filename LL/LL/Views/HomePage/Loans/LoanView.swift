@@ -103,12 +103,14 @@ struct LoanView: View {
                         LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
                     })
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+        .padding(.leading, ipadPadding)
+            //let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.isActive = false
                 }
             }
-        .padding(.leading, ipadPadding)
+        
     }
     
     func deleteLoans(at offsets: IndexSet) {
