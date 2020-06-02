@@ -22,7 +22,7 @@ struct MonthlyPayment: View {
     
     // Ads
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     let valueSpec: String = "%.2f"
     let formatter = NumberFormatter()
@@ -155,7 +155,7 @@ struct MonthlyPayment: View {
                     }
                 }.padding()
             }
-        }.animation(.linear(duration: 0.3))
+        }.animation(.easeInOut)
         .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Monthly Payment")
         .buttonStyle(PlainButtonStyle())

@@ -10,7 +10,10 @@ import SwiftUI
 
 struct WhatIf: View {
     var body: some View {
-        NavigationView {
+        // For Split view on ipad work around.
+        let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
+        
+        return NavigationView {
             List(){
                 Section(header: SectionHeaderView(text: "Calculators", icon: "plusminus"), footer: Text("Here are some calculators that can quickly check different scenarios for you.")){
                     Group{
@@ -66,30 +69,14 @@ struct WhatIf: View {
                                     .foregroundColor(Color.bigButtonText)
                             }
                         }
-                        
-                    /*
-                        NavigationLink(destination: RefinanceCalculator()) {
-                            HStack{
-                                Image(systemName: "arrow.2.circlepath")
-                                    .foregroundColor(Color.bigButtonText)
-                                    .imageScale(.medium)
-                                Text("Refinance Calculator")
-                                    .fontWeight(.semibold)
-                                    .font(.headline)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Color.bigButtonText)
-                            }
-                        }
-                    */
                     }
                 }.listRowBackground(Color.bigButton)
                 .buttonStyle(PlainButtonStyle())
-            }.animation(.linear(duration: 0.3))
-            .navigationBarTitle(Text("What If Calculator"))
+            }.navigationBarTitle(Text("What If Calculator"))
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            
-        }
+        }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+        .padding(.leading, ipadPadding)
     }
 }
 

@@ -15,10 +15,11 @@ struct LoanDetail: View{
     @ObservedObject var loan: Loans
     
     @State var showingEditor = false
-    @State var dataChanged: Bool = false
+    @State var dataChanged: Bool = true
+
     // Ads
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     var body: some View {
         // Formatters for Date style
@@ -104,19 +105,3 @@ extension String {
         self = self.capitalizingFirstLetter()
     }
 }
-
-
-       /*
-           List {
-               Section(header: Text("Analysis of Loan History").font(.headline), footer: Text("Here you can find information about your payments and the remaining time for your loan.")){
-                   VStack(alignment: .leading){
-                       Text("Time passed: \(test.month!) months and \(test.day!) days.")
-                       Text("Time remaining: \(Int(truncating: loanItem.termMonths) - test.month!) months.")
-                   
-                       Spacer()
-                       Spacer()
-                       Text("With your regular payments of $\(loanItem.regularPayments) a month, you will actually pay off this loan in \(cal.finishPayment()) months.")
-                   }
-               }
-           }.navigationBarTitle("\(loanItem.name)")
-*/
