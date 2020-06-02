@@ -652,7 +652,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LL/Preview Content\"";
 				DEVELOPMENT_TEAM = NR2242L85P;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = LL/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LL/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,7 +675,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LL/Preview Content\"";
 				DEVELOPMENT_TEAM = NR2242L85P;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = LL/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LL/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

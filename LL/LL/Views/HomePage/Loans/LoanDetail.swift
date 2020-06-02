@@ -13,7 +13,7 @@ import GoogleMobileAds
 struct LoanDetail: View{
     @Environment(\.presentationMode) var homeDismiss: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var managedObjectContext
-    @State var loan: Loans
+    @ObservedObject var loan: Loans
     
     @State var showingEditor = false
     @Binding var dataChanged: Bool
