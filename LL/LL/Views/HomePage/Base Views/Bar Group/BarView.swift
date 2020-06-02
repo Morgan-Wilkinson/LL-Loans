@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct BarView: View {
-    let textColor = Color("Text")
     public var title: String
     public var cornerImage: Image
     public var valueSpecifier: String
@@ -49,13 +48,13 @@ struct BarView: View {
                  if(!self.showValue){
                      Text(self.title)
                         .font(.headline)
-                        .foregroundColor(self.textColor)
+                        .foregroundColor(Color.normalText)
                  }
                  // Shows Values
                  else{
                     Text("\(self.currentValue, specifier: self.valueSpecifier) - \(self.currentMonth)")
                         .font(.headline)
-                        .foregroundColor(self.textColor)
+                        .foregroundColor(Color.normalText)
                  }
                  Spacer()
                  self.cornerImage

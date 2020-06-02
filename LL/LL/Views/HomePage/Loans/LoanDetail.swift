@@ -9,13 +9,16 @@
 import Combine
 import SwiftUI
 import GoogleMobileAds
+
 struct LoanDetail: View{
     @Environment(\.presentationMode) var homeDismiss: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var managedObjectContext
-    @ObservedObject var loan: Loans
+    @State var loan: Loans
     
     @State var showingEditor = false
-    @State var dataChanged: Bool = false
+    @Binding var dataChanged: Bool
+    @State var barValues: [[Double]] = []
+    @State var monthSeries: [String] = []
     // Ads
     @State var interstitial: GADInterstitial!
     let adID: String = "ca-app-pub-3940256099942544/4411468910"
@@ -36,18 +39,19 @@ struct LoanDetail: View{
         let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
         
         return GeometryReader { geometry in
+            //if !self.dataChanged {
             List {
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
                     Card(subtitle: "\(self.loan.origin)", title: "\(self.loan.name) - \(self.loan.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loan.regularPayments)",
                         briefSummary: "Principal: $\(self.loan.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loan.smallInterestArray[currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[currentMonth])", description: "\(self.loan.about)", month: "\(dateFormatter.string(from:self.loan.startDate))")
                 }
-                // Charts
+                
+                    // Charts
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
                     // Current 12 month preview
                     BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: self.loan.smallMonthsSeries, barValues: [self.loan.smallBalanceArray, self.loan.smallInterestArray, self.loan.smallPrincipalArray])
                 }
-                
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
                     NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: [self.loan.balanceArray, self.loan.interestArray, self.loan.principalArray])) {
@@ -59,6 +63,11 @@ struct LoanDetail: View{
                     }.listRowBackground(Color.bigButton)
                     .buttonStyle(PlainButtonStyle())
                 }
+            }
+                //.id(self.loan.smallBalanceArray)
+            .onAppear{
+                self.monthSeries.append(contentsOf: self.loan.smallMonthsSeries)
+                self.barValues.append(contentsOf: [self.loan.smallBalanceArray, self.loan.smallInterestArray, self.loan.smallPrincipalArray])
             }
             .onAppear {
                 self.interstitial =  GADInterstitial(adUnitID: self.adID)
@@ -81,16 +90,16 @@ struct LoanDetail: View{
                     let root = UIApplication.shared.windows.first?.rootViewController
                     self.interstitial.present(fromRootViewController: root!)
                 }
-                else {
-                    print("Not Ready")
-                }
-                
                 if self.dataChanged {
                     self.homeDismiss.wrappedValue.dismiss()
+                }
+                else {
+                    print("Not Ready")
                 }
             }) {
                 LoanEditor(dataChanged: self.$dataChanged, loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })
+            //}
         }
     }
 }
@@ -104,19 +113,3 @@ extension String {
         self = self.capitalizingFirstLetter()
     }
 }
-
-
-       /*
-           List {
-               Section(header: Text("Analysis of Loan History").font(.headline), footer: Text("Here you can find information about your payments and the remaining time for your loan.")){
-                   VStack(alignment: .leading){
-                       Text("Time passed: \(test.month!) months and \(test.day!) days.")
-                       Text("Time remaining: \(Int(truncating: loanItem.termMonths) - test.month!) months.")
-                   
-                       Spacer()
-                       Spacer()
-                       Text("With your regular payments of $\(loanItem.regularPayments) a month, you will actually pay off this loan in \(cal.finishPayment()) months.")
-                   }
-               }
-           }.navigationBarTitle("\(loanItem.name)")
-*/

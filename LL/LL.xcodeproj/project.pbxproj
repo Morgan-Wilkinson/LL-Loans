@@ -26,6 +26,7 @@
 		905394C52481872300894134 /* AdaptsToSoftwareKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */; };
 		9069D515245E1CC200A14C55 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9069D514245E1CC200A14C55 /* MultilineTextField.swift */; };
 		907585B024732CBD008ED992 /* DebtToIncomeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */; };
+		9093DAA42486CC1B0001001F /* ReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9093DAA32486CC1B0001001F /* ReloadView.swift */; };
 		9098102A247F3C6700FF886A /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90981029247F3C6700FF886A /* SplashScreen.swift */; };
 		9098102C247F619C00FF886A /* BookmarkSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9098102B247F619C00FF886A /* BookmarkSymbol.swift */; };
 		909F1B9524685BAB004A4D76 /* BreakdownRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1B9424685BAB004A4D76 /* BreakdownRow.swift */; };
@@ -74,6 +75,7 @@
 		905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToSoftwareKeyboard.swift; sourceTree = "<group>"; };
 		9069D514245E1CC200A14C55 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		907585AF24732CBD008ED992 /* DebtToIncomeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeCalculator.swift; sourceTree = "<group>"; };
+		9093DAA32486CC1B0001001F /* ReloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadView.swift; sourceTree = "<group>"; };
 		9097F88A24832CA200C3C0FC /* Loan Record.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Loan Record.entitlements"; sourceTree = "<group>"; };
 		90981029247F3C6700FF886A /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		9098102B247F619C00FF886A /* BookmarkSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSymbol.swift; sourceTree = "<group>"; };
@@ -195,11 +197,8 @@
 				90B39A4B2470ABBE0088F223 /* Extensions */,
 				C78E79DC24195DDE0067FB08 /* Models */,
 				C78E79DA24195D620067FB08 /* Views */,
+				90D7963B24871BF000B05A4F /* Supporting Files */,
 				90AB858E2474416B00E8F9E4 /* Resources */,
-				9041E8EC23C448E90046B9BF /* AppDelegate.swift */,
-				9041E8EE23C448E90046B9BF /* SceneDelegate.swift */,
-				9041E8FA23C448EC0046B9BF /* LaunchScreen.storyboard */,
-				9041E8FD23C448EC0046B9BF /* Info.plist */,
 				9041E8F723C448EC0046B9BF /* Preview Content */,
 			);
 			path = LL;
@@ -263,10 +262,22 @@
 			isa = PBXGroup;
 			children = (
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
+				9093DAA32486CC1B0001001F /* ReloadView.swift */,
 				905394C02481809800894134 /* TapOutsideTextField.swift */,
 				905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		90D7963B24871BF000B05A4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9041E8EC23C448E90046B9BF /* AppDelegate.swift */,
+				9041E8EE23C448E90046B9BF /* SceneDelegate.swift */,
+				9041E8FA23C448EC0046B9BF /* LaunchScreen.storyboard */,
+				9041E8FD23C448EC0046B9BF /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A9E6F28A12D5ABBD987EDC8B /* Frameworks */ = {
@@ -464,6 +475,7 @@
 			files = (
 				90E5672E24777AD700B02672 /* CompoundInterestCalculator.swift in Sources */,
 				9041E8ED23C448E90046B9BF /* AppDelegate.swift in Sources */,
+				9093DAA42486CC1B0001001F /* ReloadView.swift in Sources */,
 				905394C12481809800894134 /* TapOutsideTextField.swift in Sources */,
 				9016AB242471A34A00F43640 /* WhatIf.swift in Sources */,
 				9041E8EF23C448E90046B9BF /* SceneDelegate.swift in Sources */,

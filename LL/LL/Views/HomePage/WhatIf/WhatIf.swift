@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct WhatIf: View {
+    let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
     var body: some View {
         NavigationView {
             List(){
@@ -90,6 +91,8 @@ struct WhatIf: View {
             .environment(\.horizontalSizeClass, .regular)
             
         }
+            .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .padding(.leading, ipadPadding)   
     }
 }
 

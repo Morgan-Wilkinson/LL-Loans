@@ -11,8 +11,12 @@ import CoreData
 import GoogleMobileAds
 
 struct LoanView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
+    
+    @State var dataChanged: Bool = false
+    @State var shownView: Bool = UIDevice.current.userInterfaceIdiom == .pad ? true : false
     
     @State private var navigationSelectionTag: Int? = 0
     @State var showingAdder = false
@@ -21,7 +25,7 @@ struct LoanView: View {
     let adID: String = "ca-app-pub-3940256099942544/4411468910"
     
     let dateFormatter = DateFormatter()
-    
+    let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
     init() {
         dateFormatter.dateStyle = .long
         dateFormatter.dateFormat = "MMMM d, y"
@@ -37,11 +41,12 @@ struct LoanView: View {
                     
                     if self.loans.count > 0 {
                         ForEach(self.loans, id: \.self) { loan in
-                            NavigationLink(destination: LoanDetail(loan: loan)) {
+                            NavigationLink(destination: LoanDetail(loan: loan, dataChanged: self.$dataChanged)) {
                                 SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
                                           startDate: loan.startDate,
                                           dueAmount: loan.regularPayments)
                             }.buttonStyle(PlainButtonStyle())
+    
                             // This will change the background to show due items
                             .listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! <= 5 ?  Color.upcomingPayment : Color.clear)
                         }.onDelete(perform: self.deleteLoans)
@@ -97,7 +102,8 @@ struct LoanView: View {
                 }}) {
                     LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
                 })
-        }
+        }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+        .padding(.leading, ipadPadding)
     }
     
     func deleteLoans(at offsets: IndexSet) {
@@ -115,21 +121,6 @@ struct LoanView: View {
         }
     }
 }
-/*
-struct NewLoanButton: View {
-    var body: some View{
-        NavigationLink(destination: LoanAdder()) {
-            Text("New Loan")
-                .fontWeight(.bold)
-                .font(.title)
-                .multilineTextAlignment(.leading)
-                .foregroundColor(Color.bigButtonText)
-                .padding(5)
-        }.listRowBackground(Color.bigButton)
-        .buttonStyle(PlainButtonStyle())
-    }
-}
- */
 
 struct LoanView_Previews: PreviewProvider {
     static var previews: some View {

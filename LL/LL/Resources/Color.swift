@@ -60,4 +60,8 @@ extension Color {
     public static var gradientEndSS: Color {
         Color("GradientEnd")
     }
+    
+    public static var normalText: Color {
+        Color("Text")
+    }
 }
