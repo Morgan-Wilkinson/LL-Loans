@@ -97,10 +97,10 @@ struct BarView: View {
     
     // Returns the current month of the selected bar 
     func getCurrentMonth() -> String {
-        let arraySize = self.loan.monthsSeries.count
+        let arraySize = self.loan.smallMonthsSeries.count
         guard arraySize > 0 else { return ""}
      let index = max(0,min(arraySize-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(arraySize))))))
-        return self.loan.monthsSeries[index]
+        return self.loan.smallMonthsSeries[index]
     }
 }
 /*
