@@ -14,8 +14,6 @@ struct LoanEditor: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) private var presentationMode
     
-    @Binding var dataChanged: Bool
-    
     // Ads
     @State var interstitial: GADInterstitial!
     let adID: String = "ca-app-pub-3940256099942544/4411468910"
@@ -48,8 +46,7 @@ struct LoanEditor: View {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || (termMonths.isEmpty && termYears.isEmpty) || principal == "0" || interestRate == "0" || (termMonths == "0" && termYears == "0")
     }
     
-    init(dataChanged: Binding<Bool>, loan: Loans) {
-        self._dataChanged = dataChanged
+    init(loan: Loans) {
         
         self.loan = loan
         self._loanTitle = State(initialValue: loan.name)
@@ -197,7 +194,6 @@ struct LoanEditor: View {
             .navigationBarItems(
                 trailing: Button(action: ({
                 // Save the items. All items have a default value that should actually be used.
-                self.dataChanged = true
                 if self.termYears.isEmpty == false {
                     let months = self.numberFormatter.number(from: self.termMonths) ?? 0
                     let years = self.numberFormatter.number(from: self.termYears) ?? 0
@@ -245,8 +241,3 @@ struct LoanEditor: View {
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
-
-/* Time calculator for previous month
-
- self.loan.prevDueDate = Calendar.current.nextDate(after: self.currentDueDate, matching: (Calendar.current.dateComponents([.day], from: self.currentDueDate)), matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .backward) ?? Date()
-*/

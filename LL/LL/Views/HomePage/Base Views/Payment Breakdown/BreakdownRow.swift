@@ -13,7 +13,7 @@ struct BreakdownRow: View {
     var principal: Double
     var interest: Double
     var balance: Double
-    var monthlyPayment: Double
+    var interestAtPoint: Double
     var valueSpecifier: String = "%.2f"
     @Binding var maxWidth: CGFloat
     
@@ -60,6 +60,17 @@ struct BreakdownRow: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .frame(width: self.maxWidth)
+                    Divider()
+                    Spacer()
+                }
+                
+                Group{
+                    Text("\(self.interestAtPoint, specifier: self.valueSpecifier)")
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .frame(width: self.maxWidth)
                     Spacer()
                 }
             }
@@ -69,6 +80,6 @@ struct BreakdownRow: View {
 
 struct BreakdownRow_Previews: PreviewProvider {
     static var previews: some View {
-        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000, monthlyPayment: 30.00, maxWidth: .constant(35))
+        BreakdownRow(month: "Jan 20", principal: 1500.00, interest: 1500.00, balance: 10000, interestAtPoint: 30.00, maxWidth: .constant(35))
     }
 }

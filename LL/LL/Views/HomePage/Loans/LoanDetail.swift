@@ -16,9 +16,7 @@ struct LoanDetail: View{
     @ObservedObject var loan: Loans
     
     @State var showingEditor = false
-    @Binding var dataChanged: Bool
-    @State var barValues: [[Double]] = []
-    @State var monthSeries: [String] = []
+    
     // Ads
     @State var interstitial: GADInterstitial!
     let adID: String = "ca-app-pub-3940256099942544/4411468910"
@@ -53,7 +51,7 @@ struct LoanDetail: View{
                 }
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
-                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: self.loan.allThreeSmallArray)) {
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: self.loan.allValuesArray)) {
                         Text("Amortization Schedule")
                             .fontWeight(.bold)
                             .font(.headline)
@@ -84,14 +82,11 @@ struct LoanDetail: View{
                     let root = UIApplication.shared.windows.first?.rootViewController
                     self.interstitial.present(fromRootViewController: root!)
                 }
-                if self.dataChanged {
-                    self.homeDismiss.wrappedValue.dismiss()
-                }
                 else {
                     print("Not Ready")
                 }
             }) {
-                LoanEditor(dataChanged: self.$dataChanged, loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
+                LoanEditor(loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })
         }
     }

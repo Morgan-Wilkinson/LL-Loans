@@ -15,10 +15,6 @@ struct LoanView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
-    @State var dataChanged: Bool = false
-    @State var shownView: Bool = UIDevice.current.userInterfaceIdiom == .pad ? true : false
-    
-    @State private var navigationSelectionTag: Int? = 0
     @State var showingAdder = false
     
     @State var interstitial: GADInterstitial!
@@ -41,7 +37,7 @@ struct LoanView: View {
                     
                     if self.loans.count > 0 {
                         ForEach(self.loans, id: \.self) { loan in
-                            NavigationLink(destination: LoanDetail(loan: loan, dataChanged: self.$dataChanged)) {
+                            NavigationLink(destination: LoanDetail(loan: loan)) {
                                 SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
                                           startDate: loan.startDate,
                                           dueAmount: loan.regularPayments)

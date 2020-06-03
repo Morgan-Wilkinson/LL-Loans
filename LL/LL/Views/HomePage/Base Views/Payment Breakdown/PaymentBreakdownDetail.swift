@@ -33,7 +33,7 @@ struct PaymentBreakdownDetail: View {
                             .frame(width: self.maxWidth)
                         Divider()
                         Spacer()
-                    }.onAppear(perform: {self.maxWidth = geometry.size.width / 5})
+                    }.onAppear(perform: {self.maxWidth = geometry.size.width / 6})
                     
                     Group{
                         Text("Principal")
@@ -61,12 +61,22 @@ struct PaymentBreakdownDetail: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.5)
                             .frame(width: self.maxWidth)
+                        Divider()
+                        Spacer()
+                    }
+                    
+                    Group{
+                        Text("Interest Totals")
+                            .fontWeight(.regular)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: self.maxWidth)
                         Spacer()
                     }
                 }
             }
             ForEach(0..<self.barValues[0].count, id: \.self) { i in
-                BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], monthlyPayment: self.monthlyPayment, maxWidth: self.$maxWidth)
+                BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], interestAtPoint: self.barValues[3][i], maxWidth: self.$maxWidth)
                     .listRowBackground(i % 2 == 0 ?  Color.amortizationRow1 : Color.amortizationRow2)
             }
         }.onAppear {

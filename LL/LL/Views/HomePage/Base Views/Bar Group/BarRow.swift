@@ -18,14 +18,14 @@ struct BarRow: View {
         let smallThree = self.loan.allThreeSmallArray[self.pickerSelection]
         
         return GeometryReader { geometry in
-            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.loan.allThreeSmallArray[self.pickerSelection].count * 3)){
-                ForEach(0..<self.loan.allThreeSmallArray[self.pickerSelection].count, id: \.self) { i in
+            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(smallThree.count * 3)){
+                ForEach(0..<smallThree.count, id: \.self) { i in
                     BarCell(currentMonth: self.currentMonthIndex, value: self.loan.normalizedValueArray[self.pickerSelection][i],
                             index: i,
                             width: Float(geometry.frame(in: .local).width - 22),
-                            numberOfDataPoints: self.loan.allThreeSmallArray[self.pickerSelection].count,
+                            numberOfDataPoints: smallThree.count,
                             touchLocation: self.$touchLocation)
-                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.loan.allThreeSmallArray[self.pickerSelection].count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.loan.allThreeSmallArray[self.pickerSelection].count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
+                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(smallThree.count) && self.touchLocation < CGFloat(i+1)/CGFloat(smallThree.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
                         .animation(.spring())
                 }// Fix it in the cell
             }

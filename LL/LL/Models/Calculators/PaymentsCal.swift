@@ -54,7 +54,7 @@ class PaymentsCal {
         loan.interestArray = allInterestArray
         loan.principalArray = allPrincipalArray
         loan.interestTotalsArray = interestTotals
-        
+        loan.allValuesArray = [loan.balanceArray, loan.interestArray, loan.principalArray, loan.interestTotalsArray]
         // Assign and save the months strings
         loan.monthsSeries = allMonthsSeries()
     }

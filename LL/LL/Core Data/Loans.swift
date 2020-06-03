@@ -31,6 +31,8 @@ public class Loans: NSManagedObject, Identifiable{
     @NSManaged public var interestArray: [Double]
     @NSManaged public var principalArray: [Double]
     @NSManaged public var interestTotalsArray: [Double]
+    // All Values and months.
+    @NSManaged public var allValuesArray: [[Double]]
     @NSManaged public var monthsSeries: [String]
     
     // Small Arrays
