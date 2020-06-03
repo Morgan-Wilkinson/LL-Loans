@@ -38,6 +38,11 @@ public class Loans: NSManagedObject, Identifiable{
     @NSManaged public var smallInterestArray: [Double]
     @NSManaged public var smallPrincipalArray: [Double]
     @NSManaged public var smallMonthsSeries: [String]
+    
+    // All 3 Small arrays
+    @NSManaged public var allThreeSmallArray: [[Double]]
+    // all 3 small array values normilzed
+    @NSManaged public var normalizedValueArray: [[Double]]
 }
 
 extension Loans {

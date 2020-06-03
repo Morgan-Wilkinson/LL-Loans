@@ -9,41 +9,35 @@
 import SwiftUI
 
 struct BarRow: View {
-    var currentMonthIndex: Int
-    @Binding var data: [Double]
-    var maxValue: Double {
-        data.max() ?? 0
-    }
+    @ObservedObject var loan: Loans
+    @State var pickerSelection: Int
     @Binding var touchLocation: CGFloat
+    var currentMonthIndex: Int
+   
     public var body: some View {
-        GeometryReader { geometry in
-            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(self.data.count * 3)){
-                ForEach(0..<self.data.count) { i in
-                    BarCell(currentMonth: self.currentMonthIndex, value: self.normalizedValue(index: i),
+        let smallThree = self.loan.allThreeSmallArray[self.pickerSelection]
+        
+        return GeometryReader { geometry in
+            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width-22)/CGFloat(smallThree.count * 3)){
+                ForEach(0..<smallThree.count) { i in
+                    BarCell(currentMonth: self.currentMonthIndex, value: self.loan.normalizedValueArray[self.pickerSelection][i],
                             index: i,
                             width: Float(geometry.frame(in: .local).width - 22),
-                            numberOfDataPoints: self.data.count,
+                            numberOfDataPoints: smallThree.count,
                             touchLocation: self.$touchLocation)
-                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
+                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(smallThree.count) && self.touchLocation < CGFloat(i+1)/CGFloat(smallThree.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
                         .animation(.spring())
-                }
+                }// Fix it in the cell
             }
             .padding([.top, .leading, .trailing], 10)
         }
     }
-    
-    func normalizedValue(index: Int) -> Double {
-        if (self.data[index] == 0 || self.maxValue == 0){
-            return 0
-        }
-        else {
-            return Double(self.data[index])/Double(self.maxValue)
-        }
-    }
 }
 
+/*
 struct BarRow_Previews: PreviewProvider {
     static var previews: some View {
-        BarRow(currentMonthIndex: 4, data: .constant([8,23,54,32,12,37,7]), touchLocation: .constant(-1))
+        BarRow(currentMonthIndex: 4, data: [8,23,54,32,12,37,7], touchLocation: .constant(-1))
     }
 }
+*/

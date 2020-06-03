@@ -39,7 +39,6 @@ struct LoanDetail: View{
         let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
         
         return GeometryReader { geometry in
-            //if !self.dataChanged {
             List {
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
@@ -50,11 +49,11 @@ struct LoanDetail: View{
                     // Charts
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
                     // Current 12 month preview
-                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, monthsSeries: self.loan.smallMonthsSeries, barValues: [self.loan.smallBalanceArray, self.loan.smallInterestArray, self.loan.smallPrincipalArray])
+                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, loan: self.loan)
                 }
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
-                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: [self.loan.balanceArray, self.loan.interestArray, self.loan.principalArray])) {
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: self.loan.allThreeSmallArray)) {
                         Text("Amortization Schedule")
                             .fontWeight(.bold)
                             .font(.headline)
@@ -63,11 +62,6 @@ struct LoanDetail: View{
                     }.listRowBackground(Color.bigButton)
                     .buttonStyle(PlainButtonStyle())
                 }
-            }
-                //.id(self.loan.smallBalanceArray)
-            .onAppear{
-                self.monthSeries.append(contentsOf: self.loan.smallMonthsSeries)
-                self.barValues.append(contentsOf: [self.loan.smallBalanceArray, self.loan.smallInterestArray, self.loan.smallPrincipalArray])
             }
             .onAppear {
                 self.interstitial =  GADInterstitial(adUnitID: self.adID)
@@ -99,7 +93,6 @@ struct LoanDetail: View{
             }) {
                 LoanEditor(dataChanged: self.$dataChanged, loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })
-            //}
         }
     }
 }

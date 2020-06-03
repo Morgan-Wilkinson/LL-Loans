@@ -30,8 +30,11 @@ class SmallMonthsCal {
         loan.smallInterestArray = smallMonthsValues(array: loan.interestArray)
         loan.smallPrincipalArray = smallMonthsValues(array: loan.principalArray)
         
+        loan.allThreeSmallArray = [loan.smallBalanceArray, loan.smallInterestArray, loan.smallPrincipalArray]
         // Small Months Series
         loan.smallMonthsSeries = smallMonthSeries(length: loan.smallPrincipalArray.count)
+        
+        self.smallMormalizedValues(array: loan.allThreeSmallArray)
     }
     
     // Returns an array of the small months values
@@ -81,5 +84,21 @@ class SmallMonthsCal {
         
         
         return months
+    }
+    
+    func smallMormalizedValues(array: [[Double]]) {
+        
+        for i in 0..<array.count {
+            let max: Double = array[i].max() ?? 0
+            if (max == 0) {
+                return
+            }
+            var normalized: [Double] = []
+            
+            for element in array[i] {
+                normalized.append(element / max)
+            }
+            self.loan.normalizedValueArray.append(normalized)
+        }
     }
 }

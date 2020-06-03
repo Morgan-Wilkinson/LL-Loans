@@ -10,12 +10,13 @@ import SwiftUI
 
 struct BarView: View {
     public var title: String
-    public var cornerImage: Image
-    public var valueSpecifier: String
+    public var cornerImage: Image = Image(systemName: "chart.bar")
+    public var valueSpecifier: String = "%.3f"
     public var currentMonthIndex: Int
     
-    @State var monthsSeries: [String]
-    @State var barValues: [[Double]]
+    @ObservedObject var loan: Loans
+    //@State var monthsSeries: [String]
+   // @State var barValues: [[Double]]
     @State var pickerSelection = 0
     @State private var width: CGFloat = 0
     @State private var touchLocation: CGFloat = -1.0
@@ -24,14 +25,18 @@ struct BarView: View {
     @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 
     
-    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", currentMonthIndex: Int, monthsSeries: [String], barValues: [[Double]]){
+    /*
+    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", currentMonthIndex: Int, loan: ObservedObject<Loans>){
         self.title = title
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
         self.currentMonthIndex = currentMonthIndex
-        self._monthsSeries = State(initialValue: monthsSeries)
-        self._barValues = State(initialValue: barValues)
+        //self._monthsSeries = State(initialValue: monthsSeries)
+        //self._barValues = State(initialValue: barValues)
+        // monthsSeries: [String], barValues: [[Double]]
+        self.loan = loan
     }
+ */
 
     public var body: some View {
         VStack(alignment: .leading){
@@ -62,7 +67,7 @@ struct BarView: View {
             }
             
             GeometryReader { geometry in
-                BarRow(currentMonthIndex: self.currentMonthIndex, data: self.$barValues[self.pickerSelection], touchLocation: self.$touchLocation)
+                BarRow(loan: self.loan, pickerSelection: self.pickerSelection, touchLocation: self.$touchLocation, currentMonthIndex: self.currentMonthIndex)
                   .gesture(DragGesture()
                     .onChanged({ value in
                         self.width = geometry.frame(in: CoordinateSpace.local).width
@@ -84,24 +89,29 @@ struct BarView: View {
     }
     // Returns the current value of the selected bar
     func getCurrentValue() -> Double{
-        guard self.barValues[self.pickerSelection].count > 0 else { return 0}
-     let index = max(0,min(self.barValues[self.pickerSelection].count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.barValues[self.pickerSelection].count))))))
-        return self.barValues[self.pickerSelection][index]
+        let arraySize = self.loan.allThreeSmallArray[self.pickerSelection].count
+        guard arraySize > 0 else { return 0}
+     let index = max(0,min(arraySize-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(arraySize))))))
+        return self.loan.allThreeSmallArray[self.pickerSelection][index]
     }
     
     // Returns the current month of the selected bar 
     func getCurrentMonth() -> String {
-        guard self.monthsSeries.count > 0 else { return ""}
-     let index = max(0,min(self.monthsSeries.count-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(self.monthsSeries.count))))))
-        return self.monthsSeries[index]
+        let arraySize = self.loan.monthsSeries.count
+        guard arraySize > 0 else { return ""}
+     let index = max(0,min(arraySize-1,Int(floor((self.touchLocation*self.width)/(self.width/CGFloat(arraySize))))))
+        return self.loan.monthsSeries[index]
     }
 }
-
+/*
 struct BarView_Previews: PreviewProvider {
     static var previews: some View {
         BarView(
         title: "Model 3 sales", cornerImage: Image(systemName: "chart.bar"),
-        valueSpecifier: "%.2f", currentMonthIndex: 4, monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
-        barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]])
+        valueSpecifier: "%.2f", currentMonthIndex: 4, loan: <#Loans#>)
     }
 }
+
+// , monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
+// barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]]
+*/
