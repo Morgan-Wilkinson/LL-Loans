@@ -19,7 +19,7 @@ struct PaymentBreakdownDetail: View {
     @State var maxWidth: CGFloat = 0
     
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     public var body: some View {
         List(){

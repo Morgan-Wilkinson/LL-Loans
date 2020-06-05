@@ -19,9 +19,10 @@ struct LoanDetail: View{
     
     // Ads
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     var body: some View {
+        
         // Formatters for Date style
         let dateFormatter = DateFormatter()
         
@@ -62,6 +63,24 @@ struct LoanDetail: View{
                 }
             }
             .onAppear {
+                if !UserDefaults.standard.bool(forKey: "dataBaseChange") {
+                    UserDefaults.standard.set(true, forKey: "dataBaseChange")
+                    // Data calculators
+                    let paymentsCalculator = PaymentsCal(loan: self.loan)
+                    let smallMonthsCalculator = SmallMonthsCal(loan: self.loan)
+                    // Fill in the rest of the values
+                    // Fill the Loan object with the big arrays data
+                    paymentsCalculator.runner()
+                    // Fill the Loan object with the small arrays data
+                    smallMonthsCalculator.runner()
+                    do {
+                        // delete it from the context
+                        try self.managedObjectContext.save()
+                    } catch {
+                        print("Failed")
+                    }
+                }
+                
                 self.interstitial =  GADInterstitial(adUnitID: self.adID)
                 let req = GADRequest()
                 self.interstitial.load(req)

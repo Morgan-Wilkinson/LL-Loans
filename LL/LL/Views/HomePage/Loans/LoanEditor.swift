@@ -16,7 +16,7 @@ struct LoanEditor: View {
     
     // Ads
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     // Form Fields
     @State private var loanTitle: String

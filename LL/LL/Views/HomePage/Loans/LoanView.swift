@@ -18,13 +18,14 @@ struct LoanView: View {
     @State var showingAdder = false
     
     @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-3940256099942544/4411468910"
+    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     let dateFormatter = DateFormatter()
     let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
     init() {
         dateFormatter.dateStyle = .long
         dateFormatter.dateFormat = "MMMM d, y"
+        
     }
     
     var body: some View {
@@ -44,7 +45,7 @@ struct LoanView: View {
                             }.buttonStyle(PlainButtonStyle())
     
                             // This will change the background to show due items
-                            .listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! <= 5 ?  Color.upcomingPayment : Color.clear)
+                            //0.listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! >= 5 ?  Color.upcomingPayment : Color.clear)
                         }.onDelete(perform: self.deleteLoans)
                     }
                 }
