@@ -10,6 +10,11 @@ import SwiftUI
 import GoogleMobileAds
 
 struct MonthlyPayment: View {
+    // Ads
+    var AdControl: Ads = Ads()
+    
+    let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    
     @State private var formPrincipal = ""
     @State private var formInterestRate = ""
     @State private var formTermYears = ""
@@ -19,10 +24,6 @@ struct MonthlyPayment: View {
     @State private var totalInterest: Double = 0
     @State private var termMonths: Int = 0
     @State private var showAnswer: Bool = false
-    
-    // Ads
-    @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     let valueSpec: String = "%.2f"
     let formatter = NumberFormatter()
@@ -82,29 +83,26 @@ struct MonthlyPayment: View {
             
             // Calculate Button
             Button(action: ({
-                if self.formTermYears.isEmpty == false {
-                    let months = self.formatter.number(from: self.formTermMonths) ?? 0
-                    let years = self.formatter.number(from: self.formTermYears) ?? 0
-                    
-                    self.formTermMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
-                    self.formTermYears = ""
-                    
-                }
-                let principal = Double(self.formPrincipal) ?? 0
-                let interestRate = Double(self.formInterestRate) ?? 0
-                self.termMonths = Int(self.formTermMonths) ?? 0
+                // Ads
+                self.AdControl.showAd()
                 
-                let calculator = MonthlyPaymentWhatIf(principal: principal, interestRate: interestRate, months: self.termMonths)
-                self.monthlyPayments = calculator.monthlyPayment()
-                self.totalInterest = calculator.totalInterest()
-                self.showAnswer = true
-                
-                if self.interstitial.isReady {
-                    let root = UIApplication.shared.windows.first?.rootViewController
-                    self.interstitial.present(fromRootViewController: root!)
-                }
-                else {
-                    print("Not Ready")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if self.formTermYears.isEmpty == false {
+                        let months = self.formatter.number(from: self.formTermMonths) ?? 0
+                        let years = self.formatter.number(from: self.formTermYears) ?? 0
+                        
+                        self.formTermMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
+                        self.formTermYears = ""
+                        
+                    }
+                    let principal = Double(self.formPrincipal) ?? 0
+                    let interestRate = Double(self.formInterestRate) ?? 0
+                    self.termMonths = Int(self.formTermMonths) ?? 0
+                    
+                    let calculator = MonthlyPaymentWhatIf(principal: principal, interestRate: interestRate, months: self.termMonths)
+                    self.monthlyPayments = calculator.monthlyPayment()
+                    self.totalInterest = calculator.totalInterest()
+                    self.showAnswer = true
                 }
                 
             })) {
@@ -163,11 +161,6 @@ struct MonthlyPayment: View {
         .foregroundColor(Color.blue)
         .onTapGesture {
             self.endEditing(true)
-        }
-        .onAppear {
-            self.interstitial =  GADInterstitial(adUnitID: self.adID)
-            let req = GADRequest()
-            self.interstitial.load(req)
         }
     }
 }

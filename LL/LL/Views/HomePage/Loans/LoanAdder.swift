@@ -13,6 +13,9 @@ struct LoanAdder: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) private var presentationMode
     
+    @Binding var showingSheet: Bool
+    @Binding var showAdNow: Bool
+    
     // Form Fields
     @State private var loanTitle = ""
     @State private var origin = ""
@@ -41,7 +44,9 @@ struct LoanAdder: View {
         loanTitle.isEmpty || principal.isEmpty || interestRate.isEmpty || (termMonths.isEmpty && termYears.isEmpty) || principal == "0" || interestRate == "0" || (termMonths == "0" && termYears == "0")
     }
     
-    init() {
+    init(showingSheet: Binding<Bool>, showAdNow: Binding<Bool>) {
+        self._showingSheet = showingSheet
+        self._showAdNow = showAdNow
         dateFormatter.dateStyle = .short
         dateFormatter.dateFormat = "d MMM y"
     }
@@ -197,10 +202,11 @@ struct LoanAdder: View {
                     smallMonthsCalculator.runner()
                     do {
                         try self.managedObjectContext.save()
-                    } catch {
-                        print("Failed")
-                    }
-                        self.presentationMode.wrappedValue.dismiss()
+                    } catch { print("Failed") }
+                    
+                    self.showAdNow = true
+                    self.showingSheet = false
+                    //self.presentationMode.wrappedValue.dismiss()
                     }))
                     {
                         HStack{
@@ -220,6 +226,6 @@ struct LoanAdder: View {
 
 struct LoanAdder_Previews: PreviewProvider {
     static var previews: some View {
-        LoanAdder()
+        LoanAdder(showingSheet: .constant(false), showAdNow: .constant(false))
     }
 }

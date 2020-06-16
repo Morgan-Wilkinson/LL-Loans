@@ -8,15 +8,11 @@
 
 import SwiftUI
 import CoreData
-import GoogleMobileAds
 
 struct LoanEditor: View {
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) private var presentationMode
-    
-    // Ads
-    @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-2030770006889815/7603128128"
     
     // Form Fields
     @State private var loanTitle: String
@@ -180,12 +176,7 @@ struct LoanEditor: View {
                         MultilineTextField("Description", text: self.$about)
                     }
                 }
-            }.onAppear {
-                self.interstitial =  GADInterstitial(adUnitID: self.adID)
-                let req = GADRequest()
-                self.interstitial.load(req)
-            }
-            .animation(.linear(duration: 0.3))
+            }.animation(.linear(duration: 0.3))
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .buttonStyle(PlainButtonStyle())
@@ -224,9 +215,8 @@ struct LoanEditor: View {
                 } catch {
                     print("Failed")
                 }
-                    self.presentationMode.wrappedValue.dismiss()
-                }))
-                {
+                self.presentationMode.wrappedValue.dismiss()
+                })) {
                     HStack{
                         Image(systemName: "plus.circle.fill")
                             .foregroundColor(.blue)

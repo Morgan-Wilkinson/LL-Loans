@@ -7,8 +7,14 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct CreditCardPayoff: View {
+    // Ads
+    var AdControl: Ads = Ads()
+    
+    let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    
     @State private var formCreditCardBalance = ""
     @State private var formInterestRate = ""
     @State private var formPaymentPerMonth = ""
@@ -93,34 +99,39 @@ struct CreditCardPayoff: View {
             
             // Calculate Button
             Button(action: ({
-                self.showPaymentError = false
-                self.showAnswer = false
+                // Ads
+                self.AdControl.showAd()
                 
-                self.creditCardBalance = Double(self.formCreditCardBalance) ?? 0
-                let interestRate = Double(self.formInterestRate) ?? 0
-                
-                if !self.formPaymentPerMonth.isEmpty {
-                    self.monthlyPayments = Double(self.formPaymentPerMonth) ?? 0
-                    let calculator = CreditCardCalculator(creditCardBalance: self.creditCardBalance, interest: interestRate, term: self.term, monthlyPayments: self.monthlyPayments)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.showPaymentError = false
+                    self.showAnswer = false
                     
-                    self.term = calculator.howLong()
-                   
-                    if self.term <= -1 {
-                        self.showPaymentError = true
+                    self.creditCardBalance = Double(self.formCreditCardBalance) ?? 0
+                    let interestRate = Double(self.formInterestRate) ?? 0
+                    
+                    if !self.formPaymentPerMonth.isEmpty {
+                        self.monthlyPayments = Double(self.formPaymentPerMonth) ?? 0
+                        let calculator = CreditCardCalculator(creditCardBalance: self.creditCardBalance, interest: interestRate, term: self.term, monthlyPayments: self.monthlyPayments)
+                        
+                        self.term = calculator.howLong()
+                       
+                        if self.term <= -1 {
+                            self.showPaymentError = true
+                        }
                     }
-                }
-                
-                else if !self.formDesiredMonthPayoff.isEmpty {
-                    self.term = Double(self.formDesiredMonthPayoff) ?? 0
-                    let calculator = CreditCardCalculator(creditCardBalance: self.creditCardBalance, interest: interestRate, term: self.term, monthlyPayments: self.monthlyPayments)
                     
-                    self.monthlyPayments = calculator.monthlyPayment()
-                }
-                
-                if !self.showPaymentError {
-                    self.total = self.monthlyPayments * Double(self.term)
-                    self.totalInterest = self.total - self.creditCardBalance
-                    self.showAnswer = true
+                    else if !self.formDesiredMonthPayoff.isEmpty {
+                        self.term = Double(self.formDesiredMonthPayoff) ?? 0
+                        let calculator = CreditCardCalculator(creditCardBalance: self.creditCardBalance, interest: interestRate, term: self.term, monthlyPayments: self.monthlyPayments)
+                        
+                        self.monthlyPayments = calculator.monthlyPayment()
+                    }
+                    
+                    if !self.showPaymentError {
+                        self.total = self.monthlyPayments * Double(self.term)
+                        self.totalInterest = self.total - self.creditCardBalance
+                        self.showAnswer = true
+                    }
                 }
                 
             })) {

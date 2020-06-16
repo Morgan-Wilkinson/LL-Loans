@@ -7,8 +7,14 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct DebtToIncomeRatioChecker: View {
+    // Ads
+    var AdControl: Ads = Ads()
+    
+    let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    
     @State private var formIncome = ""
     @State private var formDebt = ""
     
@@ -46,12 +52,17 @@ struct DebtToIncomeRatioChecker: View {
             
             // Calculate Button
             Button(action: ({
-                let grossIncome = Double(self.formIncome) ?? 0
-                let grossDebt = Double(self.formDebt) ?? 0
+                // Ads
+                self.AdControl.showAd()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    let grossIncome = Double(self.formIncome) ?? 0
+                    let grossDebt = Double(self.formDebt) ?? 0
 
-                let calculator = DebtToIncomeCalculator(income: grossIncome, debt: grossDebt)
-                self.ratio = calculator.Ratio()
-                self.showAnswer = true
+                    let calculator = DebtToIncomeCalculator(income: grossIncome, debt: grossDebt)
+                    self.ratio = calculator.Ratio()
+                    self.showAnswer = true
+                }
             })) {
                 HStack{
                     Text("Calculate")

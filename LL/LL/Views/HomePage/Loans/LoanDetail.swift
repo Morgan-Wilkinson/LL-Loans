@@ -18,37 +18,43 @@ struct LoanDetail: View{
     @State var showingEditor = false
     
     // Ads
-    @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-2030770006889815/7603128128"
+    var AdControl: Ads = Ads()
     
-    var body: some View {
-        
-        // Formatters for Date style
-        let dateFormatter = DateFormatter()
-        
+    // Formatters for Date style
+    let dateFormatter = DateFormatter()
+    // The array is set to have index four be the current Month or any month less than 4.
+    let threeMonthBuffer = 3
+    var monthsPassed: Int
+    var currentMonth: Int
+    var currentMonthIndex: Int
+    var currentDueDate: String
+    
+    init(loan: Loans) {
+        self.loan = loan
         dateFormatter.dateStyle = .short
         dateFormatter.dateFormat = "MMM d, y"
         
-        // The array is set to have index four be the current Month or any month less than 4.
-        let threeMonthBuffer = 3
-        let monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
-        let currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
+        monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
+        currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
         
-        let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
-        let currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
+        currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
+        currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
         
+    }
+    
+    var body: some View {
         return GeometryReader { geometry in
             List {
                 // Loan Payment at a glance.
                 Section(header: SectionHeaderView(text: "Loan Summary", icon: "doc.text")) {
-                    Card(subtitle: "\(self.loan.origin)", title: "\(self.loan.name) - \(self.loan.typeOfLoan) Loan", overview: "Payment for \(currentDueDate): $\(self.loan.regularPayments)",
-                        briefSummary: "Principal: $\(self.loan.smallPrincipalArray[currentMonth]) \nInterest: $\(self.loan.smallInterestArray[currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[currentMonth])", description: "\(self.loan.about)", month: "\(dateFormatter.string(from:self.loan.startDate))")
+                    Card(subtitle: "\(self.loan.origin)", title: "\(self.loan.name) - \(self.loan.typeOfLoan) Loan", overview: "Payment for \(self.currentDueDate): $\(self.loan.regularPayments)",
+                        briefSummary: "Principal: $\(self.loan.smallPrincipalArray[self.currentMonth]) \nInterest: $\(self.loan.smallInterestArray[self.currentMonth]) \nBalance: $\(self.loan.smallBalanceArray[self.currentMonth])", description: "\(self.loan.about)", month: "\(self.dateFormatter.string(from:self.loan.startDate))")
                 }
                 
                     // Charts
                 Section(header: SectionHeaderView(text: "Loan History & Projections", icon: "chart.bar.fill")) {
                     // Current 12 month preview
-                    BarView(title: "History & Projections", currentMonthIndex: currentMonth, loan: self.loan)
+                    BarView(title: "History & Projections", currentMonthIndex: self.currentMonth, loan: self.loan)
                 }
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
@@ -80,10 +86,6 @@ struct LoanDetail: View{
                         print("Failed")
                     }
                 }
-                
-                self.interstitial =  GADInterstitial(adUnitID: self.adID)
-                let req = GADRequest()
-                self.interstitial.load(req)
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
@@ -96,14 +98,10 @@ struct LoanDetail: View{
                             .imageScale(.medium)
                         Text("Edit")
                 }
-            }.sheet(isPresented: self.$showingEditor, onDismiss: {
-                if self.interstitial.isReady {
-                    let root = UIApplication.shared.windows.first?.rootViewController
-                    self.interstitial.present(fromRootViewController: root!)
-                }
-                else {
-                    print("Not Ready")
-                }
+            }
+            // Show Editor
+            .sheet(isPresented: self.$showingEditor, onDismiss: {
+                self.AdControl.showAd()
             }) {
                 LoanEditor(loan: self.loan).environment(\.managedObjectContext, self.managedObjectContext)
             })

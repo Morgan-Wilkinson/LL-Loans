@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
+//import GoogleMobileAds
 
 struct PaymentBreakdownDetail: View {
     
@@ -18,11 +18,13 @@ struct PaymentBreakdownDetail: View {
     @State var barValues: [[Double]]
     @State var maxWidth: CGFloat = 0
     
-    @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-2030770006889815/7603128128"
+    //@State var interstitial: GADInterstitial!
+    //let adID: String = "ca-app-pub-2030770006889815/7603128128"
+    
+    //let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
     
     public var body: some View {
-        List(){
+        return List(){
             GeometryReader { geometry in
                 HStack(){
                     Group {
@@ -79,10 +81,6 @@ struct PaymentBreakdownDetail: View {
                 BreakdownRow(month: self.monthsSeries[i], principal: self.barValues[2][i], interest: self.barValues[1][i], balance: self.barValues[0][i], interestAtPoint: self.barValues[3][i], maxWidth: self.$maxWidth)
                     .listRowBackground(i % 2 == 0 ?  Color.amortizationRow1 : Color.amortizationRow2)
             }
-        }.onAppear {
-            self.interstitial =  GADInterstitial(adUnitID: self.adID)
-            let req = GADRequest()
-            self.interstitial.load(req)
         }
         .listStyle(GroupedListStyle())
         .environment(\.horizontalSizeClass, .regular)
@@ -98,62 +96,3 @@ struct PaymentBreakdownDetail_Previews: PreviewProvider {
     }
 }
 
-
-/*
-List(){
-   ForEach(0..<barValues[0].count, id: \.self) { i in
-       BreakdownRow(month: self.monthsSeries[i], payment: self.barValues[0][i], principal: self.barValues[1][i], interest: self.barValues[2][i], balance: self.barValues[0][i])
-   }
-}.navigationBarTitle(self.title)
-*/
-
-
-
-/*
- HStack(){
-     Group {
-         Text("Date")
-             .fontWeight(.regular)
-             .lineLimit(1)
-             .minimumScaleFactor(0.5)
-         //Divider()
-         Spacer()
-     }
-     /*
-     Group{
-         Text("Payment")
-             .fontWeight(.regular)
-             .lineLimit(1)
-             .minimumScaleFactor(0.5)
-         //Divider()
-         Spacer()
-     }
-     */
-     
-     Group{
-         Text("Principal")
-             .fontWeight(.regular)
-             .lineLimit(1)
-             .minimumScaleFactor(0.5)
-         //Divider()
-         Spacer()
-     }
-     
-     Group{
-         Text("Interest")
-             .fontWeight(.regular)
-             .lineLimit(1)
-             .minimumScaleFactor(0.5)
-         //Divider()
-         Spacer()
-     }
-     
-     Group{
-         Text("Balance")
-             .fontWeight(.regular)
-             .lineLimit(1)
-             .minimumScaleFactor(0.5)
-         Spacer()
-     }
- }
- */

@@ -15,14 +15,15 @@ struct LoanView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
-    @State var showingAdder = false
+    var AdControl: Ads
     
-    @State var interstitial: GADInterstitial!
-    let adID: String = "ca-app-pub-2030770006889815/7603128128"
+    @State var showingAdder = false
+    @State var showAdNow = false
     
     let dateFormatter = DateFormatter()
     let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
     init() {
+        self.AdControl = Ads()
         dateFormatter.dateStyle = .long
         dateFormatter.dateFormat = "MMMM d, y"
         
@@ -35,17 +36,16 @@ struct LoanView: View {
         return NavigationView {
             List{
                 Section(header: SectionHeaderView(text: "Loan Records", icon: "doc.text"), footer: Text(footerText)) {
-                    
                     if self.loans.count > 0 {
+                        //https://stackoverflow.com/questions/59123439/swiftui-holding-reference-to-deleted-core-data-object-causing-crash
                         ForEach(self.loans, id: \.self) { loan in
                             NavigationLink(destination: LoanDetail(loan: loan)) {
                                 SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
                                           startDate: loan.startDate,
                                           dueAmount: loan.regularPayments)
-                            }.buttonStyle(PlainButtonStyle())
-    
+                            }
                             // This will change the background to show due items
-                            //0.listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! >= 5 ?  Color.upcomingPayment : Color.clear)
+                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! >= 5 ?  Color.upcomingPayment : Color.clear)
                         }.onDelete(perform: self.deleteLoans)
                     }
                 }
@@ -61,44 +61,31 @@ struct LoanView: View {
                             .padding(5)
                     }.listRowBackground(Color.bigButton)
                     .sheet(isPresented: $showingAdder, onDismiss: {
-                        if self.interstitial.isReady {
-                            let root = UIApplication.shared.windows.first?.rootViewController
-                            self.interstitial.present(fromRootViewController: root!)
-                        }
-                        else {
-                            print("Not Ready")
-                        }}) {
-                        LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
+                        self.AdControl.showAd()
+                    }) {
+                        LoanAdder(showingSheet: self.$showingAdder, showAdNow: self.$showAdNow).environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
-            }.onAppear {
-                self.interstitial =  GADInterstitial(adUnitID: self.adID)
-                let req = GADRequest()
-                self.interstitial.load(req)
-            }
-            .animation(.linear(duration: 0.3))
-            .listStyle(GroupedListStyle())
+                
+            }.listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarTitle(Text("Loans"))
             .navigationBarItems(leading: EditButton(), trailing: Button(action: {
                     self.showingAdder.toggle()}){
-                    HStack{
-                        Image(systemName: "plus.circle.fill")
-                            .foregroundColor(.blue)
-                            .imageScale(.medium)
-                        Text("Loan")
-                    }
-            }.sheet(isPresented: self.$showingAdder, onDismiss: {
-                if self.interstitial.isReady {
-                    let root = UIApplication.shared.windows.first?.rootViewController
-                    self.interstitial.present(fromRootViewController: root!)
+                HStack{
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.blue)
+                        .imageScale(.medium)
+                    Text("Loan")
                 }
-                else {
-                    print("Not Ready")
-                }}) {
-                    LoanAdder().environment(\.managedObjectContext, self.managedObjectContext)
-                })
+            }
+            // Loan Adder
+            .sheet(isPresented: self.$showingAdder, onDismiss: {
+                self.AdControl.showAd()
+            }) {
+                LoanAdder(showingSheet: self.$showingAdder, showAdNow: self.$showAdNow).environment(\.managedObjectContext, self.managedObjectContext)
+            })
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
         .padding(.leading, ipadPadding)
     }
@@ -106,16 +93,13 @@ struct LoanView: View {
     func deleteLoans(at offsets: IndexSet) {
         for offset in offsets {
             // find this loan in our fetch request
-            let loan = loans[offset]
-
+            let loan = self.loans[offset]
             // delete it from the context
-            managedObjectContext.delete(loan)
+            self.managedObjectContext.delete(loan)
+            print(self.loans.count)
         }
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print("Error While Deleting Loan")
-        }
+        try? self.managedObjectContext.save()
+        print(self.loans.count)
     }
 }
 

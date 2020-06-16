@@ -53,7 +53,7 @@ extension Loans {
         let request: NSFetchRequest<Loans> = Loans.fetchRequest() as! NSFetchRequest<Loans>
         
         // The @FetchRequest property wrapper in the ContentView requires a sort descriptor
-        request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "startDate", ascending: true)]
           
         return request
     }

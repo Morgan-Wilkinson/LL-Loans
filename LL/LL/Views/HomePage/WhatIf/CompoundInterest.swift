@@ -7,8 +7,14 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct CompoundInterest: View {
+    // Ads
+    var AdControl: Ads = Ads()
+    
+    let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    
     @State private var formPrincipal = ""
     @State private var formInterestRate = ""
     @State private var formTermYears = ""
@@ -119,25 +125,29 @@ struct CompoundInterest: View {
                 
                 // Calculate Button
                 Button(action: ({
-                    if !self.formTermMonths.isEmpty {
-                        let months = self.formatter.number(from: self.formTermMonths) ?? 0
-                        let years = self.formatter.number(from: self.formTermYears) ?? 0
+                    // Ads
+                    self.AdControl.showAd()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if !self.formTermMonths.isEmpty {
+                            let months = self.formatter.number(from: self.formTermMonths) ?? 0
+                            let years = self.formatter.number(from: self.formTermYears) ?? 0
+                            
+                            self.formTermYears = "\((Double(truncating: months) / 12) + Double(truncating: years))"
+                        }
                         
-                        self.formTermYears = "\((Double(truncating: months) / 12) + Double(truncating: years))"
+                        self.principal = Double(self.formPrincipal) ?? 0
+                        let interestRate = Double(self.formInterestRate) ?? 0
+                        self.years = Double(self.formTermYears) ?? 0
+                        
+                        self.formTermYears = ""
+                        
+                        let calculator = CompoundInterestCalculator(prinicipal: self.principal, interest: interestRate, years: self.years, compoundType: self.typeOfCompoundInterestDouble[self.selectedCompoundType])
+                        
+                        self.accuredAmmount = calculator.getAccuredAmount()
+                        self.totalInterest = self.accuredAmmount - self.principal
+                        self.showAnswer = true
                     }
-                    
-                    self.principal = Double(self.formPrincipal) ?? 0
-                    let interestRate = Double(self.formInterestRate) ?? 0
-                    self.years = Double(self.formTermYears) ?? 0
-                    
-                    self.formTermYears = ""
-                    
-                    let calculator = CompoundInterestCalculator(prinicipal: self.principal, interest: interestRate, years: self.years, compoundType: self.typeOfCompoundInterestDouble[self.selectedCompoundType])
-                    
-                    self.accuredAmmount = calculator.getAccuredAmount()
-                    self.totalInterest = self.accuredAmmount - self.principal
-                    self.showAnswer = true
-                    
                 })) {
                     HStack{
                         Text("Calculate")
