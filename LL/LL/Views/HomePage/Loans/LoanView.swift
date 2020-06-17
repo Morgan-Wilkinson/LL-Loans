@@ -44,8 +44,6 @@ struct LoanView: View {
                                           startDate: loan.startDate,
                                           dueAmount: loan.regularPayments)
                             }
-                            // This will change the background to show due items
-                            //.listRowBackground(Calendar.current.dateComponents([.day], from: loan.startDate, to: Date()).day! >= 5 ?  Color.upcomingPayment : Color.clear)
                         }.onDelete(perform: self.deleteLoans)
                     }
                 }

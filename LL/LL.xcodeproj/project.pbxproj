@@ -33,6 +33,7 @@
 		909F1B9524685BAB004A4D76 /* BreakdownRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1B9424685BAB004A4D76 /* BreakdownRow.swift */; };
 		909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F1B9724687E69004A4D76 /* SimpleRow.swift */; };
 		90A0D8532467350600279F14 /* PaymentBreakdownDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */; };
+		90A1E3C52499AF490046A1A5 /* Date&Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A1E3C42499AF490046A1A5 /* Date&Time.swift */; };
 		90A6E8BF24759E41004CA5C0 /* ExplainationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A6E8BE24759E41004CA5C0 /* ExplainationHeader.swift */; };
 		90AB858D247440AE00E8F9E4 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB858C247440AE00E8F9E4 /* SectionHeaderView.swift */; };
 		90AB85902474419000E8F9E4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB858F2474419000E8F9E4 /* Color.swift */; };
@@ -86,6 +87,7 @@
 		909F1B9424685BAB004A4D76 /* BreakdownRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownRow.swift; sourceTree = "<group>"; };
 		909F1B9724687E69004A4D76 /* SimpleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRow.swift; sourceTree = "<group>"; };
 		90A0D8522467350600279F14 /* PaymentBreakdownDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBreakdownDetail.swift; sourceTree = "<group>"; };
+		90A1E3C42499AF490046A1A5 /* Date&Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date&Time.swift"; sourceTree = "<group>"; };
 		90A6E8BE24759E41004CA5C0 /* ExplainationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainationHeader.swift; sourceTree = "<group>"; };
 		90AB858C247440AE00E8F9E4 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		90AB858F2474419000E8F9E4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				9069D514245E1CC200A14C55 /* MultilineTextField.swift */,
 				9093DAA32486CC1B0001001F /* ReloadView.swift */,
+				90A1E3C42499AF490046A1A5 /* Date&Time.swift */,
 				C76AE829249141650048A5ED /* UserDefaultsKeys.swift */,
 				905394C02481809800894134 /* TapOutsideTextField.swift */,
 				905394C42481872300894134 /* AdaptsToSoftwareKeyboard.swift */,
@@ -493,6 +496,7 @@
 				9016AB2A2471E34900F43640 /* MonthlyPayment.swift in Sources */,
 				909F1B9824687E69004A4D76 /* SimpleRow.swift in Sources */,
 				9016AB2C2471E36400F43640 /* DebtToIncomeRatioChecker.swift in Sources */,
+				90A1E3C52499AF490046A1A5 /* Date&Time.swift in Sources */,
 				907A8FE4249864F600F8DE80 /* Dashboard.swift in Sources */,
 				C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */,
 				9016AB2E2471EB5100F43640 /* MonthlyPaymentWhatIf.swift in Sources */,
