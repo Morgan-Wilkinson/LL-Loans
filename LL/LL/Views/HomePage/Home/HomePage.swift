@@ -40,7 +40,7 @@ struct HomePage: View {
                      .tag(2)
             }
             
-            SplashScreen()
+            SplashScreen().environment(\.managedObjectContext, context)
               .opacity(showSplash ? 1 : 0)
               .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

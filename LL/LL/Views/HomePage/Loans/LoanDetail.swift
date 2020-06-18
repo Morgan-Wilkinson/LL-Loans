@@ -16,6 +16,7 @@ struct LoanDetail: View{
     @ObservedObject var loan: Loans
     
     @State var showingEditor = false
+    @State var shownAd = false
     
     // Ads
     var AdControl: Ads = Ads()
@@ -58,7 +59,7 @@ struct LoanDetail: View{
                 }
                 // Amortization Schedule
                 Section(header: SectionHeaderView(text: "Amortization Schedule")) {
-                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: self.loan.allValuesArray)) {
+                    NavigationLink(destination: PaymentBreakdownDetail(title: "Amortization Schedule", monthlyPayment: self.loan.regularPayments, monthsSeries: self.loan.monthsSeries, barValues: self.loan.allValuesArray, shownAd: self.$shownAd)) {
                         Text("Amortization Schedule")
                             .fontWeight(.bold)
                             .font(.headline)
@@ -85,6 +86,11 @@ struct LoanDetail: View{
                     } catch {
                         print("Failed")
                     }
+                }
+                
+                if !self.shownAd {
+                    self.shownAd = true
+                    self.AdControl.showAd()
                 }
             }
             .listStyle(GroupedListStyle())

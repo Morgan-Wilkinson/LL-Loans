@@ -67,21 +67,6 @@ struct WhatIf: View {
                                     .foregroundColor(Color.bigButtonText)
                             }
                         }
-                        
-                    /*
-                        NavigationLink(destination: RefinanceCalculator()) {
-                            HStack{
-                                Image(systemName: "arrow.2.circlepath")
-                                    .foregroundColor(Color.bigButtonText)
-                                    .imageScale(.medium)
-                                Text("Refinance Calculator")
-                                    .fontWeight(.semibold)
-                                    .font(.headline)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Color.bigButtonText)
-                            }
-                        }
-                    */
                     }
                 }.listRowBackground(Color.bigButton)
                 .buttonStyle(PlainButtonStyle())

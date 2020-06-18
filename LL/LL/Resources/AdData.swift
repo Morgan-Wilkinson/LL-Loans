@@ -13,11 +13,11 @@ import UIKit
 
 final class Ads: NSObject, GADInterstitialDelegate{
     let adID: String = "ca-app-pub-2030770006889815/7603128128"
-    let testAdID: String = "ca-app-pub-3940256099942544/4411468910"
+    //let testAdID: String = "ca-app-pub-3940256099942544/4411468910"
     var interstitial: GADInterstitial
     
     override init() {
-        self.interstitial = GADInterstitial(adUnitID: testAdID)
+        self.interstitial = GADInterstitial(adUnitID: adID)
         super.init()
         LoadInterstitial()
     }
@@ -39,7 +39,7 @@ final class Ads: NSObject, GADInterstitialDelegate{
     }
 
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        self.interstitial = GADInterstitial(adUnitID: testAdID)
+        self.interstitial = GADInterstitial(adUnitID: adID)
         LoadInterstitial()
     }
 }

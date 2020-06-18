@@ -26,6 +26,7 @@ struct Dashboard: View {
         var totalInterest: Double = 0
         var dueSoon: [Loans] = []
         var dueDate: [String] = []
+        
         // Highest Interest Rate
         var highestInterestRate: Double = 0
         var highestInterestRateName = ""
@@ -42,9 +43,6 @@ struct Dashboard: View {
             // Highest Cash Interest
             highestCashInterest = self.loans[0].interestTotalsArray.last ?? 0
             highestCashInterestName = self.loans[0].name
-            
-            //let currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loanstartDate, to: Date()).month!
-            //self.currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex + 1, to: startDate)!))
             
             for i in self.loans {
                 // Total mothly cost
@@ -143,12 +141,12 @@ struct Dashboard: View {
                                     .multilineTextAlignment(.leading)
                                 Spacer()
                                 if Calendar.current.dateComponents([.month, .day], from: self.loans[i].startDate, to: Date().endOfMonth).month! > 0 {
-                                    Text("\(self.loans[i].balanceArray[Calendar.current.dateComponents([.month, .day], from: self.loans[i].startDate, to: Date().startOfMonth).month!], specifier: "%.2f")")
+                                    Text("$\(self.loans[i].balanceArray[Calendar.current.dateComponents([.month, .day], from: self.loans[i].startDate, to: Date().startOfMonth).month!], specifier: "%.2f")")
                                     .lineLimit(nil)
                                     .multilineTextAlignment(.leading)
                                 }
                                 else {
-                                    Text("\(self.loans[i].regularPayments * Double(truncating: self.loans[i].termMonths), specifier: "%.2f")")
+                                    Text("$\(self.loans[i].regularPayments * Double(truncating: self.loans[i].termMonths), specifier: "%.2f")")
                                     .lineLimit(nil)
                                         .multilineTextAlignment(.leading)
                                 }
@@ -160,7 +158,7 @@ struct Dashboard: View {
                         // Highest Interest Rate
                         VStack{
                             HStack{
-                                Text("Highest Interest Rate Loan:")
+                                Text("Highest Interest Rate:")
                                     .lineLimit(nil)
                                     .multilineTextAlignment(.leading)
                                 Spacer()
@@ -182,7 +180,7 @@ struct Dashboard: View {
                         // Highest Cash Interest
                         VStack{
                             HStack{
-                                Text("Highest Cash Amount Loan:")
+                                Text("Highest Cash Interest:")
                                     .lineLimit(nil)
                                     .multilineTextAlignment(.leading)
                                 Spacer()
@@ -205,13 +203,13 @@ struct Dashboard: View {
                     
                     // Total Prinicipal
                     Section(header: SectionHeaderView(text: "Total Principal", icon: "dollarsign.square")) {
-                        Text("Your total principal for all your loans is $\(totalPrincipal, specifier: "%.2f").")
+                        Text("Your total principal for all your loans is $\(totalPrincipal, specifier: "%.2f")")
                             .lineLimit(nil)
                             .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                     }
                     // Total Interest
                     Section(header: SectionHeaderView(text: "Total Interest", icon: "dollarsign.square")) {
-                        Text("Your total interest for all your loans is $\(totalInterest, specifier: "%.2f").")
+                        Text("Your total interest for all your loans is $\(totalInterest, specifier: "%.2f")")
                             .lineLimit(nil)
                             .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                     }
@@ -219,9 +217,8 @@ struct Dashboard: View {
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarTitle(Text(dateFormatter.string(from: Date())))
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

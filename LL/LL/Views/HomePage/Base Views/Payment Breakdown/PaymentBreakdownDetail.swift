@@ -18,9 +18,7 @@ struct PaymentBreakdownDetail: View {
     @State var barValues: [[Double]]
     @State var maxWidth: CGFloat = 0
     
-    //@State var interstitial: GADInterstitial!
-    //let adID: String = "ca-app-pub-2030770006889815/7603128128"
-    
+    @Binding var shownAd: Bool
     //let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
     
     public var body: some View {
@@ -92,7 +90,7 @@ struct PaymentBreakdownDetail: View {
 struct PaymentBreakdownDetail_Previews: PreviewProvider {
     static var previews: some View {
         PaymentBreakdownDetail(title: "Payment Breakdown Detail", monthlyPayment: 20.00, monthsSeries: ["Jan", "Feb", "Mar", "Apr", "Jun"],
-        barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]])
+                               barValues: [[75.0, 9635, 1523, 62.36, 159], [326.25, 159.3658, 15884, 526.84, 515], [854, 1520, 3698, 157.2, 158.3698]], shownAd: .constant(true))
     }
 }
 

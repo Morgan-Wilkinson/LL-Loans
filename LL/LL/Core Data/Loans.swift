@@ -13,6 +13,7 @@ import Combine
 
 public class Loans: NSManagedObject, Identifiable{
     
+    @NSManaged public var willDelete: Bool
     @NSManaged public var startDate: Date
     @NSManaged public var termMonths: NSNumber
     @NSManaged public var interestRate: NSNumber

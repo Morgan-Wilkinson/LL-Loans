@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct SplashScreen: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack{
@@ -27,6 +30,20 @@ struct SplashScreen: View {
             .frame(width: geometry.size.width, height: geometry.size.height)
         }.background(Color.splashScreen)
         .edgesIgnoringSafeArea(.all)
+        .onAppear {
+            for loan in self.loans {
+                if loan.willDelete {
+                    self.deleteLoans(loan: loan)
+                }
+            }
+        }
+    }
+    
+    func deleteLoans(loan: Loans) {
+        
+        self.managedObjectContext.delete(loan)
+        
+        try? self.managedObjectContext.save()
     }
 }
 

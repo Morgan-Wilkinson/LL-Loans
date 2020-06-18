@@ -15,38 +15,53 @@ struct LoanView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
     
-    var AdControl: Ads
+    // Ads
+    var AdControl: Ads = Ads()
     
     @State var showingAdder = false
     @State var showAdNow = false
-    
     let dateFormatter = DateFormatter()
     let ipadPadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 0.5 : 0
+    
     init() {
         self.AdControl = Ads()
         dateFormatter.dateStyle = .long
         dateFormatter.dateFormat = "MMMM d, y"
-        
     }
     
     var body: some View {
         
-        let footerText = self.loans.count != 0 ? "Here are your loans as of \(dateFormatter.string(from: Date()))" : "You're not tracking any loans, add some."
+        let footerText = self.loans.count != 0 ? "Here are your loans as of \(self.dateFormatter.string(from: Date()))." : "You're not tracking any loans, add some."
         
         return NavigationView {
             List{
                 Section(header: SectionHeaderView(text: "Loan Records", icon: "doc.text"), footer: Text(footerText)) {
-                    if self.loans.count > 0 {
-                        //https://stackoverflow.com/questions/59123439/swiftui-holding-reference-to-deleted-core-data-object-causing-crash
-                        ForEach(self.loans, id: \.self) { loan in
-                            NavigationLink(destination: LoanDetail(loan: loan)) {
-                                SimpleRow(name: loan.name, loanType: loan.typeOfLoan, origin: loan.origin,
-                                          startDate: loan.startDate,
-                                          dueAmount: loan.regularPayments)
-                            }
-                        }.onDelete(perform: self.deleteLoans)
+                        if self.loans.count > 0 {
+                            ForEach(self.loans, id: \.self) { loan in
+                                VStack {
+                                    if !loan.willDelete {
+                                         NavigationLink(destination: LoanDetail(loan: loan)) {
+                                             SimpleRow(name: loan.name, loanType: loan.typeOfLoan,
+                                             origin: loan.origin, startDate: loan.startDate,
+                                             dueAmount: loan.regularPayments)
+                                         }
+                                   }
+                                    else {
+                                        Button(action: {self.restoreDeletedLoan(loan: loan)}) {
+                                            Text("Restore \(loan.name)")
+                                                .fontWeight(.medium)
+                                                .font(.headline)
+                                                .multilineTextAlignment(.leading)
+                                                .foregroundColor(.accentColor)
+                                                .padding(5)
+                                                
+                                        }
+                                    }
+                                }
+                            }.onDelete(perform: self.prepDelete)
                     }
                 }
+                
                 Section {
                     Button(action: {
                         self.showingAdder.toggle()
@@ -88,16 +103,22 @@ struct LoanView: View {
         .padding(.leading, ipadPadding)
     }
     
-    func deleteLoans(at offsets: IndexSet) {
+    func restoreDeletedLoan(loan: Loans) {
+        loan.willDelete = false
+        
+        try? self.managedObjectContext.save()
+        
+        self.AdControl.showAd()
+    }
+    
+    func prepDelete(at offsets: IndexSet) {
         for offset in offsets {
             // find this loan in our fetch request
             let loan = self.loans[offset]
-            // delete it from the context
-            self.managedObjectContext.delete(loan)
-            print(self.loans.count)
+            
+            loan.willDelete = true
         }
         try? self.managedObjectContext.save()
-        print(self.loans.count)
     }
 }
 

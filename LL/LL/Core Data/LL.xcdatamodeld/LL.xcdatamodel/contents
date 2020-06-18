@@ -22,8 +22,9 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="termMonths" optional="YES" attributeType="Decimal" defaultValueString="0"/>
         <attribute name="typeOfLoan" optional="YES" attributeType="String"/>
+        <attribute name="willDelete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Loans" positionX="-63" positionY="-18" width="128" height="358"/>
+        <element name="Loans" positionX="-63" positionY="-18" width="128" height="373"/>
     </elements>
 </model>
