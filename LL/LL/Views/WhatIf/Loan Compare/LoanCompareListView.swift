@@ -9,10 +9,16 @@
 import SwiftUI
 
 struct LoanCompareListView: View {
-    @State var loans: [LoanItem] = [LoanItem(id: 0, principal: nil, interest: nil, years: nil, months: nil), LoanItem(id: 0, principal: nil, interest: nil, years: nil, months: nil)]
+    @State var numberOfLoan = 2
+    @State var loans: [LoanItem] = [LoanItem(id: 1, interest: nil, years: nil, months: nil), LoanItem(id: 2, interest: nil, years: nil, months: nil)]
+    @State var loanResults: [LoanCompareResults] = []
+    
     @State var calculate: Bool = false
-    @State var incomplete: Bool = true
+    @State var incomplete: Bool = false
+    @State var showResults: Bool = false
+    
     @State private var formPrincipal = ""
+    @State var principal: Double = 0
     
     var body: some View {
         List() {
@@ -20,7 +26,10 @@ struct LoanCompareListView: View {
                 self.calculate = true
                 
                 if !self.incomplete {
-                    print("Good")
+                    self.principal = Double(self.formPrincipal) ?? 0
+                    let calculator = LoanCompareCalculator(principal: self.principal, loans: self.loans)
+                    self.loanResults = calculator.monthlyPaymentTPaymentTInterest()
+                    self.showResults = true
                 }
             }) {
                 HStack{
@@ -33,7 +42,8 @@ struct LoanCompareListView: View {
                 
             }
             Button(action: {
-                self.loans.append(LoanItem(id: self.loans.count + 1, principal: nil, interest: nil, years: nil, months: nil))
+                self.numberOfLoan += 1
+                self.loans.append(LoanItem(id: self.numberOfLoan, interest: nil, years: nil, months: nil))
             }) {
                 HStack{
                     Text("Add")
@@ -58,13 +68,41 @@ struct LoanCompareListView: View {
             ForEach(self.loans, id: \.self) { loan in
                 Section(header: Text("Loan \(loan.id)")) {
                     LoanCompare(loan: loan, setToCalculate: self.$calculate, incomplete: self.$incomplete)
+                    Button(action: {
+                        self.loans.removeAll(where: {$0 == loan})
+                    }){
+                        HStack{
+                            Image(systemName: "trash")
+                                .foregroundColor(.blue)
+                                .imageScale(.medium)
+                            Text("Delete")
+                        }
+                    }
                 }
+            }
+            
+            if showResults {
+                LoanCompareResultsView(principal: self.principal, loans: self.loans, loanResults: self.loanResults)
             }
         }.environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Loan Comparison")
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
+            .navigationBarItems(trailing: Button(action: {
+                self.calculate = false
+                self.loans.removeAll()
+                self.loans.append(LoanItem(id: 1, interest: nil, years: nil, months: nil))
+                self.loans.append(LoanItem(id: 2, interest: nil, years: nil, months: nil))
+                self.numberOfLoan = 2 
+            }){
+                HStack{
+                    Image(systemName: "trash")
+                        .foregroundColor(.blue)
+                        .imageScale(.medium)
+                    Text("Reset All")
+                }
+            })
         .onTapGesture {
             self.endEditing(true)
         }

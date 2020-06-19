@@ -1,5 +1,5 @@
 //
-//  WhatIfCalculator.swift
+//  MonthlyPaymentWhatIf.swift
 //  LL
 //
 //  Created by Morgan Wilkinson on 5/17/20.
