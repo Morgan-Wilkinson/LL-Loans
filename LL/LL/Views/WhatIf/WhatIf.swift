@@ -67,6 +67,19 @@ struct WhatIf: View {
                                     .foregroundColor(Color.bigButtonText)
                             }
                         }
+                        
+                        NavigationLink(destination: LoanCompareListView()) {
+                            HStack{
+                                Image(systemName: "arrow.branch")
+                                    .foregroundColor(Color.bigButtonText)
+                                    .imageScale(.medium)
+                                Text("Loan Comparison")
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(Color.bigButtonText)
+                            }
+                        }
                     }
                 }.listRowBackground(Color.bigButton)
                 .buttonStyle(PlainButtonStyle())

@@ -1,0 +1,94 @@
+//
+//  LoanCompare.swift
+//  LL
+//
+//  Created by Morgan Wilkinson on 6/18/20.
+//  Copyright © 2020 Morgan Wilkinson. All rights reserved.
+//
+// Use the class MonthlyPayment 
+import SwiftUI
+import GoogleMobileAds
+
+struct LoanCompare: View {
+    @State var loan: LoanItem
+    @Binding var setToCalculate: Bool
+    @Binding var incomplete: Bool
+    // Ads
+    var AdControl: Ads = Ads()
+    
+    let ipadDevice = UIDevice.current.userInterfaceIdiom == .pad ? true : false
+    
+    @State private var formInterestRate = ""
+    @State private var formTermYears = ""
+    @State private var formTermMonths = ""
+
+    let valueSpec: String = "%.2f"
+    let formatter = NumberFormatter()
+    
+    // Make a binding
+    var disableForm: Bool {
+        formInterestRate.isEmpty || (formTermYears.isEmpty && formTermMonths.isEmpty) || formInterestRate == "0" || (formTermYears == "0" && formTermMonths == "0")
+    }
+    var body: some View {
+        return Group {
+            Group{
+                ZStack {
+                    HStack{
+                        Text("APR")
+                            .fontWeight(.bold)
+                        Divider()
+                        TextField("What's the annual interest rate (APR)?", text: self.$formInterestRate)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .keyboardType(.decimalPad)
+                        Image(systemName: "percent")
+                        Spacer()
+                    }
+                }
+            }
+            Group{
+                HStack{
+                    ZStack{
+                        HStack{
+                            TextField("Years", text: self.$formTermMonths)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                            Text("Years")
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
+                    }
+                    Divider()
+                    ZStack{
+                        HStack{
+                            TextField("Months", text: self.$formTermYears)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .keyboardType(.numberPad)
+                            Text("Months")
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            
+            if setToCalculate && disableForm{
+                Text("Incomplete!")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.red)
+                    .onAppear {
+                        self.incomplete = true
+                    }
+                    .onDisappear {
+                        self.incomplete = false
+                    }
+            }
+            
+        }
+    }
+}
+
+struct LoanCompare_Previews: PreviewProvider {
+    static var previews: some View {
+        LoanCompare(loan: LoanItem(id: 0, principal: "1000.00", interest: "5", years: "12", months: "3"), setToCalculate: .constant(false), incomplete: .constant(true))
+    }
+}
