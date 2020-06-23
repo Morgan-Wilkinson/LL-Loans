@@ -58,12 +58,12 @@
 		C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C794AAF1241EF8A60054B6C1 /* AdjustPayment.swift */; };
 		C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B7405B241DBDB30028AE18 /* BarView.swift */; };
 		C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6987F2416AEE000E44EEE /* LoanEditor.swift */; };
-		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
-		CBEE36A3C4573CC31442627F /* Pods_LL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */; };
+		C7CEED982404CAA600694FEB /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */; };
+		E6C0FBCEF02579FFA03F8B51 /* Pods_LL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598F3DD3853EDB17DC6E899 /* Pods_LL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.release.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.release.xcconfig"; sourceTree = "<group>"; };
+		0598F3DD3853EDB17DC6E899 /* Pods_LL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9016AB232471A34A00F43640 /* WhatIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatIf.swift; sourceTree = "<group>"; };
 		9016AB292471E34900F43640 /* MonthlyPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPayment.swift; sourceTree = "<group>"; };
 		9016AB2B2471E36400F43640 /* DebtToIncomeRatioChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtToIncomeRatioChecker.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		90E5672424770DA400B02672 /* CreditCardCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCalculator.swift; sourceTree = "<group>"; };
 		90E567282477652600B02672 /* CompoundInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterest.swift; sourceTree = "<group>"; };
 		90E5672D24777AD700B02672 /* CompoundInterestCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundInterestCalculator.swift; sourceTree = "<group>"; };
-		B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.debug.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.debug.xcconfig"; sourceTree = "<group>"; };
+		C4A300F0A49782D3B99085B0 /* Pods-LL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.debug.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.debug.xcconfig"; sourceTree = "<group>"; };
 		C7049FA72415E09300636392 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C7179330249C2FF5008D98E5 /* LoanItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanItem.swift; sourceTree = "<group>"; };
 		C7179332249C32EE008D98E5 /* LoanCompareListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCompareListView.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		C794AAF1241EF8A60054B6C1 /* AdjustPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustPayment.swift; sourceTree = "<group>"; };
 		C7B7405B241DBDB30028AE18 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		C7C6987F2416AEE000E44EEE /* LoanEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanEditor.swift; sourceTree = "<group>"; };
-		F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D8E4ED9BB8BC097B851A38 /* Pods-LL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LL.release.xcconfig"; path = "Target Support Files/Pods-LL/Pods-LL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7CEED982404CAA600694FEB /* Numerics in Frameworks */,
-				CBEE36A3C4573CC31442627F /* Pods_LL.framework in Frameworks */,
+				C7CEED982404CAA600694FEB /* BuildFile in Frameworks */,
+				E6C0FBCEF02579FFA03F8B51 /* Pods_LL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,10 +138,18 @@
 		2238FE6FE080F881EF6B381F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */,
-				09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */,
+				C4A300F0A49782D3B99085B0 /* Pods-LL.debug.xcconfig */,
+				E8D8E4ED9BB8BC097B851A38 /* Pods-LL.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8C97D3F05FA975C31187EA7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0598F3DD3853EDB17DC6E899 /* Pods_LL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		90086FE8247E0A7F0091FDF7 /* Calculators */ = {
@@ -188,7 +196,7 @@
 				9041E8EB23C448E90046B9BF /* LL */,
 				9041E8EA23C448E90046B9BF /* Products */,
 				2238FE6FE080F881EF6B381F /* Pods */,
-				A9E6F28A12D5ABBD987EDC8B /* Frameworks */,
+				8C97D3F05FA975C31187EA7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -296,14 +304,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A9E6F28A12D5ABBD987EDC8B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F7D4CFBAE1F211A3BE4DAC88 /* Pods_LL.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C717932C249C2EF1008D98E5 /* Loan Compare */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,11 +389,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9041E90023C448EC0046B9BF /* Build configuration list for PBXNativeTarget "LL" */;
 			buildPhases = (
-				C939A135288E72BB89E78FED /* [CP] Check Pods Manifest.lock */,
+				922D44784147F58D2F59DFDD /* [CP] Check Pods Manifest.lock */,
 				9041E8E523C448E90046B9BF /* Sources */,
 				9041E8E623C448E90046B9BF /* Frameworks */,
 				9041E8E723C448E90046B9BF /* Resources */,
-				7511E8ED53ACE8C93BEF7DA4 /* [CP] Embed Pods Frameworks */,
+				3DC556A5D9D8630DDC6C539B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -401,7 +401,7 @@
 			);
 			name = LL;
 			packageProductDependencies = (
-				C7CEED972404CAA600694FEB /* Numerics */,
+				C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */,
 			);
 			productName = LL;
 			productReference = 9041E8E923C448E90046B9BF /* Loan Record.app */;
@@ -432,7 +432,7 @@
 			);
 			mainGroup = 9041E8E023C448E90046B9BF;
 			packageReferences = (
-				C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */,
+				C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 9041E8EA23C448E90046B9BF /* Products */;
 			projectDirPath = "";
@@ -457,7 +457,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7511E8ED53ACE8C93BEF7DA4 /* [CP] Embed Pods Frameworks */ = {
+		3DC556A5D9D8630DDC6C539B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -474,7 +474,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LL/Pods-LL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C939A135288E72BB89E78FED /* [CP] Check Pods Manifest.lock */ = {
+		922D44784147F58D2F59DFDD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -684,7 +684,7 @@
 		};
 		9041E90123C448EC0046B9BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B097692E99970F5976B63360 /* Pods-LL.debug.xcconfig */;
+			baseConfigurationReference = C4A300F0A49782D3B99085B0 /* Pods-LL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "LL/Loan Record.entitlements";
@@ -709,7 +709,7 @@
 		};
 		9041E90223C448EC0046B9BF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09B970D949616DF54E67FDD9 /* Pods-LL.release.xcconfig */;
+			baseConfigurationReference = E8D8E4ED9BB8BC097B851A38 /* Pods-LL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "LL/Loan Record.entitlements";
@@ -756,7 +756,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+		C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-numerics";
 			requirement = {
@@ -767,9 +767,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C7CEED972404CAA600694FEB /* Numerics */ = {
+		C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			package = C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */;
 			productName = Numerics;
 		};
 /* End XCSwiftPackageProductDependency section */
