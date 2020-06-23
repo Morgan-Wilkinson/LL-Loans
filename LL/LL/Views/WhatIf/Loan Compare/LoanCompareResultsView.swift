@@ -148,11 +148,9 @@ struct CompareListRow: View {
     }
 }
 
-/*
 struct LoanCompareResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        LoanCompareResultsView(principal: 1000.00, loans: .constant([LoanItem(id: 0, interest: 5, years: 12, months: 3),), LoanItem(id: 1, interest: 5, years: 12, months: 3)]), loanResults: .constant([LoanCompareResults(id: 0, monthlyInterestRate: 0.1, monthlyPayment: 100, totalInterest: 200, totalPayments: 300)]))
+        LoanCompareResultsView(principal: .constant(1000.00), loanResults: [LoanCompareResults(id: UUID(), name: 0, monthlyInterestRate: 0.1, monthlyPayment: 100, totalInterest: 200, totalPayments: 300)])
     }
 }
 
-*/

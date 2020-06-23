@@ -5,7 +5,7 @@
 //  Created by Morgan Wilkinson on 6/18/20.
 //  Copyright © 2020 Morgan Wilkinson. All rights reserved.
 //
-// Use the class MonthlyPayment 
+
 import SwiftUI
 import GoogleMobileAds
 
@@ -78,9 +78,9 @@ struct LoanCompare: View {
                     .onAppear {
                         self.incomplete = true
                     }
-                .onDisappear{
-                    self.incomplete = false
-                }
+                    .onDisappear{
+                        self.incomplete = false
+                    }
             }
             if !disableForm{
                 HStack {
@@ -105,14 +105,3 @@ struct LoanCompare_Previews: PreviewProvider {
         LoanCompare(loan: LoanItem(id: UUID(), name: 1, interest: 5, years: 12, months: 3), setToCalculate: .constant(false), incomplete: .constant(true))
     }
 }
-
-/*
- if self.formTermYears.isEmpty == false {
-                            let months = self.formatter.number(from: self.formTermMonths) ?? 0
-                            let years = self.formatter.number(from: self.formTermYears) ?? 0
-                            
-                            self.formTermMonths = "\((Int(truncating: years) * 12) + Int(truncating: months))"
-                            self.formTermYears = ""
-                            
-                        }
- */

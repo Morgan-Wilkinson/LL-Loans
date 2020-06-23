@@ -111,6 +111,8 @@ struct LoanView: View {
         self.AdControl.showAd()
     }
     
+    /// DELET f
+    /// - Parameter offsets: This is a test
     func prepDelete(at offsets: IndexSet) {
         for offset in offsets {
             // find this loan in our fetch request
