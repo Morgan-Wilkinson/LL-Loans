@@ -22,7 +22,7 @@ class LoanCompareCalculator {
         
         for loan in self.loans {
             let monthlyIntRate = (loan.interest! / percentConvertor) / monthInYear
-            loanCompareResults.append(LoanCompareResults(id: loan.id, monthlyInterestRate: monthlyIntRate, monthlyPayment: nil, totalInterest: nil, totalPayments: nil))
+            loanCompareResults.append(LoanCompareResults(id: UUID(), name: loan.name, monthlyInterestRate: monthlyIntRate, monthlyPayment: nil, totalInterest: nil, totalPayments: nil))
         }
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 import GoogleMobileAds
 
 struct LoanCompare: View {
-    @State var loan: LoanItem
+    @ObservedObject var loan: LoanItem
     @Binding var setToCalculate: Bool
     @Binding var incomplete: Bool
     // Ads
@@ -102,7 +102,7 @@ struct LoanCompare: View {
 
 struct LoanCompare_Previews: PreviewProvider {
     static var previews: some View {
-        LoanCompare(loan: LoanItem(id: 0, interest: 5, years: 12, months: 3), setToCalculate: .constant(false), incomplete: .constant(true))
+        LoanCompare(loan: LoanItem(id: UUID(), name: 1, interest: 5, years: 12, months: 3), setToCalculate: .constant(false), incomplete: .constant(true))
     }
 }
 

@@ -11,12 +11,10 @@ import SwiftUI
 struct BarView: View {
     public var title: String
     public var cornerImage: Image = Image(systemName: "chart.bar")
-    public var valueSpecifier: String = "%.3f"
+    public var valueSpecifier: String = "%.2f"
     public var currentMonthIndex: Int
     
     @ObservedObject var loan: Loans
-    //@State var monthsSeries: [String]
-   // @State var barValues: [[Double]]
     @State var pickerSelection = 0
     @State private var width: CGFloat = 0
     @State private var touchLocation: CGFloat = -1.0

@@ -307,10 +307,10 @@
 		C717932C249C2EF1008D98E5 /* Loan Compare */ = {
 			isa = PBXGroup;
 			children = (
-				C7179330249C2FF5008D98E5 /* LoanItem.swift */,
 				C7179332249C32EE008D98E5 /* LoanCompareListView.swift */,
 				90485733249C260000D2061F /* LoanCompare.swift */,
 				90218BEB249D5394007345AC /* LoanCompareResultsView.swift */,
+				C7179330249C2FF5008D98E5 /* LoanItem.swift */,
 			);
 			path = "Loan Compare";
 			sourceTree = "<group>";

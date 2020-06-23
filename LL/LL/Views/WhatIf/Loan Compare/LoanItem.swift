@@ -8,17 +8,40 @@
 
 import SwiftUI
 
-struct LoanItem: Identifiable, Hashable {
-    let id: Int
-    var interest: Double?
-    var years: Double?
-    var months: Int?
+class LoanItem: ObservableObject, Identifiable, Equatable {
+    static func == (lhs: LoanItem, rhs: LoanItem) -> Bool {
+        lhs.id == rhs.id && lhs.name == rhs.name
+    }
+    
+    @Published var id: UUID
+    @Published var name: Int
+    @Published var interest: Double?
+    @Published var years: Double?
+    @Published var months: Int?
+    
+    init(id: UUID, name: Int, interest: Double?, years: Double?, months: Int?) {
+        self.id = id
+        self.name = name
+        self.interest = interest ?? nil
+        self.years = years ?? nil
+        self.months = months ?? nil
+    }
 }
 
-struct LoanCompareResults: Identifiable, Hashable {
-    let id: Int
-    var monthlyInterestRate: Double?
-    var monthlyPayment: Double?
-    var totalInterest: Double?
-    var totalPayments: Double?
+class LoanCompareResults: ObservableObject, Identifiable {
+    @Published var id: UUID
+    @Published var name: Int
+    @Published var monthlyInterestRate: Double?
+    @Published var monthlyPayment: Double?
+    @Published var totalInterest: Double?
+    @Published var totalPayments: Double?
+    
+    init(id: UUID, name: Int, monthlyInterestRate: Double?, monthlyPayment: Double?, totalInterest: Double?, totalPayments: Double?) {
+        self.id = id
+        self.name = name
+        self.monthlyInterestRate = monthlyInterestRate ?? nil
+        self.monthlyPayment = monthlyPayment ?? nil
+        self.totalInterest = totalInterest ?? nil
+        self.totalPayments = totalPayments ?? nil
+    }
 }

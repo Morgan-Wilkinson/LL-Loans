@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoanCompareListView: View {
     @State var numberOfLoan = 2
-    @State var loans: [LoanItem] = [LoanItem(id: 1, interest: nil, years: nil, months: nil), LoanItem(id: 2, interest: nil, years: nil, months: nil)]
+    @State var loans: [LoanItem] = [LoanItem(id: UUID(), name: 1, interest: nil, years: nil, months: nil), LoanItem(id: UUID(), name: 2, interest: nil, years: nil, months: nil)]
     @State var loanResults: [LoanCompareResults] = []
     
     @State var calculate: Bool = false
@@ -20,8 +20,10 @@ struct LoanCompareListView: View {
     @State private var formPrincipal = ""
     @State var principal: Double = 0
     
+    // Fix Incomplete 
     var body: some View {
         List() {
+            // Calculate
             Button(action: {
                 self.calculate = true
                 
@@ -39,11 +41,11 @@ struct LoanCompareListView: View {
                         .multilineTextAlignment(.leading)
                 }.foregroundColor(Color.bigButtonText)
                 .listRowBackground(Color.bigButton)
-                
             }
+            // Add loan
             Button(action: {
                 self.numberOfLoan += 1
-                self.loans.append(LoanItem(id: self.numberOfLoan, interest: nil, years: nil, months: nil))
+                self.loans.append(LoanItem(id: UUID(), name: self.numberOfLoan, interest: nil, years: nil, months: nil))
             }) {
                 HStack{
                     Text("Add")
@@ -52,8 +54,9 @@ struct LoanCompareListView: View {
                         .multilineTextAlignment(.leading)
                 }.foregroundColor(Color.bigButtonText)
                 .listRowBackground(Color.bigButton)
-                
             }
+            
+            // Principal
             Group {
                 Section(header: ExplainationHeader(title: "Principal", nameIcon: "dollarsign.circle", moreInfoIcon: "exclamationmark.shield", explanation: "Required")){
                     HStack{
@@ -65,10 +68,13 @@ struct LoanCompareListView: View {
                     }
                 }
             }
-            ForEach(self.loans, id: \.self) { loan in
-                Section(header: Text("Loan \(loan.id)")) {
+            
+            // Loan Entries
+            ForEach(self.loans) { loan in
+                Section(header: Text("Loan \(loan.name)")) {
                     LoanCompare(loan: loan, setToCalculate: self.$calculate, incomplete: self.$incomplete)
                     Button(action: {
+                        self.showResults = false
                         self.loans.removeAll(where: {$0 == loan})
                     }){
                         HStack{
@@ -81,28 +87,33 @@ struct LoanCompareListView: View {
                 }
             }
             
+            // Loan Results
             if showResults {
-                LoanCompareResultsView(principal: self.principal, loans: self.loans, loanResults: self.loanResults)
+                LoanCompareResultsView(principal: self.$principal, loanResults: self.loanResults)
             }
+             
         }.environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Loan Comparison")
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
-            .navigationBarItems(trailing: Button(action: {
-                self.calculate = false
-                self.loans.removeAll()
-                self.loans.append(LoanItem(id: 1, interest: nil, years: nil, months: nil))
-                self.loans.append(LoanItem(id: 2, interest: nil, years: nil, months: nil))
-                self.numberOfLoan = 2 
-            }){
-                HStack{
-                    Image(systemName: "trash")
-                        .foregroundColor(.blue)
-                        .imageScale(.medium)
-                    Text("Reset All")
-                }
-            })
+        .navigationBarItems(trailing: Button(action: {
+            self.showResults = false
+            self.calculate = false
+            self.formPrincipal = ""
+            self.principal = 0
+            self.loans.removeAll()
+            self.loans.append(LoanItem(id: UUID(), name: 1, interest: nil, years: nil, months: nil))
+            self.loans.append(LoanItem(id: UUID(), name: 2, interest: nil, years: nil, months: nil))
+            self.numberOfLoan = 2
+        }){
+            HStack{
+                Image(systemName: "trash")
+                    .foregroundColor(.blue)
+                    .imageScale(.medium)
+                Text("Reset All")
+            }
+        })
         .onTapGesture {
             self.endEditing(true)
         }
