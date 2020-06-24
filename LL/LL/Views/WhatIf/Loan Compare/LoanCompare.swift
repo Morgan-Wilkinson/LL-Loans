@@ -46,21 +46,9 @@ struct LoanCompare: View {
                 }
             }
             Group{
-                HStack{
                     ZStack{
                         HStack{
-                            TextField("Years", text: self.$formTermMonths)
-                                .textFieldStyle(PlainTextFieldStyle())
-                                .keyboardType(.decimalPad)
-                            Text("Years")
-                                .fontWeight(.bold)
-                            Spacer()
-                        }
-                    }
-                    Divider()
-                    ZStack{
-                        HStack{
-                            TextField("Months", text: self.$formTermYears)
+                            TextField("Months", text: self.$formTermMonths)
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .keyboardType(.numberPad)
                             Text("Months")
@@ -68,7 +56,7 @@ struct LoanCompare: View {
                             Spacer()
                         }
                     }
-                }
+                //}
             }
             
             if setToCalculate && disableForm {
@@ -89,9 +77,8 @@ struct LoanCompare: View {
                         .foregroundColor(.blue)
                         .imageScale(.medium)
                         .onAppear {
-                            self.loan.interest = Double(self.formInterestRate) ?? 0
-                            self.loan.years = Double(self.formTermYears) ?? 0
-                            self.loan.months = Int(self.formTermMonths) ?? 0
+                            self.loan.interest = Double(self.formInterestRate) ?? nil
+                            self.loan.months = Int(self.formTermMonths) ?? nil
                         }
                     }
             }
@@ -102,6 +89,6 @@ struct LoanCompare: View {
 
 struct LoanCompare_Previews: PreviewProvider {
     static var previews: some View {
-        LoanCompare(loan: LoanItem(id: UUID(), name: 1, interest: 5, years: 12, months: 3), setToCalculate: .constant(false), incomplete: .constant(true))
+        LoanCompare(loan: LoanItem(id: UUID(), name: 1, interest: 5, months: 3), setToCalculate: .constant(false), incomplete: .constant(true))
     }
 }

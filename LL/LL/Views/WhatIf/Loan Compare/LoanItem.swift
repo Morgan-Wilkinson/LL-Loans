@@ -16,14 +16,12 @@ class LoanItem: ObservableObject, Identifiable, Equatable {
     @Published var id: UUID
     @Published var name: Int
     @Published var interest: Double?
-    @Published var years: Double?
     @Published var months: Int?
     
-    init(id: UUID, name: Int, interest: Double?, years: Double?, months: Int?) {
+    init(id: UUID, name: Int, interest: Double?, months: Int?) {
         self.id = id
         self.name = name
         self.interest = interest ?? nil
-        self.years = years ?? nil
         self.months = months ?? nil
     }
 }

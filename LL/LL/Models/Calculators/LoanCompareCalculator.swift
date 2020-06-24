@@ -21,8 +21,18 @@ class LoanCompareCalculator {
         self.loans = loans
         
         for loan in self.loans {
-            let monthlyIntRate = (loan.interest! / percentConvertor) / monthInYear
-            loanCompareResults.append(LoanCompareResults(id: UUID(), name: loan.name, monthlyInterestRate: monthlyIntRate, monthlyPayment: nil, totalInterest: nil, totalPayments: nil))
+            var removeLoan: Bool {
+                loan.interest == nil && loan.months == nil
+            }
+            
+            if removeLoan {
+                self.loans.removeAll(where: {$0 == loan})
+            }
+            
+            else {
+                let monthlyIntRate = (loan.interest! / percentConvertor) / monthInYear
+                loanCompareResults.append(LoanCompareResults(id: UUID(), name: loan.name, monthlyInterestRate: monthlyIntRate, monthlyPayment: nil, totalInterest: nil, totalPayments: nil))
+            }
         }
     }
     
