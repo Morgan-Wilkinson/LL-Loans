@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct MonthlyPayment: View {
     // Ads
@@ -159,6 +158,7 @@ struct MonthlyPayment: View {
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
+        .modifier(AdaptsToSoftwareKeyboard())
         .onTapGesture {
             self.endEditing(true)
         }

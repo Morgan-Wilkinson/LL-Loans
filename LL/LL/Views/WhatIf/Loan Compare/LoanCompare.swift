@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct LoanCompare: View {
     @ObservedObject var loan: LoanItem

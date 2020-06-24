@@ -9,7 +9,11 @@
 import Foundation
 import SwiftUI
 import GoogleMobileAds
+import AdColony
 import UIKit
+
+// Add tp pod file first = pod 'GoogleMobileAdsMediationTestSuite'
+// import GoogleMobileAdsMediationTestSuite
 
 final class Ads: NSObject, GADInterstitialDelegate{
     let adID: String = "ca-app-pub-2030770006889815/7603128128"
@@ -30,12 +34,21 @@ final class Ads: NSObject, GADInterstitialDelegate{
     
     func showAd(){
         if self.interstitial.isReady{
-           let root = UIApplication.shared.windows.first?.rootViewController
-           self.interstitial.present(fromRootViewController: root!)
+            self.interstitialDidReceiveAd(interstitial)
+            let root = UIApplication.shared.windows.first?.rootViewController
+            self.interstitial.present(fromRootViewController: root!)
+            
+            //Testing for ad mediation
+            //GoogleMobileAdsMediationTestSuite.present(on: root!, delegate:nil)
         }
        else{
            print("Not Ready")
        }
+    }
+    
+    // Function that tests to see where the add came from
+    func interstitialDidReceiveAd(_ interstitial: GADInterstitial) {
+        print("Interstitial adapter class name: \(String(describing: interstitial.responseInfo?.adNetworkClassName))")
     }
 
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {

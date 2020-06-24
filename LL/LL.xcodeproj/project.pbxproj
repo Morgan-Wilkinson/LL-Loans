@@ -58,7 +58,7 @@
 		C794AAF2241EF8A60054B6C1 /* AdjustPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C794AAF1241EF8A60054B6C1 /* AdjustPayment.swift */; };
 		C7B7405C241DBDB30028AE18 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B7405B241DBDB30028AE18 /* BarView.swift */; };
 		C7C698802416AEE000E44EEE /* LoanEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6987F2416AEE000E44EEE /* LoanEditor.swift */; };
-		C7CEED982404CAA600694FEB /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */; };
+		C7CEED982404CAA600694FEB /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = C7CEED972404CAA600694FEB /* Numerics */; };
 		E6C0FBCEF02579FFA03F8B51 /* Pods_LL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0598F3DD3853EDB17DC6E899 /* Pods_LL.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7CEED982404CAA600694FEB /* BuildFile in Frameworks */,
+				C7CEED982404CAA600694FEB /* Numerics in Frameworks */,
 				E6C0FBCEF02579FFA03F8B51 /* Pods_LL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,7 +401,7 @@
 			);
 			name = LL;
 			packageProductDependencies = (
-				C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */,
+				C7CEED972404CAA600694FEB /* Numerics */,
 			);
 			productName = LL;
 			productReference = 9041E8E923C448E90046B9BF /* Loan Record.app */;
@@ -432,7 +432,7 @@
 			);
 			mainGroup = 9041E8E023C448E90046B9BF;
 			packageReferences = (
-				C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */,
+				C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */,
 			);
 			productRefGroup = 9041E8EA23C448E90046B9BF /* Products */;
 			projectDirPath = "";
@@ -699,7 +699,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
@@ -724,7 +724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
 				SWIFT_VERSION = 5.0;
@@ -756,7 +756,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */ = {
+		C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-numerics";
 			requirement = {
@@ -767,9 +767,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C7CEED972404CAA600694FEB /* SwiftPackageProductDependency */ = {
+		C7CEED972404CAA600694FEB /* Numerics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C7CEED962404CAA600694FEB /* RemoteSwiftPackageReference */;
+			package = C7CEED962404CAA600694FEB /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = Numerics;
 		};
 /* End XCSwiftPackageProductDependency section */

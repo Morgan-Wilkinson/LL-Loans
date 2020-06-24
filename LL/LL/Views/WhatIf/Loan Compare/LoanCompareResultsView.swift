@@ -14,7 +14,6 @@ struct LoanCompareResultsView: View {
     var loanResults: [LoanCompareResults]
     @State var maxWidth: CGFloat = 0
     
-    
     public var body: some View {
         return Group {
             GeometryReader { geometry in

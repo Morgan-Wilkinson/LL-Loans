@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct CompoundInterest: View {
     // Ads
@@ -205,6 +204,7 @@ struct CompoundInterest: View {
             .buttonStyle(PlainButtonStyle())
             .listStyle(GroupedListStyle())
             .foregroundColor(Color.blue)
+            .modifier(AdaptsToSoftwareKeyboard())
             .onTapGesture {
                 self.endEditing(true)
             }

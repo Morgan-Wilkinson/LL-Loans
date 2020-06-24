@@ -8,7 +8,6 @@
 
 import Combine
 import SwiftUI
-import GoogleMobileAds
 
 struct LoanDetail: View{
     @Environment(\.presentationMode) var homeDismiss: Binding<PresentationMode>

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct DebtToIncomeRatioChecker: View {
     // Ads
@@ -133,6 +132,7 @@ struct DebtToIncomeRatioChecker: View {
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
+        .modifier(AdaptsToSoftwareKeyboard())
         .onTapGesture {
             self.endEditing(true)
         }

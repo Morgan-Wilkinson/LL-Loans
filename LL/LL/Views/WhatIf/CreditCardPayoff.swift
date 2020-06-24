@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct CreditCardPayoff: View {
     // Ads
@@ -224,6 +223,7 @@ struct CreditCardPayoff: View {
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
+        .modifier(AdaptsToSoftwareKeyboard())
         .onTapGesture {
             self.endEditing(true)
         }

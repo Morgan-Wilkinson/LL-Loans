@@ -8,7 +8,6 @@
 
 import SwiftUI
 import CoreData
-import GoogleMobileAds
 
 struct LoanView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>

@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct LoanCompareListView: View {
+    // Ads
+    var AdControl: Ads = Ads()
+    
     @State var numberOfLoan = 2
     @State var loans: [LoanItem] = [LoanItem(id: UUID(), name: 1, interest: nil, months: nil), LoanItem(id: UUID(), name: 2, interest: nil, months: nil)]
     @State var loanResults: [LoanCompareResults] = []
@@ -28,11 +31,17 @@ struct LoanCompareListView: View {
         List() {
             // Calculate
             Button(action: {
-                self.calculate = true
-                self.principal = Double(self.formPrincipal) ?? 0
-                let calculator = LoanCompareCalculator(principal: self.principal, loans: self.loans)
-                self.loanResults = calculator.monthlyPaymentTPaymentTInterest()
-                self.showResults = true
+                self.AdControl.showAd()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.calculate = true
+                    self.principal = Double(self.formPrincipal) ?? 0
+                    let calculator = LoanCompareCalculator(principal: self.principal, loans: self.loans)
+                    self.loanResults = calculator.monthlyPaymentTPaymentTInterest()
+                    self.showResults = true
+                    /////////
+                    NavigationLink("T", destination: LoanCompareResultsView(principal: self.$principal, loanResults: self.loanResults))
+                }
                 }) {
                 HStack{
                     Text("Calculate")
@@ -102,6 +111,7 @@ struct LoanCompareListView: View {
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
+        .modifier(AdaptsToSoftwareKeyboard())
         .navigationBarItems(trailing: Button(action: {
             self.loansIncomplete = true
             self.showResults = false
