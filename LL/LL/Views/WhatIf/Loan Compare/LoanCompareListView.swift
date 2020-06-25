@@ -39,8 +39,6 @@ struct LoanCompareListView: View {
                     let calculator = LoanCompareCalculator(principal: self.principal, loans: self.loans)
                     self.loanResults = calculator.monthlyPaymentTPaymentTInterest()
                     self.showResults = true
-                    /////////
-                    NavigationLink("T", destination: LoanCompareResultsView(principal: self.$principal, loanResults: self.loanResults))
                 }
                 }) {
                 HStack{
@@ -106,12 +104,11 @@ struct LoanCompareListView: View {
                 LoanCompareResultsView(principal: self.$principal, loanResults: self.loanResults)
             }
              
-        }.environment(\.horizontalSizeClass, .regular)
+        }.listStyle(GroupedListStyle())
+        .environment(\.horizontalSizeClass, .regular)
         .navigationBarTitle("Loan Comparison")
         .buttonStyle(PlainButtonStyle())
-        .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
-        .modifier(AdaptsToSoftwareKeyboard())
         .navigationBarItems(trailing: Button(action: {
             self.loansIncomplete = true
             self.showResults = false
@@ -130,6 +127,7 @@ struct LoanCompareListView: View {
                 Text("Reset All")
             }
         })
+        .keyboardAware
         .onTapGesture {
             self.endEditing(true)
         }

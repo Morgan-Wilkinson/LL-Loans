@@ -158,7 +158,7 @@ struct MonthlyPayment: View {
         .buttonStyle(PlainButtonStyle())
         .listStyle(GroupedListStyle())
         .foregroundColor(Color.blue)
-        .modifier(AdaptsToSoftwareKeyboard())
+        .keyboardAware
         .onTapGesture {
             self.endEditing(true)
         }

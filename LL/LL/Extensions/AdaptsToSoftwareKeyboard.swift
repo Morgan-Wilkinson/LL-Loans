@@ -16,24 +16,31 @@ struct AdaptsToSoftwareKeyboard: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.bottom, currentHeight)
-            .edgesIgnoringSafeArea(.bottom)
+            .edgesIgnoringSafeArea(currentHeight == 0 ? [] : .bottom)
             .onAppear(perform: subscribeToKeyboardEvents)
         }
 
     private func subscribeToKeyboardEvents() {
-        NotificationCenter.Publisher(
-            center: NotificationCenter.default,
-            name: UIResponder.keyboardWillShowNotification
-        )
-            .compactMap { $0.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect }
-            .map { $0.height }
-            .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
+      NotificationCenter.Publisher(
+        center: NotificationCenter.default,
+        name: UIResponder.keyboardWillShowNotification
+      ).compactMap { notification in
+          notification.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect
+      }.map { rect in
+        rect.height
+      }.subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
 
-        NotificationCenter.Publisher(
-            center: NotificationCenter.default,
-            name: UIResponder.keyboardWillHideNotification
-        )
-            .compactMap { _ in CGFloat.zero }
-            .subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
+      NotificationCenter.Publisher(
+        center: NotificationCenter.default,
+        name: UIResponder.keyboardWillHideNotification
+      ).compactMap { notification in
+        CGFloat.zero
+      }.subscribe(Subscribers.Assign(object: self, keyPath: \.currentHeight))
+    }
+}
+
+extension View {
+    var keyboardAware: some View {
+        self.modifier(AdaptsToSoftwareKeyboard())
     }
 }

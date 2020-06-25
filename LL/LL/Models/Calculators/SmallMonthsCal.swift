@@ -9,6 +9,39 @@
 import Foundation
 import SwiftUI
 
+/** Small Months Calculator. Mainly used for returning values and data up to 12 months.
+ 
+ # Usage
+ This class is used mainly in the LoanDetail View. It's purpose is to return a specfic loan records calculated compents, including but not limited to the monthly interest, monthly payments and monthly balance in a limited quantity..
+ 
+ # Parameters
+ loan: A single instance of the Loans class and it various attributes.
+ 
+ # Code
+  **Initilaiztion**
+ ```
+ // More Code Here
+ 
+ let calculator = SmallMonthsCal(loan: aLoan)
+ 
+ // More Code Here
+ ```
+ 
+  **Data Calculation**
+ 
+ To revieve the the calculated data of the loan do the following:
+ ```
+ // Mode Code Here
+ 
+ let calculator = SmallMonthsCal(loan: aLoan)
+ .
+ .
+ calculator.runner()
+ 
+ // More Code Here
+ ```
+ 
+ */
 class SmallMonthsCal {
     @Environment(\.managedObjectContext) var managedObjectContext
     var loan: Loans
@@ -34,7 +67,7 @@ class SmallMonthsCal {
         // Small Months Series
         loan.smallMonthsSeries = smallMonthSeries(length: loan.smallPrincipalArray.count)
         
-        self.smallMormalizedValues(array: loan.allThreeSmallArray)
+        self.smallNormalizedValues(array: loan.allThreeSmallArray)
     }
     
     // Returns an array of the small months values
@@ -68,7 +101,8 @@ class SmallMonthsCal {
         return smallMonths
     }
     
-    // Returns an array of strings of the small months.
+    /// Returns an array of strings of the small months.
+    /// - parameter length:  The number of the months being calculated.
     func smallMonthSeries(length: Int) -> [String] {
         var months: [String] = []
         let oneMonth = 2628000
@@ -86,7 +120,7 @@ class SmallMonthsCal {
         return months
     }
     
-    func smallMormalizedValues(array: [[Double]]) {
+    func smallNormalizedValues(array: [[Double]]) {
         
         for i in 0..<array.count {
             let max: Double = array[i].max() ?? 0

@@ -180,7 +180,7 @@ struct LoanEditor: View {
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
             .buttonStyle(PlainButtonStyle())
-            .modifier(AdaptsToSoftwareKeyboard())
+            .keyboardAware
             .foregroundColor(Color.blue)
             .navigationBarItems(
                 trailing: Button(action: ({

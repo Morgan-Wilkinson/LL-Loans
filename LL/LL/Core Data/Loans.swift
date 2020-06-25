@@ -11,6 +11,55 @@ import CoreData
 import SwiftUI
 import Combine
 
+/** Core Data Class for saved Loan Records.
+
+ # Usage
+ This class is used in the LL.xcdatamodeld as the companion class the attribute model in the Core Data scheme. A new instance of this class will be created when a new loan record is created in the LoanAdder View.
+ 
+ # Parameters
+ Class does not take any.
+ 
+ # User Editable Variables
+    - startDate
+    - termMonths
+    - interestRate
+    - typeOfLoan
+    - name
+    - about
+    - origin
+  
+**Note:** All other variables of this class can only be changed through system processes.
+ 
+ # Code
+  **Initilaiztion**
+ ```
+ // Needed imports
+ import SwiftUI
+ import CoreData
+ 
+ // Needed Context
+ @Environment(\.managedObjectContext) var managedObjectContext
+ 
+ // Mode Code Here
+ 
+ Loans(context: self.managedObjectContext)
+ 
+ ```
+ 
+  **Retrieval**
+ 
+ To revieve the save Core Data of the Loans class call the Fetch Request
+ ```
+ // Needed imports
+ import SwiftUI
+ import CoreData
+ 
+ // Mode Code Here
+ 
+ @FetchRequest(entity: Loans.entity(), sortDescriptors: []) var loans: FetchedResults<Loans>
+ ```
+ 
+ */
 public class Loans: NSManagedObject, Identifiable{
     
     @NSManaged public var willDelete: Bool

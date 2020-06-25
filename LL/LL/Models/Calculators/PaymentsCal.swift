@@ -9,6 +9,39 @@
 import Foundation
 import SwiftUI
 
+/** Payments Calculator. Mainly used for returning all values and data of a loan.
+
+# Usage
+This class is used mainly in the LoanDetail View. It's purpose is to return all of a specfic loan records calculated compents, including but not limited to the monthly interest, monthly payments and monthly balance.
+
+# Parameters
+loan: A single instance of the Loans class and it various attributes.
+
+# Code
+ **Initilaiztion**
+```
+// More Code Here
+
+let calculator = PaymentsCal(loan: aLoan)
+
+// More Code Here
+```
+
+ **Data Calculation**
+
+To revieve the the calculated data of the loan do the following:
+```
+// Mode Code Here
+
+let calculator = PaymentsCal(loan: aLoan)
+.
+.
+calculator.runner()
+
+// More Code Here
+```
+
+*/
 class PaymentsCal {
     @Environment(\.managedObjectContext) var managedObjectContext
     var loan: Loans
