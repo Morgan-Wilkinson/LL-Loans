@@ -21,7 +21,7 @@ final class Ads: NSObject, GADInterstitialDelegate{
     var interstitial: GADInterstitial
     
     override init() {
-        self.interstitial = GADInterstitial(adUnitID: testAdID)
+        self.interstitial = GADInterstitial(adUnitID: adID)
         super.init()
         LoadInterstitial()
     }
@@ -52,7 +52,7 @@ final class Ads: NSObject, GADInterstitialDelegate{
     }
 
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        self.interstitial = GADInterstitial(adUnitID: testAdID)
+        self.interstitial = GADInterstitial(adUnitID: adID)
         LoadInterstitial()
     }
 }
