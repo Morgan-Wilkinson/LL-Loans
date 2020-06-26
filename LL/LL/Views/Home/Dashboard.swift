@@ -133,7 +133,7 @@ struct Dashboard: View {
                     }
                     
                     // End of Month Balances
-                    Section(header: SectionHeaderView(text: "End of Month Balances", icon: "sunset")) {
+                    Section(header: SectionHeaderView(text: "Total End of Month Debt Balances", icon: "sunset")) {
                         ForEach(self.loans.indices, id: \.self) { i in
                             HStack{
                                 Text("\(self.loans[i].name)")

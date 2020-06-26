@@ -274,7 +274,6 @@
 			children = (
 				9041E8F523C448EC0046B9BF /* Assets.xcassets */,
 				90AB858F2474419000E8F9E4 /* Color.swift */,
-				C7331FC0249555C1000C31EC /* AdData.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -338,6 +337,7 @@
 		C78E79DC24195DDE0067FB08 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C7331FC0249555C1000C31EC /* AdData.swift */,
 				90086FE8247E0A7F0091FDF7 /* Calculators */,
 			);
 			path = Models;
@@ -702,7 +702,7 @@
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -728,7 +728,7 @@
 				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganwilkinson.LoanRecord;
 				PRODUCT_NAME = "Loan Record";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

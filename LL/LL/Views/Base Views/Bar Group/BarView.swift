@@ -22,19 +22,6 @@ struct BarView: View {
     @State private var showLabelValue: Bool = false
     @State private var currentMonth: String = ""
     @State private var currentValue: Double = 0 
-    
-    /*
-    public init(title: String, cornerImage:Image? = Image(systemName: "chart.bar"), valueSpecifier: String? = "%.3f", currentMonthIndex: Int, loan: ObservedObject<Loans>){
-        self.title = title
-        self.cornerImage = cornerImage!
-        self.valueSpecifier = valueSpecifier!
-        self.currentMonthIndex = currentMonthIndex
-        //self._monthsSeries = State(initialValue: monthsSeries)
-        //self._barValues = State(initialValue: barValues)
-        // monthsSeries: [String], barValues: [[Double]]
-        self.loan = loan
-    }
- */
 
     public var body: some View {
         VStack(alignment: .leading){

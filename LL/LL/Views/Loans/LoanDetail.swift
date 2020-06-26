@@ -37,7 +37,8 @@ struct LoanDetail: View{
         monthsPassed  = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
         currentMonth = monthsPassed > threeMonthBuffer ? threeMonthBuffer : monthsPassed
         
-        currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date()).month!
+        currentMonthIndex = Calendar.current.dateComponents([.month, .day], from: loan.startDate, to: Date().endOfMonth).month! + 1
+        print(currentMonthIndex)
         currentDueDate = dateFormatter.string(from: (Calendar.current.date(byAdding: .month, value: currentMonthIndex, to: loan.startDate)!))
         
     }
